@@ -91,7 +91,7 @@ public class AttackState : BaseState
     public override void Exit()
     {
         Debug.Log("≈œ¡æ∑·");
-        GameManager.Event.PostNotification(EventType.PlayerTurnEnd, this);
+        
     }
 
     public override void Update()
