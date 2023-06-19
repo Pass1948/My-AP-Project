@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem.XR;
+using static PlayerTurn;
 
 public enum BattleState
 {
@@ -10,13 +12,13 @@ public enum BattleState
 public class BattleFSM : MonoBehaviour
 {
     
-    private StateBase[] states;
+    private BaseState[] states;
     public BattleState curState;
     private void Awake()
     {
-        states = new StateBase[(int)BattleState.Size];
+        states = new BaseState[(int)BattleState.Size];
         states[(int)BattleState.PlayerTurn]  = new PlayerTurn(this);
-        states[(int)BattleState.EnemyTurn]   = new EnemeyTurn(this);
+        states[(int)BattleState.EnemyTurn]   = new EnemyTurn(this);
         states[(int)BattleState.Win]         = new WinState(this);
         states[(int)BattleState.Loss]        = new LossState(this);
         states[(int)BattleState.EnemyRun]    = new EnemyRunState(this);
@@ -40,26 +42,34 @@ public class BattleFSM : MonoBehaviour
         states[(int)curState].Enter();
     }
 }
-public class PlayerTurn : StateBase
+public class PlayerTurn : BaseState, IEventListener
 {
-    protected BattleFSM bFSM;
-    
+    private BattleFSM bFSM;
+    private PlayerController controller;
+
     public PlayerTurn(BattleFSM bFSM)
     {
         this.bFSM = bFSM;
     }
 
-    public void Enter()
+    public override void Enter()
     {
         // 전투 시작 케릭터와 적 등장 씬, 애니메니션 등 효과 넣기(자유)
         // 처음은 플레이어 선제
         Debug.Log("플레이어 턴");
+        GameManager.Event.PostNotification(EventType.PlayerTurn, this);
+        GameManager.Event.AddListener(EventType.ChangedPlayerHP, this);
     }
 
-    public void Exit()
+    public override void Exit()
     {
         // 턴 넘기기
         Debug.Log("턴넘김");
+    }
+
+    public void OnEvent(EventType eventType, Component Sender, object Param = null)
+    {
+        throw new System.NotImplementedException();
     }
 
     public override void Update()
@@ -72,24 +82,23 @@ public class PlayerTurn : StateBase
             {
                 bFSM.ChangeState(BattleState.EnemyTurn);
             }
-        }
     }
 
-public class EnemeyTurn : StateBase
+public class EnemyTurn : BaseState
 {
-    protected BattleFSM bFSM;
-    public EnemeyTurn(BattleFSM bFSM)
+    private BattleFSM bFSM;
+    public EnemyTurn(BattleFSM bFSM)
     {
         this.bFSM = bFSM;
     }
 
-    public  void Enter()
+    public override void Enter()
     {
         Debug.Log("몬스터턴");
         qTESystem.EnemyTurnAction();
     }
 
-    public  void Exit()
+    public override void Exit()
     {
         Debug.Log("턴넘김");
     }
@@ -97,8 +106,9 @@ public class EnemeyTurn : StateBase
     public override void Update()
     {
         // 적의 체력을 체크해서 선택을 한다
-            // 플레이어한테 공격을 가한다
-            // 플레이어의 체력을 확인한다 
+        // 플레이어한테 공격을 가한다
+        // 플레이어의 체력을 확인한다 
+
         if (!playerIsLive)   // 플레이어 체력이 0이거나 더 적을경우
         {
                 bFSM.ChangeState(BattleState.Loss);
@@ -110,7 +120,7 @@ public class EnemeyTurn : StateBase
     }
 }
 
-public class WinState : StateBase
+public class WinState : BaseState
 {
     private BattleFSM bFSM;
     public WinState(BattleFSM bFSM)
@@ -118,12 +128,12 @@ public class WinState : StateBase
         this.bFSM = bFSM;
     }
 
-    public  void Enter()
+    public override void Enter()
     {
         Debug.Log("플레이어 승리");
     }
 
-    public  void Exit()
+    public override void Exit()
     {
         Debug.Log("전투종료");
     }
@@ -133,7 +143,7 @@ public class WinState : StateBase
         // 게임종료 
     }
 }
-public class LossState : StateBase
+public class LossState : BaseState
 {
     private BattleFSM bFSM;
     public LossState(BattleFSM bFSM)
@@ -141,12 +151,12 @@ public class LossState : StateBase
         this.bFSM = bFSM;
     }
 
-    public  void Enter()
+    public override void Enter()
     {
         Debug.Log("플레이어 패배");
     }
 
-    public  void Exit()
+    public override void Exit()
     {
         Debug.Log("전투종료");
     }
@@ -157,7 +167,7 @@ public class LossState : StateBase
     }
 }
 
-public class EnemyRunState : StateBase
+public class EnemyRunState : BaseState
 {
     private BattleFSM bFSM;
     public EnemyRunState(BattleFSM bFSM)
@@ -165,12 +175,12 @@ public class EnemyRunState : StateBase
         this.bFSM = bFSM;
     }
 
-    public  void Enter()
+    public override void Enter()
     {
         Debug.Log("몬스터 도주");
     }
 
-    public  void Exit()
+    public override void Exit()
     {
         Debug.Log("전투종료");
     }

@@ -1,24 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static EnemyDate;
-using static PlayerDate;
+using static EnemyData;
+using static PlayerData;
 
 public class SelectBoxUI : InGameUI
 {
-    private AttackPlayerCommand attackCommand;
-    private RunCommand run;
     protected override void Awake()
     {
         base.Awake();
-        attackCommand = GetComponent<AttackPlayerCommand>();
-        if (attackCommand == null)
-        {
-            attackCommand = gameObject.AddComponent<AttackPlayerCommand>();
-        }
-        // buttons["AttectBoxButton"].onClick.AddListener(() => { Attack(); });
-        // buttons["InventoryBoxButton"].onClick.AddListener(() => { OpenWindowUI(); });
-        // buttons["RunBoxButton"].onClick.AddListener(() => { Run(); });
+        buttons["AttectBoxButton"].onClick.AddListener(() => { Attack(); });
+        buttons["InventoryBoxButton"].onClick.AddListener(() => { OpenWindowUI(); });
+        buttons["RunBoxButton"].onClick.AddListener(() => { Run(); });
     }
 
     public void OpenWindowUI()
@@ -27,12 +20,12 @@ public class SelectBoxUI : InGameUI
     }
     public void Attack()
     {
-        //attackCommand.Execute();
+        GameManager.Event.PostNotification(EventType.Attack, this, null);
     }
 
     public void Run()
     {
-        //run.Execute();
+        GameManager.Event.PostNotification(EventType.Run, this, null);
     }
 
 }

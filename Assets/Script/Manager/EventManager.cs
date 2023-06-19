@@ -8,8 +8,18 @@ using UnityEngine.SceneManagement;
 
 public enum EventType
 {
-    EventIn,
-    EventOut
+    Attack,
+    Run,
+    PlayerTurn,
+    PlayerTurnEnd,
+    EnemyTurn,
+    EnemyTurnEnd,
+    ChangedPlayerHP,
+    ChangedEnemyHP,
+    PlayerDied,
+    EnemyDied,
+    AttackMiss,
+    
 };
 
 public class EventManager : MonoBehaviour

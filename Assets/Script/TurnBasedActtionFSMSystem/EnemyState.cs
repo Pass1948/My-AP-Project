@@ -4,12 +4,9 @@ using UnityEngine;
 
 public enum EnemyTurnState
 {
-    playerIdel, enemyIdel, playerBattle, enemyPatrol, enemyChase, enemyLookout
+    enemyIdel, playerBattle, enemyPatrol, enemyChase, enemyLookout
 }
-public class EnemyState : EnemeyTurn
+public class EnemyState : MonoBehaviour
 {
-    public EnemyState(BattleFSM bFSM) : base(bFSM)
-    {
-        this.bFSM = bFSM;
-    }
+
 }

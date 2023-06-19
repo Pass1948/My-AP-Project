@@ -46,6 +46,7 @@ public class QTESystem : MonoBehaviour
             StartCoroutine(KeyPressing());
         }
     }
+
     IEnumerator KeyPressing()
     {
         if (correctKey == 1)    //  성공했을경우

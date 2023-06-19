@@ -2,10 +2,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static ItemData;
 
 [CreateAssetMenu(fileName = "PlayerDate", menuName = "Data/Player")]
-public class PlayerDate : ScriptableObject
+public class PlayerData : ScriptableObject
 {
     [SerializeField] PlayerInfo[] player;
 
@@ -14,9 +13,7 @@ public class PlayerDate : ScriptableObject
     [Serializable]
     public class PlayerInfo
     {
-
         public PlayerController player;
-
         public int hp;
         public int damage;
     }

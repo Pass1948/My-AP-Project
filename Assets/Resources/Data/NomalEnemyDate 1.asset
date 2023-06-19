@@ -9,10 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6862fa18340340148b403d0b7a8829a5, type: 3}
-  m_Name: EnemyDate
-  m_EditorClassIdentifier: 
-  enemy:
-  - enemy: {fileID: 116603235800663891, guid: 15ff212478f37044788b250ed4e82101, type: 3}
-    hp: 5
-    damage: 2
+  m_Script: {fileID: 0}
+  m_Name: NomalEnemyDate 1
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyDate
+  enemy: []

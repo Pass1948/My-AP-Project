@@ -5,7 +5,7 @@ using UnityEngine;
 using static UnityEngine.EventSystems.EventTrigger;
 
 [CreateAssetMenu(fileName = "EnemyDate", menuName = "Data/Enemy")]
-public class EnemyDate : ScriptableObject
+public class EnemyData : ScriptableObject
 {
         [SerializeField] EnmeyInfo[] enemy;
 
@@ -15,7 +15,7 @@ public class EnemyDate : ScriptableObject
         public class EnmeyInfo
     {
 
-            public Enemy enemy;
+            public EnemyController enemy;
 
             public int hp;
             public int damage;
