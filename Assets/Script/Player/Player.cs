@@ -10,8 +10,5 @@ public abstract class Player : MonoBehaviour
     public int damage = 2;
     public bool dead = false;
 
-    protected virtual void Awake()
-    {
-        //enemy = GameManager.Resource.Instantiate<EnemyController>("Enemy/Enemy");
-    }
+    
 }

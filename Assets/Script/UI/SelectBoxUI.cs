@@ -21,12 +21,12 @@ public class SelectBoxUI : InGameUI
     }
     public void Attack()
     {
-        player.Attack();
+        GameManager.Event.PostNotification(EventType.Attack, this);         // 공격 이벤트 발생
     }
 
     public void Run()
     {
-        GameManager.Event.PostNotification(EventType.Run, this, null);
+        GameManager.Event.PostNotification(EventType.Run, this);            // 도망 이벤트 발생
     }
 
 }

@@ -13,7 +13,7 @@ public enum EventType
     PlayerTurn,
     PlayerTurnEnd,
 
-    //플레이어 선택
+    //플레이어 선택마침
     PlayerActionEnd,
 
     //====플레이어 버튼액션====
@@ -37,6 +37,9 @@ public enum EventType
     // 적턴
     EnemyTurn,
     EnemyTurnEnd,
+
+    //적 행동마침
+    EnemyActionEnd,
 
     // 적 공격
     EnemyAttack,
@@ -75,7 +78,6 @@ public class EventManager : MonoBehaviour
 
     public void PostNotification(EventType eventType, Component Sender, object Param = null) // 이벤트 발생역할
     {
-        Debug.Log("이벤트 발생");
         List<IEventListener> ListenList = null;
 
         //이벤트 리스너(대기자)가 없으면 그냥 리턴.
@@ -89,9 +91,25 @@ public class EventManager : MonoBehaviour
                 ListenList[i].OnEvent(eventType, Sender, Param);
         }
     }
+
+    public T PostNotification<T>(EventType eventType, T Sender, object Param = null) where T : Object
+    {
+        return PostNotification<T>(eventType, Sender, Param);
+    }
+
+    public T PostNotification<T>(EventType eventType, T Sender) where T : Object
+    {
+        return PostNotification<T>(eventType, Sender);
+    }
+
+    public T PostNotification<T>(EventType eventType) where T : Object
+    {
+        return PostNotification<T>(eventType);
+    }
+
+
     public void AddListener(EventType eventType, IEventListener Listener)       // 이벤트 받는 역할
     {
-        Debug.Log("이벤트 받아옴");
         List<IEventListener> ListenList = null;
 
         if (Listeners.TryGetValue(eventType, out ListenList))

@@ -19,10 +19,9 @@ public class PlayerController : Player
 
     public void Attack()
     {
-        GameManager.Event.PostNotification(EventType.Attack, this);
         Debug.Log("너 공격된거야");
-        //SetDamage(damage);
-       // enemy.TakeHit(damage);
+        // SetDamage(damage);
+        // enemy.TakeHit(damage);
     }
 
     public void TakeHit(int damage)
