@@ -54,7 +54,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   followTarget: {fileID: 6200352527944144106, guid: d52196b5609c40443a590e41acec7e00, type: 3}
   follwOffset: {x: 0, y: 0}
-  enemy: {fileID: 0}
+  enemy: {fileID: 4973900548810462098, guid: 15ff212478f37044788b250ed4e82101, type: 3}
   player: {fileID: 8185900244997661580, guid: d52196b5609c40443a590e41acec7e00, type: 3}
 --- !u!1 &4065362603179144445
 GameObject:

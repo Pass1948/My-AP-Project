@@ -4,8 +4,10 @@ using UnityEngine;
 using UnityEngine.Events;
 
 
-public abstract class BaseState : MonoBehaviour
+public abstract class BaseState : IEventListener
 {
+    
+
     protected BattleFSM bFSM;
     protected PlayerState pFSM;
     public bool playerIsLive = false;
@@ -14,4 +16,5 @@ public abstract class BaseState : MonoBehaviour
     public abstract void Enter();
     public abstract void Update();
     public abstract void Exit();
+    public abstract void OnEvent(EventType eventType, Component Sender, object Param = null);
 }

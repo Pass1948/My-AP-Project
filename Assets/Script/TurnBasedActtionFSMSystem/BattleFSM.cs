@@ -42,7 +42,7 @@ public class BattleFSM : MonoBehaviour
         states[(int)curState].Enter();
     }
 }
-public class PlayerTurn : BaseState, IEventListener
+public class PlayerTurn : BaseState
 {
     public PlayerTurn(BattleFSM bFSM)
     {
@@ -64,7 +64,7 @@ public class PlayerTurn : BaseState, IEventListener
         Debug.Log("턴넘김");
     }
 
-    public void OnEvent(EventType eventType, Component Sender, object Param = null)
+    public override void OnEvent(EventType eventType, Component Sender, object Param = null)
     {
         string result = string.Format("받은 이벤트 종류 :  {0}, 이벤트 전달한 오브젝트 : {1}", eventType, Sender.gameObject.name.ToString());
         Debug.Log(result);
@@ -76,7 +76,6 @@ public class PlayerTurn : BaseState, IEventListener
             {
             bFSM.ChangeState(BattleState.Win);
         }
-        
     }
 
     public override void Update()
@@ -86,7 +85,6 @@ public class PlayerTurn : BaseState, IEventListener
 
     public class EnemyTurn : BaseState
     {
-        private BattleFSM bFSM;
         public EnemyTurn(BattleFSM bFSM)
         {
             this.bFSM = bFSM;
@@ -102,7 +100,11 @@ public class PlayerTurn : BaseState, IEventListener
             Debug.Log("턴넘김");
         }
 
-        public override void Update()
+    public override void OnEvent(EventType eventType, Component Sender, object Param = null)
+    {
+    }
+
+    public override void Update()
         {
             // 적의 체력을 체크해서 선택을 한다
             // 플레이어한테 공격을 가한다
@@ -136,14 +138,17 @@ public class PlayerTurn : BaseState, IEventListener
             Debug.Log("전투종료");
         }
 
-        public override void Update()
+    public override void OnEvent(EventType eventType, Component Sender, object Param = null)
+    {
+    }
+
+    public  override void Update()
         {
             // 게임종료 
         }
     }
     public class LossState : BaseState
     {
-        private BattleFSM bFSM;
         public LossState(BattleFSM bFSM)
         {
             this.bFSM = bFSM;
@@ -159,7 +164,11 @@ public class PlayerTurn : BaseState, IEventListener
             Debug.Log("전투종료");
         }
 
-        public override void Update()
+    public override void OnEvent(EventType eventType, Component Sender, object Param = null)
+    {
+    }
+
+    public override void Update()
         {
             // 게임종료 
         }
@@ -167,7 +176,6 @@ public class PlayerTurn : BaseState, IEventListener
 
     public class EnemyRunState : BaseState
     {
-        private BattleFSM bFSM;
         public EnemyRunState(BattleFSM bFSM)
         {
             this.bFSM = bFSM;
@@ -183,7 +191,11 @@ public class PlayerTurn : BaseState, IEventListener
             Debug.Log("전투종료");
         }
 
-        public override void Update()
+    public override void OnEvent(EventType eventType, Component Sender, object Param = null)
+    {
+    }
+
+    public override void Update()
         {
             // 게임종료 
         }

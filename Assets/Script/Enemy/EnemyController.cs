@@ -20,9 +20,8 @@ public class EnemyController : Enemy
     {
         Debug.Log("너 공격된거야");
         GameManager.Event.PostNotification(EventType.Attack, this);
-        SetDamage(damage);
-        player.TakeHit(damage);
-        GameManager.Event.PostNotification(EventType.Attack, this, null);
+      //  SetDamage(damage);
+       // player.TakeHit(damage);
     }
 
     public void TakeHit(int damage)

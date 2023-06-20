@@ -9,14 +9,10 @@ public class BaseUI : MonoBehaviour
     protected Dictionary<string, RectTransform> transforms;
     protected Dictionary<string, Button> buttons;
     protected Dictionary<string, TMP_Text> texts;
-    private PlayerController player;
-    private EnemyController enemy;
 
 
     protected virtual void Awake()
     {
-        player = GameManager.Resource.Instantiate<PlayerController>("Player/Player");
-        enemy = GameManager.Resource.Instantiate<EnemyController>("Enemy/Enemy");
         BindChildren();
     }
 

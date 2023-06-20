@@ -4625,6 +4625,7 @@ GameObject:
   - component: {fileID: 1144560463}
   - component: {fileID: 1144560462}
   - component: {fileID: 1144560465}
+  - component: {fileID: 1144560466}
   m_Layer: 0
   m_Name: BattleController
   m_TagString: Untagged
@@ -4690,6 +4691,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   curState: 0
+--- !u!114 &1144560466
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1144560461}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 047c6106a6bc1e1459b7dcec5645b4b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  curState: 1
 --- !u!4 &1154447426 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5665828416805940621, guid: 5ebafd4750a614dbd81abf1955141cfa, type: 3}

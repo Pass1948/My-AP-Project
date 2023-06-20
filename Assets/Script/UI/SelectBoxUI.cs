@@ -21,7 +21,7 @@ public class SelectBoxUI : InGameUI
     }
     public void Attack()
     {
-        player.Attack(enemy);
+        player.Attack();
     }
 
     public void Run()

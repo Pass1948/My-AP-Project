@@ -4,7 +4,7 @@ using UnityEngine;
 
 public abstract class Player : MonoBehaviour
 {
-    private EnemyController enemy;
+    protected EnemyController enemy;
 
     public int hp = 5;
     public int damage = 2;
@@ -12,6 +12,6 @@ public abstract class Player : MonoBehaviour
 
     protected virtual void Awake()
     {
-        enemy = GameManager.Resource.Instantiate<EnemyController>("Enemy/Enemy");
+        //enemy = GameManager.Resource.Instantiate<EnemyController>("Enemy/Enemy");
     }
 }

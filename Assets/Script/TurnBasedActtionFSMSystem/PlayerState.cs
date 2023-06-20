@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
 public enum PlayerTurnState
@@ -38,8 +39,9 @@ public class PlayerState : MonoBehaviour
         states[(int)curState].Enter();
     }
 }
-public class SelectState : BaseState, IEventListener
+public class SelectState : BaseState
 {
+    private UnityEvent action;
     public SelectState(PlayerState pFSM)
     {
         this.pFSM = pFSM;
@@ -47,29 +49,22 @@ public class SelectState : BaseState, IEventListener
     public override void Enter()
     {
         Debug.Log("선택");
-        GameManager.Event.AddListener(EventType.PlayerTurn, this);
+        GameManager.Event.AddListener(EventType.Run, this);
         GameManager.Event.AddListener(EventType.Attack, this);
     }
 
-    public override void Update() 
-    {
-
-    }
-
-    public void OnEvent(EventType eventType, Component Sender, object Param = null)
+    public override void OnEvent(EventType eventType, Component Sender, object Param = null)
     {
         string result = string.Format("받은 이벤트 종류 :  {0}, 이벤트 전달한 오브젝트 : {1}", eventType, Sender.gameObject.name.ToString());
         Debug.Log(result);
-        switch (eventType)
+        if (eventType == EventType.Attack)
         {
-            case EventType.Attack:
-                Debug.Log("공격이벤트발생");
-                pFSM.ChangeState(PlayerTurnState.Attack);
-                break;
-            case EventType.Run:
-                Debug.Log("공격이벤트발생");
-                pFSM.ChangeState(PlayerTurnState.run);
-                break;
+            Debug.Log("공격이벤트발생");
+            pFSM.ChangeState(PlayerTurnState.Attack);
+        }
+        if (eventType == EventType.Run)
+        {
+            pFSM.ChangeState(PlayerTurnState.run);
         }
     }
 
@@ -77,12 +72,14 @@ public class SelectState : BaseState, IEventListener
     {
         Debug.Log("선택완료");
     }
-    
+
+    public override void Update()
+    {
+    }
 }
 
 public class AttackState : BaseState
 {
-    protected PlayerState pFSM;
     private PlayerController player;
     private EnemyController enemy;
 
@@ -101,13 +98,16 @@ public class AttackState : BaseState
         pFSM.ChangeState(PlayerTurnState.Idel);
 
     }
+
+    public override void OnEvent(EventType eventType, Component Sender, object Param = null)
+    {
+    }
+
     public override void Update(){}
 }
 
 public class RunState : BaseState
 {
-    protected PlayerState pFSM;
-
     public RunState(PlayerState pFSM)
     {
         this.pFSM = pFSM;
@@ -122,6 +122,10 @@ public class RunState : BaseState
         
     }
 
+    public override void OnEvent(EventType eventType, Component Sender, object Param = null)
+    {
+    }
+
     public override void Update()
     {
         
@@ -130,16 +134,12 @@ public class RunState : BaseState
 
 public class IdelState : BaseState, IEventListener
 {
-    protected PlayerState pFSM;
-
     public IdelState(PlayerState pFSM)
     {
         this.pFSM = pFSM;
     }
     public override void Enter()
     {
-        GameManager.Event.PostNotification(EventType.PlayerTurnEnd, this);
-        GameManager.Event.AddListener(EventType.EnemyTurnEnd, this);
     }
 
     public override void Exit()
@@ -147,7 +147,7 @@ public class IdelState : BaseState, IEventListener
         Debug.Log("상대턴 종료");
     }
 
-    public void OnEvent(EventType eventType, Component Sender, object Param = null)
+    public override void OnEvent(EventType eventType, Component Sender, object Param = null)
     {
         if (eventType == EventType.EnemyTurnEnd)
         {

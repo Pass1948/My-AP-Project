@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
@@ -16,12 +17,12 @@ public class PlayerController : Player
         this.hp = hp;
     }
 
-    public void Attack(EnemyController enemy)
+    public void Attack()
     {
         GameManager.Event.PostNotification(EventType.Attack, this);
         Debug.Log("너 공격된거야");
-        SetDamage(damage);
-        enemy.TakeHit(damage);
+        //SetDamage(damage);
+       // enemy.TakeHit(damage);
     }
 
     public void TakeHit(int damage)
