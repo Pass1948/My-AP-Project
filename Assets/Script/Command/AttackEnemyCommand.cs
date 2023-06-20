@@ -6,7 +6,6 @@ public class AttackEnemyCommand : BaseCommand
 {
     public override void Execute()
     {
-        player.Attack(enemy);
         GameManager.Command.AddCommand(command);
     }
 }
