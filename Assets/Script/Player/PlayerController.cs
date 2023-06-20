@@ -1,41 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
 public class PlayerController : Player
 {
-    private void Awake()
-    {
-        GameManager.UI.ShowInGameUI<InGameUI>("UI/SelectBoxUi");
-    }
-
-    private void Start()
-    {
-        attackCommand = GetComponent<AttackEnemyCommand>();
-        if (attackCommand == null)
-        {
-            attackCommand = gameObject.AddComponent<AttackEnemyCommand>();
-        }
-    }
-
-    private void Update()
-    {
-        GameManager.Event.PostNotification(EventType.ChangedPlayerHP, this, hp);
-    }
-
-    public void OnSelect(InputValue value)
-    {
-        attackCommand.Execute();
-    }
-
-    public void SetTarget(EnemyController enemy)
-    {
-        this.enemy = enemy;
-        targerPoint = enemy.transform.position;
-    }
-
     public void SetDamage(int damage)       // 무기 혹은 아이템을 사용할경우 상승효과를 구현해야함
     {
         this.damage = damage;
@@ -48,18 +18,19 @@ public class PlayerController : Player
 
     public void Attack(EnemyController enemy)
     {
+        GameManager.Event.PostNotification(EventType.Attack, this);
         Debug.Log("너 공격된거야");
-        SetTarget(enemy);
         SetDamage(damage);
         enemy.TakeHit(damage);
     }
 
     public void TakeHit(int damage)
     {
-        hp -= damage;
+        SetHP(hp -= damage);
+        GameManager.Event.PostNotification(EventType.ChangedPlayerHP, this);
         if (hp <= 0)
         {
-            GameManager.Event.PostNotification(EventType.PlayerDied, this, dead);
+            GameManager.Event.PostNotification(EventType.PlayerDied, this);
         }
     }
 }

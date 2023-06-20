@@ -6,17 +6,6 @@ using UnityEngine.Networking.Types;
 
 public class EnemyController : Enemy
 {
-    private void Update()
-    {
-        GameManager.Event.PostNotification(EventType.ChangedEnemyHP, this, hp);
-    }
-
-    public void SetTarget(PlayerController player)
-    {
-        this.player = player;
-        targerPoint = player.transform.position;
-    }
-
     public void SetDamage(int damage)
     {
         this.damage = damage;
@@ -30,15 +19,16 @@ public class EnemyController : Enemy
     public void Attack(PlayerController player)
     {
         Debug.Log("너 공격된거야");
-        SetTarget(player);
+        GameManager.Event.PostNotification(EventType.Attack, this);
         SetDamage(damage);
         player.TakeHit(damage);
+        GameManager.Event.PostNotification(EventType.Attack, this, null);
     }
 
     public void TakeHit(int damage)
     {
-        hp -= damage;
-
+        SetHP(hp -= damage);
+        GameManager.Event.PostNotification(EventType.ChangedEnemyHP, this, hp);
         if (hp <= 0)
         {
             dead = true;

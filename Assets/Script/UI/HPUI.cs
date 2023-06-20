@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class HPUI : MonoBehaviour
+public class HPUI : MonoBehaviour, IEventListener
 {
-    [SerializeField] PlayerController player;
+    [SerializeField] Player player;
 
     private Slider slider;
+
+   
 
     private void Awake()
     {
@@ -16,9 +18,19 @@ public class HPUI : MonoBehaviour
 
     private void Start()
     {
-        slider.maxValue = player.HP;
-        slider.value = player.HP;
-        player.OnChangedHP.AddListener((hp) => { slider.value = hp; });
-
+        slider.maxValue = player.hp;
+        slider.value = player.hp;
+    }
+    public void OnEvent(EventType eventType, Component Sender, object Param = null)
+    {
+        
+        if (eventType != EventType.ChangedPlayerHP)
+        {
+            return;
+        }
+        if (eventType == EventType.ChangedPlayerHP)
+        {
+            GameManager.Event.AddListener(EventType.ChangedPlayerHP, this);
+        }
     }
 }

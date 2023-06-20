@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public enum PlayerTurnState
 {
@@ -39,8 +40,6 @@ public class PlayerState : MonoBehaviour
 }
 public class SelectState : BaseState, IEventListener
 {
-    protected PlayerState pFSM;
-
     public SelectState(PlayerState pFSM)
     {
         this.pFSM = pFSM;
@@ -48,36 +47,44 @@ public class SelectState : BaseState, IEventListener
     public override void Enter()
     {
         Debug.Log("선택");
+        GameManager.Event.AddListener(EventType.PlayerTurn, this);
         GameManager.Event.AddListener(EventType.Attack, this);
-        GameManager.Event.AddListener(EventType.Run, this);
+    }
+
+    public override void Update() 
+    {
+
+    }
+
+    public void OnEvent(EventType eventType, Component Sender, object Param = null)
+    {
+        string result = string.Format("받은 이벤트 종류 :  {0}, 이벤트 전달한 오브젝트 : {1}", eventType, Sender.gameObject.name.ToString());
+        Debug.Log(result);
+        switch (eventType)
+        {
+            case EventType.Attack:
+                Debug.Log("공격이벤트발생");
+                pFSM.ChangeState(PlayerTurnState.Attack);
+                break;
+            case EventType.Run:
+                Debug.Log("공격이벤트발생");
+                pFSM.ChangeState(PlayerTurnState.run);
+                break;
+        }
     }
 
     public override void Exit()
     {
         Debug.Log("선택완료");
     }
-
-    public override void Update(){}
-
-    public void OnEvent(EventType eventType, Component Sender, object Param = null)
-    {
-        switch (eventType)
-        {
-            case EventType.Attack:
-                pFSM.ChangeState(PlayerTurnState.Attack);
-                break;
-            case EventType.Run:
-                pFSM.ChangeState(PlayerTurnState.run);
-                break;
-        }
-    }
+    
 }
 
 public class AttackState : BaseState
 {
     protected PlayerState pFSM;
-    private PlayerController controller;
-    private EnemyController enemyController;
+    private PlayerController player;
+    private EnemyController enemy;
 
     public AttackState(PlayerState pFSM)
     {
@@ -91,16 +98,12 @@ public class AttackState : BaseState
     public override void Exit()
     {
         Debug.Log("턴종료");
-        
-    }
-
-    public override void Update()
-    {
-        controller.Attack(enemyController);
         pFSM.ChangeState(PlayerTurnState.Idel);
+
     }
+    public override void Update(){}
 }
-// https://wonjuri.tistory.com/entry/unity-%EB%AA%A8%EB%93%88-%EC%A0%9C%EC%9E%91-%EB%82%98%EB%A7%8C%EC%9D%98-%EC%9D%B4%EB%B2%A4%ED%8A%B8-%EC%8B%9C%EC%8A%A4%ED%85%9C-%EB%A7%8C%EB%93%A4%EA%B8%B0
+
 public class RunState : BaseState
 {
     protected PlayerState pFSM;
@@ -135,7 +138,8 @@ public class IdelState : BaseState, IEventListener
     }
     public override void Enter()
     {
-        GameManager.Event.AddListener(EventType.EnemyTurn, this);
+        GameManager.Event.PostNotification(EventType.PlayerTurnEnd, this);
+        GameManager.Event.AddListener(EventType.EnemyTurnEnd, this);
     }
 
     public override void Exit()

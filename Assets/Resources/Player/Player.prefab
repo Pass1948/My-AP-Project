@@ -3071,9 +3071,10 @@ GameObject:
   - component: {fileID: 5874570473633897131}
   - component: {fileID: 6009194354785702342}
   - component: {fileID: 1177142013510869914}
-  - component: {fileID: 8185900244997661580}
-  - component: {fileID: 5526592539949779438}
   - component: {fileID: 8699116923724959182}
+  - component: {fileID: 8185900244997661580}
+  - component: {fileID: 344423912604838749}
+  - component: {fileID: 2641018642012750942}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -3204,37 +3205,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &8185900244997661580
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6721555826441326160}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: be4bce5bcfc66a748af365b648bf6c2d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hp: 0
-  OnChangedHP:
-    m_PersistentCalls:
-      m_Calls: []
-  OnDied:
-    m_PersistentCalls:
-      m_Calls: []
---- !u!114 &5526592539949779438
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6721555826441326160}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a82e363f12ab08148a6b3d6d962863c9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &8699116923724959182
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3265,6 +3235,47 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &8185900244997661580
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6721555826441326160}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be4bce5bcfc66a748af365b648bf6c2d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemy: {fileID: 4973900548810462098, guid: 15ff212478f37044788b250ed4e82101, type: 3}
+  hp: 5
+  damage: 2
+  dead: 0
+--- !u!114 &344423912604838749
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6721555826441326160}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 047c6106a6bc1e1459b7dcec5645b4b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  curState: 1
+--- !u!114 &2641018642012750942
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6721555826441326160}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf52d7ef049987b4e91993a36d84494e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6970062508063984824
 GameObject:
   m_ObjectHideFlags: 0

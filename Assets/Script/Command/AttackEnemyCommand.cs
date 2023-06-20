@@ -6,8 +6,7 @@ public class AttackEnemyCommand : BaseCommand
 {
     public override void Execute()
     {
-        Debug.Log("¿¿æ÷");
+        player.Attack(enemy);
         GameManager.Command.AddCommand(command);
-        GameManager.Event.PostNotification(EventType.EventIn, this, null);
     }
 }

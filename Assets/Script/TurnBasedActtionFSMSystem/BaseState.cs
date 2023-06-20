@@ -6,13 +6,12 @@ using UnityEngine.Events;
 
 public abstract class BaseState : MonoBehaviour
 {
-    protected AttackPlayerCommand attack;
-    protected QTESystem qTESystem;
-    public bool playerIsLive;
-    public bool enemyIsLive;
+    protected BattleFSM bFSM;
+    protected PlayerState pFSM;
+    public bool playerIsLive = false;
+    public bool enemyIsLive = false;
 
     public abstract void Enter();
     public abstract void Update();
-
     public abstract void Exit();
 }

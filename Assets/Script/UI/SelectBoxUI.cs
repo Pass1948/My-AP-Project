@@ -1,11 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static EnemyData;
-using static PlayerData;
+using UnityEngine.EventSystems;
 
 public class SelectBoxUI : InGameUI
 {
+    [SerializeField] EnemyController enemy;
+    [SerializeField] PlayerController player;
     protected override void Awake()
     {
         base.Awake();
@@ -20,7 +21,7 @@ public class SelectBoxUI : InGameUI
     }
     public void Attack()
     {
-        GameManager.Event.PostNotification(EventType.Attack, this, null);
+        player.Attack(enemy);
     }
 
     public void Run()

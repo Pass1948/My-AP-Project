@@ -16,7 +16,7 @@ public class QTESystem : MonoBehaviour
         // 나중에 passd button ui 나오는 애니메이션 적용
         if (!isKeyDown)       // 실패할경우
         {
-            Debug.Log("일반공격");
+           Debug.Log("일반공격");
            correctKey = 2;
            StartCoroutine(KeyPressing());
         }

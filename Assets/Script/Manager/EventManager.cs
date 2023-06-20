@@ -3,23 +3,55 @@ using System.Collections.Generic;
 using System.Diagnostics.Tracing;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
 public enum EventType
 {
-    Attack,
-    Run,
+    // 플레이어턴
     PlayerTurn,
     PlayerTurnEnd,
+
+    //플레이어 선택
+    PlayerActionEnd,
+
+    //====플레이어 버튼액션====
+    // 플레이어 공격
+    Attack,
+    AttackSuccess,
+    AttackMiss,
+
+    // 플레이어 회피(적턴일경우)
+    AvoidanceSuccess,
+    AvoidanceMiss,
+    //=======================
+
+    // 플레이어 도망
+    Run,
+
+    // 플레이어 생존
+    ChangedPlayerHP,
+    PlayerDied,
+
+    // 적턴
     EnemyTurn,
     EnemyTurnEnd,
-    ChangedPlayerHP,
+
+    // 적 공격
+    EnemyAttack,
+    EnemyAttackEnd,
+
+    // 적 도망
+    EnemyRun,
+
+    // 적 생존
     ChangedEnemyHP,
-    PlayerDied,
     EnemyDied,
-    AttackMiss,
-    
+
+    // 승패
+    Win,
+    Loss,
 };
 
 public class EventManager : MonoBehaviour
@@ -43,7 +75,7 @@ public class EventManager : MonoBehaviour
 
     public void PostNotification(EventType eventType, Component Sender, object Param = null) // 이벤트 발생역할
     {
-
+        Debug.Log("이벤트 발생");
         List<IEventListener> ListenList = null;
 
         //이벤트 리스너(대기자)가 없으면 그냥 리턴.
@@ -59,6 +91,7 @@ public class EventManager : MonoBehaviour
     }
     public void AddListener(EventType eventType, IEventListener Listener)       // 이벤트 받는 역할
     {
+        Debug.Log("이벤트 받아옴");
         List<IEventListener> ListenList = null;
 
         if (Listeners.TryGetValue(eventType, out ListenList))

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem.XR;
 using static PlayerTurn;
 
@@ -11,7 +12,6 @@ public enum BattleState
 
 public class BattleFSM : MonoBehaviour
 {
-    
     private BaseState[] states;
     public BattleState curState;
     private void Awake()
@@ -26,7 +26,7 @@ public class BattleFSM : MonoBehaviour
 
     private void Start()
     {
-        curState = BattleState.PlayerTurn;        // 전투 시작 알림
+        curState = BattleState.PlayerTurn;              // 전투 시작 알림
         states[(int)curState].Enter();
     }
 
@@ -44,9 +44,6 @@ public class BattleFSM : MonoBehaviour
 }
 public class PlayerTurn : BaseState, IEventListener
 {
-    private BattleFSM bFSM;
-    private PlayerController controller;
-
     public PlayerTurn(BattleFSM bFSM)
     {
         this.bFSM = bFSM;
@@ -57,8 +54,8 @@ public class PlayerTurn : BaseState, IEventListener
         // 전투 시작 케릭터와 적 등장 씬, 애니메니션 등 효과 넣기(자유)
         // 처음은 플레이어 선제
         Debug.Log("플레이어 턴");
-        GameManager.Event.PostNotification(EventType.PlayerTurn, this);
-        GameManager.Event.AddListener(EventType.ChangedPlayerHP, this);
+        GameManager.Event.AddListener(EventType.PlayerTurnEnd, this);
+        GameManager.Event.AddListener(EventType.EnemyDied, this);
     }
 
     public override void Exit()
@@ -69,125 +66,128 @@ public class PlayerTurn : BaseState, IEventListener
 
     public void OnEvent(EventType eventType, Component Sender, object Param = null)
     {
-        throw new System.NotImplementedException();
-    }
-
-    public override void Update()
-    {
-            if (!enemyIsLive)    // 몬스터가 죽었다면
-            {
-                bFSM.ChangeState(BattleState.Win);
-            }
-            else            // 몬스터가 살경우
-            {
-                bFSM.ChangeState(BattleState.EnemyTurn);
-            }
-    }
-
-public class EnemyTurn : BaseState
-{
-    private BattleFSM bFSM;
-    public EnemyTurn(BattleFSM bFSM)
-    {
-        this.bFSM = bFSM;
-    }
-
-    public override void Enter()
-    {
-        Debug.Log("몬스터턴");
-        qTESystem.EnemyTurnAction();
-    }
-
-    public override void Exit()
-    {
-        Debug.Log("턴넘김");
-    }
-
-    public override void Update()
-    {
-        // 적의 체력을 체크해서 선택을 한다
-        // 플레이어한테 공격을 가한다
-        // 플레이어의 체력을 확인한다 
-
-        if (!playerIsLive)   // 플레이어 체력이 0이거나 더 적을경우
+        string result = string.Format("받은 이벤트 종류 :  {0}, 이벤트 전달한 오브젝트 : {1}", eventType, Sender.gameObject.name.ToString());
+        Debug.Log(result);
+        if (eventType == EventType.PlayerTurnEnd)
         {
+            bFSM.ChangeState(BattleState.EnemyTurn);
+        }
+        if (eventType == EventType.EnemyDied)
+            {
+            bFSM.ChangeState(BattleState.Win);
+        }
+        
+    }
+
+    public override void Update()
+    {
+    }
+}
+
+    public class EnemyTurn : BaseState
+    {
+        private BattleFSM bFSM;
+        public EnemyTurn(BattleFSM bFSM)
+        {
+            this.bFSM = bFSM;
+        }
+
+        public override void Enter()
+        {
+            Debug.Log("몬스터턴");
+        }
+
+        public override void Exit()
+        {
+            Debug.Log("턴넘김");
+        }
+
+        public override void Update()
+        {
+            // 적의 체력을 체크해서 선택을 한다
+            // 플레이어한테 공격을 가한다
+            // 플레이어의 체력을 확인한다 
+
+            if (!playerIsLive)   // 플레이어 체력이 0이거나 더 적을경우
+            {
                 bFSM.ChangeState(BattleState.Loss);
-        }
-        else if (playerIsLive)  // 플레이어가 살아있을경우
-        {
+            }
+            else if (playerIsLive)  // 플레이어가 살아있을경우
+            {
                 bFSM.ChangeState(BattleState.PlayerTurn);
+            }
         }
     }
-}
 
-public class WinState : BaseState
-{
-    private BattleFSM bFSM;
-    public WinState(BattleFSM bFSM)
+    public class WinState : BaseState
     {
-        this.bFSM = bFSM;
-    }
+        public WinState(BattleFSM bFSM)
+        {
+            this.bFSM = bFSM;
+        }
 
-    public override void Enter()
-    {
-        Debug.Log("플레이어 승리");
-    }
+        public override void Enter()
+        {
+            Debug.Log("플레이어 승리");
+        }
 
-    public override void Exit()
-    {
-        Debug.Log("전투종료");
-    }
+        public override void Exit()
+        {
+            Debug.Log("전투종료");
+        }
 
-    public override void Update()
-    {
-        // 게임종료 
+        public override void Update()
+        {
+            // 게임종료 
+        }
     }
-}
-public class LossState : BaseState
-{
-    private BattleFSM bFSM;
-    public LossState(BattleFSM bFSM)
+    public class LossState : BaseState
     {
-        this.bFSM = bFSM;
-    }
+        private BattleFSM bFSM;
+        public LossState(BattleFSM bFSM)
+        {
+            this.bFSM = bFSM;
+        }
 
-    public override void Enter()
-    {
-        Debug.Log("플레이어 패배");
-    }
+        public override void Enter()
+        {
+            Debug.Log("플레이어 패배");
+        }
 
-    public override void Exit()
-    {
-        Debug.Log("전투종료");
-    }
+        public override void Exit()
+        {
+            Debug.Log("전투종료");
+        }
 
-    public override void Update()
-    {
-        // 게임종료 
-    }
-}
-
-public class EnemyRunState : BaseState
-{
-    private BattleFSM bFSM;
-    public EnemyRunState(BattleFSM bFSM)
-    {
-        this.bFSM = bFSM;
+        public override void Update()
+        {
+            // 게임종료 
+        }
     }
 
-    public override void Enter()
+    public class EnemyRunState : BaseState
     {
-        Debug.Log("몬스터 도주");
+        private BattleFSM bFSM;
+        public EnemyRunState(BattleFSM bFSM)
+        {
+            this.bFSM = bFSM;
+        }
+
+        public override void Enter()
+        {
+            Debug.Log("몬스터 도주");
+        }
+
+        public override void Exit()
+        {
+            Debug.Log("전투종료");
+        }
+
+        public override void Update()
+        {
+            // 게임종료 
+        }
     }
 
-    public override void Exit()
-    {
-        Debug.Log("전투종료");
-    }
 
-    public override void Update()
-    {
-        // 게임종료 
-    }
-}
 
