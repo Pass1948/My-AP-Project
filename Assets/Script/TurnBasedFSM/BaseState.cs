@@ -7,8 +7,8 @@ using UnityEngine.Events;
 public abstract class BaseState : IEventListener
 {
     protected BattleFSM bFSM;
-    protected PlayerState pFSM;
-    protected EnemyState eFSM;
+    protected PlayerFSM pFSM;
+    protected EnemyFSM eFSM;
     protected PlayerController player;
     protected EnemyController enemy;
 

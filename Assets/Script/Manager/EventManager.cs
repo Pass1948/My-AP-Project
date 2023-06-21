@@ -87,27 +87,11 @@ public class EventManager : MonoBehaviour
         //모든 이벤트 리스너(대기자)에게 이벤트 전송.
         for (int i = 0; i < ListenList.Count; i++)
         {
+            Debug.Log("이벤트 발생");
             if (!ListenList[i].Equals(null)) //If object is not null, then send message via interfaces
                 ListenList[i].OnEvent(eventType, Sender, Param);
         }
     }
-
-    public T PostNotification<T>(EventType eventType, T Sender, object Param = null) where T : Object
-    {
-        return PostNotification<T>(eventType, Sender, Param);
-    }
-
-    public T PostNotification<T>(EventType eventType, T Sender) where T : Object
-    {
-        return PostNotification<T>(eventType, Sender);
-    }
-
-    public T PostNotification<T>(EventType eventType) where T : Object
-    {
-        return PostNotification<T>(eventType);
-    }
-
-
     public void AddListener(EventType eventType, IEventListener Listener)       // 이벤트 받는 역할
     {
         List<IEventListener> ListenList = null;

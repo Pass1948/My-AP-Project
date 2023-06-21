@@ -63,6 +63,5 @@ public class GameManager : MonoBehaviour
         eventObj.name = "EventManager";
         eventObj.transform.parent = transform;
         eventManager = eventObj.AddComponent<EventManager>();
-
     }
 }
