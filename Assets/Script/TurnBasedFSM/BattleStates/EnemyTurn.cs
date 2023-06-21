@@ -26,7 +26,6 @@ public class EnemyTurn : BaseState
         if (eventType == EventType.EnemyActionEnd)                           // PlayerState가 Idel상태일경우
         {
             GameManager.Event.PostNotification(EventType.EnemyTurnEnd, this.bFSM);
-            GameManager.Event.RemoveEvent(EventType.EnemyActionEnd);
             bFSM.ChangeState(BattleState.PlayerTurn);                        // 적 턴으로 변경
         }
         if (eventType == EventType.PlayerDied)                               // 적이 죽었을경우
