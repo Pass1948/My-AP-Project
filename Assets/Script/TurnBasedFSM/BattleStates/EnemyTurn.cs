@@ -10,7 +10,7 @@ public class EnemyTurn : BaseState
     }
     public override void Enter()
     {
-        GameManager.Event.AddListener(EventType.EnemyTurnEnd, this);
+        GameManager.Event.AddListener(EventType.EnemyActionEnd, this);
         Debug.Log("몬스터턴");
     }
     public override void Update() { }
@@ -22,10 +22,11 @@ public class EnemyTurn : BaseState
 
     public override void OnEvent(EventType eventType, Component Sender, object Param = null)
     {
-        if (eventType == EventType.EnemyTurnEnd)                           // PlayerState가 Idel상태일경우
+        if (eventType == EventType.EnemyActionEnd)                           // PlayerState가 Idel상태일경우
         {
+            GameManager.Event.PostNotification(EventType.EnemyTurnEnd, this.bFSM);
+            GameManager.Event.RemoveEvent(EventType.EnemyActionEnd);
             bFSM.ChangeState(BattleState.PlayerTurn);                        // 적 턴으로 변경
-            GameManager.Event.RemoveEvent(EventType.EnemyTurnEnd);
         }
         if (eventType == EventType.PlayerDied)                               // 적이 죽었을경우
         {

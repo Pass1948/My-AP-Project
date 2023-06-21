@@ -19,7 +19,7 @@ public class EnemyIdelState : BaseState
     {
         if (eventType == EventType.PlayerTurnEnd)
         {
-            eFSM.ChangeState(EnemyTurnState.enemyAttack);
+            eFSM.ChangeState(EnemyTurnState.EnemyAttack);
         }
     }
 

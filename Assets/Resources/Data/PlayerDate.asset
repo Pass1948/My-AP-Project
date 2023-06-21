@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: PlayerDate
   m_EditorClassIdentifier: 
   player:
-  - player: {fileID: 6009194354785702393, guid: d52196b5609c40443a590e41acec7e00, type: 3}
-    hp: 5
-    damage: 2
+  - player: {fileID: 8185900244997661580, guid: d52196b5609c40443a590e41acec7e00, type: 3}
+    hp: 0
+    damage: 0

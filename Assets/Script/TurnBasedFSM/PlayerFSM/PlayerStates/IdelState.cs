@@ -13,12 +13,12 @@ public class IdelState : BaseState
     {
         Debug.Log("대기상태");
         GameManager.Event.PostNotification(EventType.PlayerTurnEnd, pFSM);
-        GameManager.Event.AddListener(EventType.EnemyActionEnd, this);
+        GameManager.Event.AddListener(EventType.EnemyTurnEnd, this);
     }
 
     public override void OnEvent(EventType eventType, Component Sender, object Param = null)
     {
-        if (eventType == EventType.EnemyActionEnd)
+        if (eventType == EventType.EnemyTurnEnd)
         {
             pFSM.ChangeState(PlayerTurnState.Select);
         }
@@ -26,7 +26,6 @@ public class IdelState : BaseState
 
     public override void Exit()
     {
-        GameManager.Event.RemoveEvent(EventType.EnemyActionEnd);
         Debug.Log("상대턴 종료");
     }
 

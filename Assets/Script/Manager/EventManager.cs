@@ -25,6 +25,14 @@ public enum EventType
     // 플레이어 회피(적턴일경우)
     AvoidanceSuccess,
     AvoidanceMiss,
+
+    // 버튼누름
+    PressButton,
+
+    // 버튼 액션 전용
+    ButtonActResult,
+    PressFail,
+
     //=======================
 
     // 플레이어 도망
@@ -55,6 +63,11 @@ public enum EventType
     // 승패
     Win,
     Loss,
+
+    // 선택지UI용
+    SelectAttack,
+    SelectRun,
+    SelectTarget,
 };
 
 public class EventManager : MonoBehaviour
@@ -87,7 +100,6 @@ public class EventManager : MonoBehaviour
         //모든 이벤트 리스너(대기자)에게 이벤트 전송.
         for (int i = 0; i < ListenList.Count; i++)
         {
-            Debug.Log("이벤트 발생");
             if (!ListenList[i].Equals(null)) //If object is not null, then send message via interfaces
                 ListenList[i].OnEvent(eventType, Sender, Param);
         }

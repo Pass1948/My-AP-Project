@@ -21,7 +21,6 @@ private void Awake()
     states[(int)BattleState.EnemyTurn]   = new EnemyTurn(this);
     states[(int)BattleState.Win]         = new WinState(this);
     states[(int)BattleState.Loss]        = new LossState(this);
-    states[(int)BattleState.EnemyRun]    = new EnemyRunState(this);
 }
 
 private void Start()

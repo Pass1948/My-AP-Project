@@ -18,15 +18,19 @@ public class SelectState : BaseState
 
     public override void OnEvent(EventType eventType, Component Sender, object Param = null)
     {
-        string result = string.Format("받은 이벤트 종류 :  {0}, 이벤트 전달한 오브젝트 : {1}", eventType, Sender.gameObject.name.ToString());
-        Debug.Log(result);
-        if (eventType == EventType.Attack)                              // 선택지 공격 선택시
+
+        // 선택지 공격 선택시
+        if (eventType == EventType.Attack)                              
         {
             Debug.Log("공격이벤트발생");
+            GameManager.Event.RemoveEvent(EventType.Attack);
             pFSM.ChangeState(PlayerTurnState.Attack);                   // 공격 상태로 변경
         }
-        if (eventType == EventType.Run)                                 // 선택지 도망 선택시
+
+        // 선택지 도망 선택시
+        if (eventType == EventType.Run)                                 
         {
+            GameManager.Event.RemoveEvent(EventType.Run);
             pFSM.ChangeState(PlayerTurnState.Run);                      // 도망 상태로 변경
         }
     }

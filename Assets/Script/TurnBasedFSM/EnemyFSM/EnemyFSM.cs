@@ -4,7 +4,7 @@ using UnityEngine;
 
 public enum EnemyTurnState
 {
-    enemyIdel, enemyAttack, enemyRun
+    EnemyIdel, EnemyAttack, EnemyRun
 }
 public class EnemyFSM : MonoBehaviour
 {
@@ -12,15 +12,15 @@ public class EnemyFSM : MonoBehaviour
         public EnemyTurnState curState;
         private void Awake()
         {
-            states = new BaseState[(int)EnemyTurnState.enemyIdel];
-            states[(int)EnemyTurnState.enemyIdel] = new EnemyIdelState(this);
-            states[(int)EnemyTurnState.enemyAttack] = new EnemyAttackState(this);
-            states[(int)EnemyTurnState.enemyRun] = new EnemyRunState(this);
+            states = new BaseState[(int)EnemyTurnState.EnemyIdel];
+            states[(int)EnemyTurnState.EnemyIdel] = new EnemyIdelState(this);
+            states[(int)EnemyTurnState.EnemyAttack] = new EnemyAttackState(this);
+            states[(int)EnemyTurnState.EnemyRun] = new EnemyRunState(this);
         }
 
         private void Start()
         {
-            curState = EnemyTurnState.enemyIdel;
+            curState = EnemyTurnState.EnemyIdel;
             states[(int)curState].Enter();
         }
 

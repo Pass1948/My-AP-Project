@@ -15,7 +15,7 @@ public class EnemyAttackState : BaseState
     public override void Update()
     {
         // 버튼액션 
-        eFSM.ChangeState(EnemyTurnState.enemyIdel);
+        eFSM.ChangeState(EnemyTurnState.EnemyIdel);
     }
 
     public override void Exit()

@@ -3,30 +3,42 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class SelectBoxUI : InGameUI
+public class SelectBoxUI : InGameUI, IEventListener
 {
-    [SerializeField] EnemyController enemy;
-    [SerializeField] PlayerController player;
     protected override void Awake()
     {
         base.Awake();
-        buttons["AttectBoxButton"].onClick.AddListener(() => { Attack(); });
+        buttons["AttectBoxButton"].onClick.AddListener(() => { SelectAttack(); });
         buttons["InventoryBoxButton"].onClick.AddListener(() => { OpenWindowUI(); });
-        buttons["RunBoxButton"].onClick.AddListener(() => { Run(); });
+        buttons["RunBoxButton"].onClick.AddListener(() => { SelectRun(); });
+    }
+
+    private void Start()
+    {
+        GameManager.Event.AddListener(EventType.EnemyTurnEnd, this);
     }
 
     public void OpenWindowUI()
     {
         GameManager.UI.ShowWindowUI<WindowUI>("UI/InventoryWindowUI");
     }
-    public void Attack()
+    public void SelectAttack()
     {
-        GameManager.Event.PostNotification(EventType.Attack, this);         // 공격 이벤트 발생
+        GameManager.Event.PostNotification(EventType.SelectAttack, this);
+        this.gameObject.SetActive(false);
     }
 
-    public void Run()
+    public void SelectRun()
     {
         GameManager.Event.PostNotification(EventType.Run, this);            // 도망 이벤트 발생
+        this.gameObject.SetActive(false);
     }
 
+    public void OnEvent(EventType eventType, Component Sender, object Param = null)
+    {
+        if (eventType == EventType.EnemyTurnEnd)
+        {
+            this.gameObject.SetActive(true);
+        }
+    }
 }
