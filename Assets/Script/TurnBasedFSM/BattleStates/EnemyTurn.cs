@@ -10,6 +10,7 @@ public class EnemyTurn : BaseState
     }
     public override void Enter()
     {
+        GameManager.Event.RemoveEvent(EventType.PlayerTurnEnd);
         GameManager.Event.AddListener(EventType.EnemyActionEnd, this);
         Debug.Log("몬스터턴");
     }
