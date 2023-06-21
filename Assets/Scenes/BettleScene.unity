@@ -8906,6 +8906,10 @@ PrefabInstance:
       propertyPath: followTarget
       value: 
       objectReference: {fileID: 6061687287796913424, guid: 15ff212478f37044788b250ed4e82101, type: 3}
+    - target: {fileID: 1326655028565388370, guid: 15ff212478f37044788b250ed4e82101, type: 3}
+      propertyPath: follwOffset.y
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 1975156883773052956, guid: 15ff212478f37044788b250ed4e82101, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -8973,6 +8977,14 @@ PrefabInstance:
     - target: {fileID: 7484926901410181932, guid: 15ff212478f37044788b250ed4e82101, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8901412662231270306, guid: 15ff212478f37044788b250ed4e82101, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8901412662231270311, guid: 15ff212478f37044788b250ed4e82101, type: 3}
+      propertyPath: m_Color.a
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 15ff212478f37044788b250ed4e82101, type: 3}
