@@ -52,7 +52,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f457729887f410c43b422b896926fc67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  followTarget: {fileID: 8513111642768302528, guid: d52196b5609c40443a590e41acec7e00, type: 3}
+  followTarget: {fileID: 645335013224483428, guid: 99c8f5bf2f4aa1d47a76b9956ffdae60, type: 3}
   follwOffset: {x: 0, y: 100}
 --- !u!1 &4065362603179144445
 GameObject:

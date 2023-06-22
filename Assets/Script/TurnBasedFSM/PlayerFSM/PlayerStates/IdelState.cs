@@ -12,6 +12,7 @@ public class IdelState : BaseState
     public override void Enter()
     {
         Debug.Log("대기상태");
+        GameManager.Event.RemoveEvent(EventType.ButtonActResult);
         GameManager.Event.PostNotification(EventType.PlayerTurnEnd, pFSM);
         GameManager.Event.AddListener(EventType.EnemyTurnEnd, this);
     }

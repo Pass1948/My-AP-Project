@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class InGameUI : BaseUI
 {
-    public Transform followTarget;
+    [SerializeField] Transform followTarget;
     public Vector2 follwOffset;
     protected override void Awake()
     {

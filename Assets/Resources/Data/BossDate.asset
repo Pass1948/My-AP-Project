@@ -12,4 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6196275786cdd414c8db04313d679bd0, type: 3}
   m_Name: BossDate
   m_EditorClassIdentifier: 
-  enemy: []
+  enemy:
+  - enemy: {fileID: 0}
+    hp: 0
+    damage: 0

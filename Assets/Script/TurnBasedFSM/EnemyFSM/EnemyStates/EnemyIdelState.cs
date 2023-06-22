@@ -10,6 +10,7 @@ public class EnemyIdelState : BaseState
     }
     public override void Enter()
     {
+        GameManager.Event.RemoveEvent(EventType.ButtonActResult);
         GameManager.Event.AddListener(EventType.PlayerTurnEnd, this);
     }
 

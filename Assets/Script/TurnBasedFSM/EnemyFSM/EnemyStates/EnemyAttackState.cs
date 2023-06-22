@@ -10,13 +10,10 @@ public class EnemyAttackState : BaseState
     }
     public override void Enter()
     {
+        GameManager.UI.ShowPopUpUI<PopUpUI>("UI/PlayerButtonActUI");
         Debug.Log("적 버튼액션시작");
     }
-    public override void Update()
-    {
-        // 버튼액션 
-        eFSM.ChangeState(EnemyTurnState.EnemyIdel);
-    }
+    public override void Update(){}
 
     public override void Exit()
     {
@@ -24,7 +21,11 @@ public class EnemyAttackState : BaseState
         GameManager.Event.PostNotification(EventType.EnemyTurnEnd, eFSM);
     }
 
-    public override void OnEvent(EventType eventType, Component Sender, object Param = null) { }
+    public override void OnEvent(EventType eventType, Component Sender, object Param = null) 
+    {
+        if (eventType == EventType.ButtonActResult)
+            eFSM.ChangeState(EnemyTurnState.EnemyIdel);
+    }
 
 
 }

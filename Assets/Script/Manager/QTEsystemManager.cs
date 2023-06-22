@@ -7,14 +7,16 @@ public class QTEsystemManager : MonoBehaviour, IEventListener
     private PlayerController player;
     private EnemyController enemy;
     private int correctKey;          // 키입력 성공/실패 여부
-    private int countingDown;
     private bool isKeyDown = false;
 
     private void Awake()
     {
+        player = new PlayerController();
+        enemy = new EnemyController();  
+
         GameManager.Event.RemoveEvent(EventType.SelectAttack);
         GameManager.Event.RemoveEvent(EventType.EnemyTurnEnd);
-        GameManager.Event.AddListener(EventType.SelectTarget, this);
+
         GameManager.Event.AddListener(EventType.PressButton, this);
         GameManager.Event.AddListener(EventType.PressFail, this);
     }
@@ -24,13 +26,13 @@ public class QTEsystemManager : MonoBehaviour, IEventListener
         {
             Debug.Log("크리티컬");
             correctKey = 1;
+            player.Attack();
             StartCoroutine(KeyPressingRoutine());
         }
         if (eventType == EventType.PressFail)
         {
             Debug.Log("일반공격");
             correctKey = 2;
-            player = new PlayerController();
             player.Attack();
             StartCoroutine(KeyPressingRoutine());
         }
@@ -43,12 +45,14 @@ public class QTEsystemManager : MonoBehaviour, IEventListener
         {
             Debug.Log("피해받음");
             correctKey = 2;
+            enemy.Attack();
             StartCoroutine(KeyPressingRoutine());
         }
         else
         {
             Debug.Log("반격");
             correctKey = 1;
+            player.Attack();
             StartCoroutine(KeyPressingRoutine());
         }
     }
@@ -61,6 +65,10 @@ public class QTEsystemManager : MonoBehaviour, IEventListener
             correctKey = 0;
             GameManager.Event.PostNotification(EventType.ButtonActResult, this);
             yield return new WaitForSecondsRealtime(1f);
+
+            GameManager.Event.RemoveEvent(EventType.PressButton);
+            GameManager.Event.RemoveEvent(EventType.PressFail);
+            yield return new WaitForSecondsRealtime(0.5f);
         }
         if (correctKey == 2)  //실패했을경우
         {
@@ -68,6 +76,10 @@ public class QTEsystemManager : MonoBehaviour, IEventListener
             correctKey = 0;
             GameManager.Event.PostNotification(EventType.ButtonActResult, this);
             yield return new WaitForSecondsRealtime(1f);
+
+            GameManager.Event.RemoveEvent(EventType.PressButton);
+            GameManager.Event.RemoveEvent(EventType.PressFail);
+            yield return new WaitForSecondsRealtime(0.5f);
         }
     }
 }

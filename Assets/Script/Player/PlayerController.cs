@@ -1,27 +1,54 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
-public class PlayerController : Player
+public class PlayerController : Player, IEventListener
 {
+    protected EnemyController enemy;
+    protected GameObject spawnPoint;
+    protected GameObject AttackPosition;
+    [SerializeField] public int hp;
+    [SerializeField] public int damage;
+    [SerializeField] public float Speed;
+    public bool dead = false;
+    private bool isSliding = false;
+    private void Awake()
+    {
+        enemy = new EnemyController();
+        AttackPosition = GameManager.Resource.Load<GameObject>("Player/PlayerAttackPoint");
+        spawnPoint = GameManager.Resource.Load<GameObject>("Player/PlayerSpawn");
+        GameManager.UI.ShowInGameUI<InGameUI>("UI/HPUI");
+        GameManager.UI.ShowInGameUI<InGameUI>("UI/SelectBoxUI");
+        GameManager.Event.AddListener(EventType.SelectTarget, this);
+    }
+
+    private void Update()
+    {
+        if (!isSliding)
+            return;
+        else
+        {
+            StartCoroutine(MovingRoutine());
+        }
+    }
     public void SetDamage(int damage)       // 무기 혹은 아이템을 사용할경우 상승효과를 구현해야함
     {
         this.damage = damage;
     }
 
-    public void SetHP(int hp)               // 방어구 혹은 버프 아이템을 쓸경우 상승효과를 구현해야함
-    {
-        this.hp = hp;
-    }
-
     public void Attack()
     {
         Debug.Log("너 공격된거야");
-        // SetDamage(damage);
-        // enemy.TakeHit(damage);
+        SetDamage(damage);
+        enemy.TakeHit(damage);
+    }
+    public void SetHP(int hp)
+    {
+        this.hp = hp;
     }
 
     public void TakeHit(int damage)
@@ -32,5 +59,46 @@ public class PlayerController : Player
         {
             GameManager.Event.PostNotification(EventType.PlayerDied, this);
         }
+    }
+
+    public void TatgetInMoving()
+    {
+        transform.position += (AttackPosition.transform.position - GetPosition()) * Speed * Time.deltaTime;
+        float reachedDistance = 0.5f;
+        if (Vector3.Distance(GetPosition(), AttackPosition.transform.position) < reachedDistance)
+        {
+            transform.position = AttackPosition.transform.position;
+        }
+    }
+
+    public void ReturnPosition() 
+    {
+        transform.position += (spawnPoint.transform.position - GetPosition()) * Speed * Time.deltaTime;
+        float reachedDistance = 0.5f;
+        if (Vector3.Distance(GetPosition(), spawnPoint.transform.position) < reachedDistance)
+        {
+            transform.position = spawnPoint.transform.position;
+        }
+    }
+
+    public Vector3 GetPosition()
+    {
+        return transform.position;
+    }
+
+    public void OnEvent(EventType eventType, Component Sender, object Param = null)
+    {
+        if(eventType == EventType.SelectTarget)
+        {
+            isSliding = true;
+        }
+    }
+
+    IEnumerator MovingRoutine()
+    {
+        TatgetInMoving();
+        yield return new WaitForSeconds(4f);
+        isSliding = false;
+        ReturnPosition();
     }
 }
