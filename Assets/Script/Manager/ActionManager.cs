@@ -17,7 +17,6 @@ public class ActionManager : MonoBehaviour, IEventListener
 
     private void Awake()
     {
-        hp = PlayerData[0].hp;
         AttackPosition = GameManager.Resource.Load<GameObject>("Player/PlayerAttackPoint");
         spawnPoint = GameManager.Resource.Load<GameObject>("Player/PlayerSpawn");
         GameManager.UI.ShowInGameUI<InGameUI>("UI/HPUI");
