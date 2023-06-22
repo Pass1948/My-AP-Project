@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     private static CommandManager commandManager;
     private static EventManager eventManager;
     private static QTEsystemManager qTEsystemManager;
+    private static ShoundManager shoundManager;
 
     public static GameManager Instance { get { return instance; } }
     public static PoolManager Pool { get { return poolManager; } }
@@ -19,6 +20,7 @@ public class GameManager : MonoBehaviour
     public static CommandManager Command { get { return commandManager; } }
     public static EventManager Event { get { return eventManager; } }
     public static QTEsystemManager QTE { get { return qTEsystemManager; } }
+    public static ShoundManager Shound { get { return shoundManager; } }
 
     private void Awake()
     {
@@ -70,5 +72,10 @@ public class GameManager : MonoBehaviour
         qTEObj.name = "QTEManager";
         qTEObj.transform.parent = transform;
         qTEsystemManager = qTEObj.AddComponent<QTEsystemManager>();
+
+        GameObject shoundObj = new GameObject();
+        shoundObj.name = "ShoundManager";
+        shoundObj.transform.parent = transform;
+        shoundManager = shoundObj.AddComponent<ShoundManager>();
     }
 }
