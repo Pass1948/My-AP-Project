@@ -9,7 +9,7 @@ public abstract class BaseState : IEventListener
     protected BattleFSM bFSM;
     protected PlayerFSM pFSM;
     protected EnemyFSM eFSM;
-    protected PlayerController player;
+    //protected PlayerController player;
     protected EnemyController enemy;
 
     public abstract void Enter();              // 상태 시작 

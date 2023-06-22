@@ -13,7 +13,6 @@ public class PlayerData : ScriptableObject
     [Serializable]
     public class PlayerInfo
     {
-        public PlayerController player;
         public int hp;
         public int damage;
     }

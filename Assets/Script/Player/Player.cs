@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Player : MonoBehaviour
+public class Player : MonoBehaviour
 {
-    
+    public PlayerData playerData;
 }

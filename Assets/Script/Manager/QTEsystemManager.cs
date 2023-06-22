@@ -4,16 +4,11 @@ using UnityEngine;
 
 public class QTEsystemManager : MonoBehaviour, IEventListener
 {
-    private PlayerController player;
-    private EnemyController enemy;
     private int correctKey;          // 키입력 성공/실패 여부
     private bool isKeyDown = false;
 
     private void Awake()
     {
-        player = new PlayerController();
-        enemy = new EnemyController();  
-
         GameManager.Event.RemoveEvent(EventType.SelectAttack);
         GameManager.Event.RemoveEvent(EventType.EnemyTurnEnd);
 
@@ -26,14 +21,12 @@ public class QTEsystemManager : MonoBehaviour, IEventListener
         {
             Debug.Log("크리티컬");
             correctKey = 1;
-            player.Attack();
             StartCoroutine(KeyPressingRoutine());
         }
         if (eventType == EventType.PressFail)
         {
             Debug.Log("일반공격");
             correctKey = 2;
-            player.Attack();
             StartCoroutine(KeyPressingRoutine());
         }
 
@@ -45,14 +38,12 @@ public class QTEsystemManager : MonoBehaviour, IEventListener
         {
             Debug.Log("피해받음");
             correctKey = 2;
-            enemy.Attack();
             StartCoroutine(KeyPressingRoutine());
         }
         else
         {
             Debug.Log("반격");
             correctKey = 1;
-            player.Attack();
             StartCoroutine(KeyPressingRoutine());
         }
     }

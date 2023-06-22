@@ -179,8 +179,8 @@ GameObject:
   - component: {fileID: 2359144153320732672}
   - component: {fileID: 3171856942240458943}
   - component: {fileID: 4181229634002667082}
-  - component: {fileID: 8828567262448454745}
   - component: {fileID: 5682018195591739510}
+  - component: {fileID: 2861164705361290111}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -327,22 +327,6 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
---- !u!114 &8828567262448454745
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 359803051658223787}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: be4bce5bcfc66a748af365b648bf6c2d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hp: 5
-  damage: 2
-  Speed: 3
-  dead: 0
 --- !u!114 &5682018195591739510
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -356,6 +340,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   curState: 1
+--- !u!114 &2861164705361290111
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 359803051658223787}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7ca9d9c6ea6cf642b5252e16c477c10, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerData: {fileID: 11400000, guid: ea5208a558e7b5b4fa64d24af7beb00f, type: 2}
 --- !u!1 &393756162459314573
 GameObject:
   m_ObjectHideFlags: 0

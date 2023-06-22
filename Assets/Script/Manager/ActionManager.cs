@@ -1,24 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Events;
-using UnityEngine.EventSystems;
-using UnityEngine.InputSystem;
 
-public class PlayerController : Player, IEventListener
+public class ActionManager : MonoBehaviour, IEventListener
 {
-    protected EnemyController enemy;
     protected GameObject spawnPoint;
     protected GameObject AttackPosition;
-    [SerializeField] public int hp;
-    [SerializeField] public int damage;
-    [SerializeField] public float Speed;
+
+    private int hp;
+    private int damage;
+    private float Speed;
+
     public bool dead = false;
+
     private bool isSliding = false;
+
     private void Awake()
     {
-        enemy = new EnemyController();
+        hp = PlayerData[0].hp;
         AttackPosition = GameManager.Resource.Load<GameObject>("Player/PlayerAttackPoint");
         spawnPoint = GameManager.Resource.Load<GameObject>("Player/PlayerSpawn");
         GameManager.UI.ShowInGameUI<InGameUI>("UI/HPUI");
@@ -44,7 +43,7 @@ public class PlayerController : Player, IEventListener
     {
         Debug.Log("너 공격된거야");
         SetDamage(damage);
-        enemy.TakeHit(damage);
+        //enemy.TakeHit(damage);
     }
     public void SetHP(int hp)
     {
@@ -71,7 +70,7 @@ public class PlayerController : Player, IEventListener
         }
     }
 
-    public void ReturnPosition() 
+    public void ReturnPosition()
     {
         transform.position += (spawnPoint.transform.position - GetPosition()) * Speed * Time.deltaTime;
         float reachedDistance = 0.5f;
@@ -88,7 +87,7 @@ public class PlayerController : Player, IEventListener
 
     public void OnEvent(EventType eventType, Component Sender, object Param = null)
     {
-        if(eventType == EventType.SelectTarget)
+        if (eventType == EventType.SelectTarget)
         {
             isSliding = true;
         }
