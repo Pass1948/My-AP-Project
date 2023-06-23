@@ -1,14 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.Networking.Types;
 
-public class BattlePlayerController : MonoBehaviour, IEventListener
+public class EnemyBattleController : MonoBehaviour, IEventListener
 {
-    private EnemyBattleController enemy;
+    private BattlePlayerController player;
     private GameObject spawnPoint;
     private GameObject AttackPosition;
 
-    private int damage = 2;   
+    private int damage = 2;
     private int hp = 5;
     private int curHP;
 
@@ -19,9 +21,9 @@ public class BattlePlayerController : MonoBehaviour, IEventListener
     private void Awake()
     {
         curHP = hp;
-        AttackPosition = GameManager.Resource.Load<GameObject>("Player/Battle/PlayerAttackPoint");
-        spawnPoint = GameManager.Resource.Load<GameObject>("Player/Battle/PlayerSpawn");
-        enemy = GameManager.Resource.Load<EnemyBattleController>("Enemy/Enemy");
+        AttackPosition = GameManager.Resource.Load<GameObject>("Enemy/EnemyAttackPoint");
+        spawnPoint = GameManager.Resource.Load<GameObject>("Enemy/EnemySpawn");
+        player = GameManager.Resource.Load<BattlePlayerController>("Player/Battle/BattlePlayer");
         GameManager.Event.AddListener(EventType.SelectTarget, this);
         GameManager.Event.AddListener(EventType.PressButton, this);
         GameManager.Event.AddListener(EventType.PressFail, this);
@@ -46,13 +48,13 @@ public class BattlePlayerController : MonoBehaviour, IEventListener
     {
         Debug.Log("너 공격된거야");
         SetDamage(damage);
-        //enemy.TakeHit(damage);
+        // player.TakeHit(damage);
     }
 
     public void TakeHit(int damage)
     {
         curHP -= damage;
-        GameManager.Event.PostNotification(EventType.PlayerisLive, this);
+        GameManager.Event.PostNotification(EventType.EnemyisLive, this);
         if (curHP <= 0)
         {
             GameManager.Event.PostNotification(EventType.PlayerDied, this);
@@ -103,10 +105,8 @@ public class BattlePlayerController : MonoBehaviour, IEventListener
             GameManager.Event.RemoveEvent(EventType.PressFail);
             GameManager.QTE.Attack();
         }
-
     }
-
-    IEnumerator MovingRoutine()
+        IEnumerator MovingRoutine()
     {
         TatgetInMoving();
         yield return new WaitForSeconds(4f);

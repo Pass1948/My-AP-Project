@@ -16,7 +16,7 @@ public class SelectBoxUI : InGameUI, IEventListener
 
     private void Start()
     {
-        GameManager.Event.AddListener(EventType.EnemyTurnEnd, this);
+        GameManager.Event.AddListener(EventType.PlayerTurn, this);
     }
 
     public void OpenWindowUI()
@@ -37,7 +37,7 @@ public class SelectBoxUI : InGameUI, IEventListener
 
     public void OnEvent(EventType eventType, Component Sender, object Param = null)
     {
-        if (eventType == EventType.EnemyTurnEnd)
+        if (eventType == EventType.PlayerTurn)
         {
             this.gameObject.SetActive(true);
         }

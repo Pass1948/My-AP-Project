@@ -12,14 +12,19 @@ public class IdleState : BaseState
     public override void Enter()
     {
         Debug.Log("대기상태");
-        GameManager.Event.RemoveEvent(EventType.ButtonActResult);
         GameManager.Event.PostNotification(EventType.PlayerTurnEnd, pFSM);
-        GameManager.Event.AddListener(EventType.EnemyTurnEnd, this);
+        GameManager.Event.PostNotification(EventType.PlayerActionEnd, pFSM);
+        GameManager.Event.AddListener(EventType.EnemyDied, this);
+        GameManager.Event.AddListener(EventType.EnemyisLive, this);
     }
 
     public override void OnEvent(EventType eventType, Component Sender, object Param = null)
     {
-        if (eventType == EventType.EnemyTurnEnd)
+        if (eventType == EventType.EnemyDied)
+        {
+            return;
+        }
+        if (eventType == EventType.EnemyisLive)
         {
             pFSM.ChangeState(PlayerTurnState.Select);
         }
@@ -27,6 +32,7 @@ public class IdleState : BaseState
 
     public override void Exit()
     {
+        GameManager.Event.RemoveEvent(EventType.EnemyisLive);
         Debug.Log("상대턴 종료");
     }
 

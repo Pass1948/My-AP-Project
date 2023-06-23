@@ -10,14 +10,15 @@ public class EnemyIdelState : BaseState
     }
     public override void Enter()
     {
-        GameManager.Event.AddListener(EventType.PlayerTurnEnd, this);
+        Debug.Log("적대기");
+        GameManager.Event.AddListener(EventType.PlayerActionEnd, this);
     }
 
     public override void Update() { }
 
     public override void OnEvent(EventType eventType, Component Sender, object Param = null)
     {
-        if (eventType == EventType.PlayerTurnEnd)
+        if (eventType == EventType.PlayerActionEnd)
         {
             eFSM.ChangeState(EnemyTurnState.EnemyAttack);
         }
@@ -25,8 +26,7 @@ public class EnemyIdelState : BaseState
 
     public override void Exit()
     {
-        GameManager.Event.RemoveEvent(EventType.ButtonActResult);
-        GameManager.Event.RemoveEvent(EventType.PlayerTurnEnd);
+        GameManager.Event.RemoveEvent(EventType.PlayerActionEnd);
         Debug.Log("적 움직임");
     }
 }

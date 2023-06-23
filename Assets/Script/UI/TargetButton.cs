@@ -18,6 +18,7 @@ public class TargetButton : InGameUI, IEventListener
     public void SelectTarget()
     {
         GameManager.Event.PostNotification(EventType.Attack, this);         // 공격 이벤트 발생
+        GameManager.Event.PostNotification(EventType.SelectTarget, this);
         GameManager.UI.ShowPopUpUI<PopUpUI>("UI/PlayerButtonActUI");
         this.gameObject.SetActive(false);
     }

@@ -15,7 +15,7 @@ public class RunState : BaseState
 
     public override void Exit()
     {
-        GameManager.Event.PostNotification(EventType.PlayerActionEnd, pFSM);
+        
         Debug.Log("전투종료");
     }
 

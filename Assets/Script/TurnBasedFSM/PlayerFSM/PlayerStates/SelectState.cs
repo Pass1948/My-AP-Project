@@ -10,6 +10,7 @@ public class SelectState : BaseState
     }
     public override void Enter()
     {
+        GameManager.Event.PostNotification(EventType.PlayerTurn, pFSM);
         GameManager.Event.AddListener(EventType.Attack, this);          // 공격 이벤트 받기
         GameManager.Event.AddListener(EventType.Run, this);             // 도망 이벤트 받기
     }
@@ -37,6 +38,7 @@ public class SelectState : BaseState
 
     public override void Exit()
     {
+        GameManager.Event.RemoveEvent(EventType.PlayerTurn);
         Debug.Log("선택완료");
     }
 }

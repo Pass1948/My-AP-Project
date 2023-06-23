@@ -48,7 +48,7 @@ public enum EventType
     Run,
 
     // 플레이어 생존
-    ChangedPlayerHP,
+    PlayerisLive,
     PlayerDied,
 
     // 적턴
@@ -62,11 +62,8 @@ public enum EventType
     EnemyAttack,
     EnemyAttackEnd,
 
-    // 적 도망
-    EnemyRun,
-
     // 적 생존
-    ChangedEnemyHP,
+    EnemyisLive,
     EnemyDied,
 
     // 승패
@@ -77,6 +74,8 @@ public enum EventType
     SelectAttack,
     SelectRun,
     SelectTarget,
+
+    // 
 };
 
 public class EventManager : MonoBehaviour

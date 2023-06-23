@@ -23,6 +23,7 @@ public class PlayerTurn : BaseState
     {
         if (eventType == EventType.PlayerTurnEnd)                           // PlayerState가 Idel상태일경우
         {
+            GameManager.Event.RemoveEvent(EventType.PlayerTurnEnd);
             bFSM.ChangeState(BattleState.EnemyTurn);  
         }
         if (eventType == EventType.EnemyDied)                               // 적이 죽었을경우
@@ -33,7 +34,6 @@ public class PlayerTurn : BaseState
 
     public override void Exit()
     {
-        GameManager.Event.RemoveEvent(EventType.EnemyTurnEnd);
         // 턴 넘기기
         Debug.Log("턴넘김");
     }

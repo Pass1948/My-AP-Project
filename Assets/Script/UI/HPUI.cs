@@ -11,7 +11,6 @@ public class HPUI : InGameUI, IEventListener
     {
         base.Awake();
         //player = GameManager.Resource.Load<PlayerController>("Player/Player");
-        GameManager.Event.AddListener(EventType.ChangedPlayerHP, this);
         slider = GetComponent<Slider>();
     }
     private void Start()
