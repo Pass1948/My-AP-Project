@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class IdelState : BaseState
+public class IdleState : BaseState
 {
-    public IdelState(PlayerFSM pFSM)
+    public IdleState(PlayerFSM pFSM)
     {
         this.pFSM = pFSM;
     }

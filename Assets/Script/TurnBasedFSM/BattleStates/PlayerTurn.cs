@@ -14,7 +14,9 @@ public class PlayerTurn : BaseState
         Debug.Log("플레이어 턴");
         GameManager.Event.AddListener(EventType.PlayerTurnEnd, this);           // 턴종료 받기
         GameManager.Event.AddListener(EventType.EnemyDied, this);
-        GameManager.Event.RemoveEvent(EventType.EnemyActionEnd);
+
+        GameManager.UI.ShowInGameUI<InGameUI>("UI/HPUI");
+        GameManager.UI.ShowInGameUI<InGameUI>("UI/SelectBoxUI");
     }
     public override void Update() { }
     public override void OnEvent(EventType eventType, Component Sender, object Param = null)
@@ -31,6 +33,7 @@ public class PlayerTurn : BaseState
 
     public override void Exit()
     {
+        GameManager.Event.RemoveEvent(EventType.EnemyTurnEnd);
         // 턴 넘기기
         Debug.Log("턴넘김");
     }

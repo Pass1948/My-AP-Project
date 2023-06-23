@@ -182,7 +182,7 @@ GameObject:
   - component: {fileID: 5682018195591739510}
   - component: {fileID: 2861164705361290111}
   m_Layer: 0
-  m_Name: Player
+  m_Name: BattlePlayer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -195,7 +195,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 359803051658223787}
-  m_LocalRotation: {x: 0.0075961305, y: 0.08682413, z: 0.08682413, w: 0.99240386}
+  m_LocalRotation: {x: 0.015134441, y: 0.085831694, z: 0.17298737, w: 0.98106027}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -207,7 +207,7 @@ Transform:
   - {fileID: 3687697757057929118}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 10, z: 10}
+  m_LocalEulerAnglesHint: {x: 0, y: 10, z: 20}
 --- !u!205 &563929191359756085
 LODGroup:
   m_ObjectHideFlags: 0

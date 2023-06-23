@@ -17,14 +17,13 @@ public class EnemyAttackState : BaseState
 
     public override void Exit()
     {
-        GameManager.Event.PostNotification(EventType.EnemyActionEnd, eFSM);
-        GameManager.Event.PostNotification(EventType.EnemyTurnEnd, eFSM);
+        GameManager.Event.PostNotification(EventType.EnemyStateEnd, eFSM);
     }
 
     public override void OnEvent(EventType eventType, Component Sender, object Param = null) 
     {
         if (eventType == EventType.ButtonActResult)
-            eFSM.ChangeState(EnemyTurnState.EnemyIdel);
+            eFSM.ChangeState(EnemyTurnState.EnemyIdle);
     }
 
 

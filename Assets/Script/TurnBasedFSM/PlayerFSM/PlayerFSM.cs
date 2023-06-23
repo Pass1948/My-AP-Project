@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 
 public enum PlayerTurnState
 {
-    Idel, Select, Attack, Run, Size
+    Idle, Select, Attack, Run, Size
 }
 public class PlayerFSM : MonoBehaviour
 {
@@ -18,7 +18,7 @@ public class PlayerFSM : MonoBehaviour
         states[(int)PlayerTurnState.Select] = new SelectState(this);
         states[(int)PlayerTurnState.Attack] = new AttackState(this);
         states[(int)PlayerTurnState.Run] = new RunState(this);
-        states[(int)PlayerTurnState.Idel] = new IdelState(this);
+        states[(int)PlayerTurnState.Idle] = new IdleState(this);
     }
 
     private void Start()

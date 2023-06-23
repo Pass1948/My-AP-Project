@@ -24,7 +24,7 @@ public class AttackState : BaseState
     {
         // QTE 결과를 받고 변경하게 구현
         if (eventType == EventType.ButtonActResult)
-        pFSM.ChangeState(PlayerTurnState.Idel);
+        pFSM.ChangeState(PlayerTurnState.Idle);
     }
 
 

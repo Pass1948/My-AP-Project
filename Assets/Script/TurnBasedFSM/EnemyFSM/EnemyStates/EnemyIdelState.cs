@@ -10,7 +10,6 @@ public class EnemyIdelState : BaseState
     }
     public override void Enter()
     {
-        GameManager.Event.RemoveEvent(EventType.ButtonActResult);
         GameManager.Event.AddListener(EventType.PlayerTurnEnd, this);
     }
 
@@ -26,6 +25,7 @@ public class EnemyIdelState : BaseState
 
     public override void Exit()
     {
+        GameManager.Event.RemoveEvent(EventType.ButtonActResult);
         GameManager.Event.RemoveEvent(EventType.PlayerTurnEnd);
         Debug.Log("적 움직임");
     }

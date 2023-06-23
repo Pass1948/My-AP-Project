@@ -9,6 +9,15 @@ using UnityEngine.SceneManagement;
 
 public enum EventType
 {
+    //조우시
+    EnemyMeeting,
+
+    //FSM
+    BattleIdel,
+    BattleStart,
+    AdventureIdel,
+    Adventuring,
+
     // 플레이어턴
     PlayerTurn,
     PlayerTurnEnd,
@@ -47,7 +56,7 @@ public enum EventType
     EnemyTurnEnd,
 
     //적 행동마침
-    EnemyActionEnd,
+    EnemyStateEnd,
 
     // 적 공격
     EnemyAttack,

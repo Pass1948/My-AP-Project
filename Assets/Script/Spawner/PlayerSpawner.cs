@@ -7,15 +7,14 @@ public class PlayerSpawner : MonoBehaviour
     GameObject player;
     GameObject spawnPoint;
 
-    private void Start()
+    private void Awake()
     {
-        Spawn();
+        spawnPoint = GameManager.Resource.Load<GameObject>("Player/Battle/PlayerSpawn");
+        player = GameManager.Resource.Load<GameObject>("Player/Battle/BattlePlayer");
     }
 
-    private void Spawn()
+    private void Start()
     {
-        spawnPoint = GameManager.Resource.Load<GameObject>("Player/PlayerSpawn");
-        player = GameManager.Resource.Load<GameObject>("Player/Player");
         GameManager.Resource.Instantiate(player, spawnPoint.transform.position, spawnPoint.transform.rotation);
     }
 }

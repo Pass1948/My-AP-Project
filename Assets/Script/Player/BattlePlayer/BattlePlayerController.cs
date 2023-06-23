@@ -2,25 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ActionManager : MonoBehaviour, IEventListener
+public class BattlePlayerController : MonoBehaviour, IEventListener
 {
-    protected GameObject spawnPoint;
-    protected GameObject AttackPosition;
+    private GameObject spawnPoint;
+    private GameObject AttackPosition;
 
+    private int damage;   
     private int hp;
-    private int damage;
-    private float Speed;
 
-    public bool dead = false;
+    private float Speed;
 
     private bool isSliding = false;
 
     private void Awake()
     {
-        AttackPosition = GameManager.Resource.Load<GameObject>("Player/PlayerAttackPoint");
-        spawnPoint = GameManager.Resource.Load<GameObject>("Player/PlayerSpawn");
-        GameManager.UI.ShowInGameUI<InGameUI>("UI/HPUI");
-        GameManager.UI.ShowInGameUI<InGameUI>("UI/SelectBoxUI");
+        AttackPosition = GameManager.Resource.Load<GameObject>("Player/Battle/PlayerAttackPoint");
+        spawnPoint = GameManager.Resource.Load<GameObject>("Player/Battle/PlayerSpawn");
         GameManager.Event.AddListener(EventType.SelectTarget, this);
     }
 
@@ -33,6 +30,7 @@ public class ActionManager : MonoBehaviour, IEventListener
             StartCoroutine(MovingRoutine());
         }
     }
+
     public void SetDamage(int damage)       // 무기 혹은 아이템을 사용할경우 상승효과를 구현해야함
     {
         this.damage = damage;
