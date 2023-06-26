@@ -11,17 +11,30 @@ public class AdventurePlayer : MonoBehaviour
     [SerializeField] float walkSpeed;
     [SerializeField] float jumpPower;
 
+    private CharacterController controller;
     private Animator animator;
     private Vector3 moveDir;
-    private Rigidbody rb;
     private float moveSpeed;
-    private bool isWalking;
+    private float ySpeed = 0;
     private float curSpeed;
+    private bool isWalking;
 
     private void Awake()
     {
-        rb = GetComponent<Rigidbody>();
+        controller = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
+    }
+
+    private void OnEnable()
+    {
+        moveRoutine = StartCoroutine(MoveRoutine());
+        jumpRoutine = StartCoroutine(JumpRoutine());
+    }
+
+    private void OnDisable()
+    {
+        StopCoroutine(moveRoutine);
+        StopCoroutine(jumpRoutine);
     }
 
     private void Update()
@@ -31,8 +44,43 @@ public class AdventurePlayer : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Move();
-        GroundCheck();
+        //Move();
+        //GroundCheck();
+    }
+
+    Coroutine moveRoutine;
+    private IEnumerator MoveRoutine()
+    {
+        while (true)
+        {
+            if (moveDir.sqrMagnitude <= 0)
+            {
+                curSpeed = Mathf.Lerp(curSpeed, 0, 0.1f);
+                //animator.SetFloat("MoveSpeed", curSpeed);
+                yield return null;
+                continue;
+            }
+
+            Vector3 fowardVec = new Vector3(Camera.main.transform.forward.x, 0f, Camera.main.transform.forward.z).normalized;
+            Vector3 rightVec = new Vector3(Camera.main.transform.right.x, 0f, Camera.main.transform.right.z).normalized;
+
+            if (isWalking)
+            {
+                curSpeed = Mathf.Lerp(curSpeed, walkSpeed, 0.1f);
+            }
+            else
+            {
+                curSpeed = Mathf.Lerp(curSpeed, runSpeed, 0.1f);
+            }
+
+            controller.Move(fowardVec * moveDir.z * curSpeed * Time.deltaTime);
+            controller.Move(rightVec * moveDir.x * curSpeed * Time.deltaTime);
+            //animator.SetFloat("MoveSpeed", curSpeed);
+
+            Quaternion lookRotation = Quaternion.LookRotation(fowardVec * moveDir.z + rightVec * moveDir.x);
+            transform.rotation = Quaternion.Lerp(transform.rotation, lookRotation, 0.2f);
+
+        }
     }
 
     void Move()
@@ -55,15 +103,15 @@ public class AdventurePlayer : MonoBehaviour
             moveSpeed = Mathf.Lerp(moveSpeed, runSpeed, 0.5f);
         }
 
+        Vector3 vecFor = new Vector3(Camera.main.transform.forward.x, 0, Camera.main.transform.forward.z).normalized;
+        Vector3 vecRig = new Vector3(Camera.main.transform.right.x, 0, Camera.main.transform.right.z).normalized;
 
-        Vector3 vecFor = new Vector3(transform.forward.x, 0, transform.forward.z).normalized;
-        Vector3 vecRig = new Vector3(transform.right.x, 0,transform.right.z).normalized;
+        controller.Move(vecFor * moveDir.z * curSpeed * Time.deltaTime);
+        controller.Move(vecRig * moveDir.x * curSpeed * Time.deltaTime);
+        animator.SetFloat("MoveSpeed", curSpeed);
 
-        transform.Translate(vecFor * moveDir.z* moveSpeed * Time.deltaTime, Space.Self);
-        transform.Translate(vecRig * moveDir.x * moveSpeed * Time.deltaTime, Space.Self);
-
-        Quaternion lookRotation = Quaternion.LookRotation(vecFor * moveDir.z + vecFor * moveDir.x);
-        transform.rotation = Quaternion.Lerp(transform.rotation, lookRotation, 0.1f);
+        Quaternion lookRotation = Quaternion.LookRotation(vecFor * moveDir.z + vecRig * moveDir.x);
+        transform.rotation = Quaternion.Lerp(lookRotation, transform.rotation, 0.1f);
 
 
         //animator.SetFloat("XSpeed", moveDir.x, 0.1f, Time.deltaTime);
@@ -82,16 +130,30 @@ public class AdventurePlayer : MonoBehaviour
         isWalking = value.isPressed;
     }
 
+    Coroutine jumpRoutine;
+    private IEnumerator JumpRoutine()
+    {
+        while (true)
+        {
+            ySpeed += Physics.gravity.y * Time.deltaTime;
+
+            if (GroundCheck() && ySpeed < 0)
+                ySpeed = -1;
+
+            controller.Move(Vector3.up * ySpeed * Time.deltaTime);
+            yield return null;
+        }
+    }
     void Jump()
     {
-        rb.AddForce(Vector3.up * jumpPower, ForceMode.Impulse);
+        //rb.AddForce(Vector3.up * jumpPower, ForceMode.Impulse);
     }
 
     void OnJump(InputValue value)
     {
 
         if (GroundCheck())
-            Jump();
+            ySpeed = jumpPower; 
     }
 
     private bool GroundCheck()
