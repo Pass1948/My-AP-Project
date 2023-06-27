@@ -22,7 +22,7 @@ public class NomalEnemyFSM_AD : MonoBehaviour
 
     private void Start()
     {
-        curState = NomalEnemyState_AD.Idle;
+        curState = NomalEnemyState_AD.Patrol;
         states[(int)curState].Enter();
     }
 
