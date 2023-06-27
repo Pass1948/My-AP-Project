@@ -8,7 +8,7 @@ public enum PlayerTurnState
 {
     Idle, Select, Attack, Run, Size
 }
-public class PlayerFSM : MonoBehaviour
+public class PlayerFSM_BT : MonoBehaviour
 {
     private BaseState[] states;
     public PlayerTurnState curState;
@@ -18,7 +18,7 @@ public class PlayerFSM : MonoBehaviour
         states[(int)PlayerTurnState.Select] = new SelectState(this);
         states[(int)PlayerTurnState.Attack] = new AttackState(this);
         states[(int)PlayerTurnState.Run] = new RunState(this);
-        states[(int)PlayerTurnState.Idle] = new IdleState(this);
+        states[(int)PlayerTurnState.Idle] = new IdleState_BT(this);
     }
 
     private void Start()

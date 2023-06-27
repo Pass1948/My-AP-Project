@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class AttackState : BaseState
 {
-    public AttackState(PlayerFSM pFSM)
+    public AttackState(PlayerFSM_BT pFSM)
     {
-        this.pFSM = pFSM;
+        this.pFSM_BT = pFSM;
     }
     public override void Enter()
     {
@@ -24,7 +24,7 @@ public class AttackState : BaseState
     public override void OnEvent(EventType eventType, Component Sender, object Param = null) 
     {
         if (eventType == EventType.ButtonActResult)
-        pFSM.ChangeState(PlayerTurnState.Idle);
+        pFSM_BT.ChangeState(PlayerTurnState.Idle);
     }
 
 

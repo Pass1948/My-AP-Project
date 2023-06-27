@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class RunState : BaseState
 {
-    public RunState(PlayerFSM pFSM)
+    public RunState(PlayerFSM_BT pFSM)
     {
-        this.pFSM = pFSM;
+        this.pFSM_BT = pFSM;
     }
     public override void Enter()
     {

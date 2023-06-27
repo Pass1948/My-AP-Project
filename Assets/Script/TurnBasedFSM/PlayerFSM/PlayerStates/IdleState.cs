@@ -3,17 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class IdleState : BaseState
+public class IdleState_BT : BaseState
 {
-    public IdleState(PlayerFSM pFSM)
+    public IdleState_BT(PlayerFSM_BT pFSM)
     {
-        this.pFSM = pFSM;
+        this.pFSM_BT = pFSM;
     }
     public override void Enter()
     {
         Debug.Log("대기상태");
-        GameManager.Event.PostNotification(EventType.PlayerTurnEnd, pFSM);
-        GameManager.Event.PostNotification(EventType.PlayerActionEnd, pFSM);
+        GameManager.Event.PostNotification(EventType.PlayerTurnEnd, pFSM_BT);
+        GameManager.Event.PostNotification(EventType.PlayerActionEnd, pFSM_BT);
         GameManager.Event.AddListener(EventType.EnemyDied, this);
         GameManager.Event.AddListener(EventType.EnemyisLive, this);
     }
@@ -26,7 +26,7 @@ public class IdleState : BaseState
         }
         if (eventType == EventType.EnemyisLive)
         {
-            pFSM.ChangeState(PlayerTurnState.Select);
+            pFSM_BT.ChangeState(PlayerTurnState.Select);
         }
     }
 

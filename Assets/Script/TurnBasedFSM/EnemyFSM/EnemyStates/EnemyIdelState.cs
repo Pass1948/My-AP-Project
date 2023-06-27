@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class EnemyIdelState : BaseState
 {
-    public EnemyIdelState(EnemyFSM eFSM)
+    public EnemyIdelState(NomalEnemyFSM_BT eFSM)
     {
-        this.eFSM = eFSM;
+        this.neFSM_BT = eFSM;
     }
     public override void Enter()
     {
@@ -20,7 +20,7 @@ public class EnemyIdelState : BaseState
     {
         if (eventType == EventType.PlayerActionEnd)
         {
-            eFSM.ChangeState(EnemyTurnState.EnemyAttack);
+            neFSM_BT.ChangeState(NomalEnemyTurnState_BT.EnemyAttack);
         }
     }
 

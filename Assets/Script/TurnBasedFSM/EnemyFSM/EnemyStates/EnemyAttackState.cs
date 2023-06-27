@@ -5,9 +5,9 @@ using UnityEngine;
 
 public class EnemyAttackState : BaseState, IEventListener
 {
-    public EnemyAttackState(EnemyFSM pFSM)
+    public EnemyAttackState(NomalEnemyFSM_BT pFSM)
     {
-        this.eFSM = pFSM;
+        this.neFSM_BT = pFSM;
     }
     public override void Enter()
     {
@@ -21,7 +21,7 @@ public class EnemyAttackState : BaseState, IEventListener
     {
         Debug.Log("적 공격종료");
         GameManager.Event.RemoveEvent(EventType.PlayerisLive);
-        GameManager.Event.PostNotification(EventType.EnemyTurnEnd, eFSM);
+        GameManager.Event.PostNotification(EventType.EnemyTurnEnd, neFSM_BT);
     }
 
     public override void OnEvent(EventType eventType, Component Sender, object Param = null) 
@@ -29,7 +29,7 @@ public class EnemyAttackState : BaseState, IEventListener
         if (eventType == EventType.PlayerDied)
             return;
         if (eventType == EventType.PlayerisLive)
-            eFSM.ChangeState(EnemyTurnState.EnemyIdle);
+            neFSM_BT.ChangeState(NomalEnemyTurnState_BT.EnemyIdle);
     }
 
 

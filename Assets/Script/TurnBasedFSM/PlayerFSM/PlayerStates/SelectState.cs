@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class SelectState : BaseState
 {
-    public SelectState(PlayerFSM pFSM)
+    public SelectState(PlayerFSM_BT pFSM)
     {
-        this.pFSM = pFSM;
+        this.pFSM_BT = pFSM;
     }
     public override void Enter()
     {
-        GameManager.Event.PostNotification(EventType.PlayerTurn, pFSM);
+        GameManager.Event.PostNotification(EventType.PlayerTurn, pFSM_BT);
         GameManager.Event.AddListener(EventType.Attack, this);          // 공격 이벤트 받기
         GameManager.Event.AddListener(EventType.Run, this);             // 도망 이벤트 받기
     }
@@ -25,14 +25,14 @@ public class SelectState : BaseState
         {
             Debug.Log("공격이벤트발생");
             GameManager.Event.RemoveEvent(EventType.Attack);
-            pFSM.ChangeState(PlayerTurnState.Attack);                   // 공격 상태로 변경
+            pFSM_BT.ChangeState(PlayerTurnState.Attack);                   // 공격 상태로 변경
         }
 
         // 선택지 도망 선택시
         if (eventType == EventType.Run)                                 
         {
             GameManager.Event.RemoveEvent(EventType.Run);
-            pFSM.ChangeState(PlayerTurnState.Run);                      // 도망 상태로 변경
+            pFSM_BT.ChangeState(PlayerTurnState.Run);                      // 도망 상태로 변경
         }
     }
 

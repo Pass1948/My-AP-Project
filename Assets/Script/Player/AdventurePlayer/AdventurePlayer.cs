@@ -20,7 +20,6 @@ public class AdventurePlayer : MonoBehaviour
     private float curSpeed;
     
     private bool isRun = false;
-    private bool isJump = false;
 
     private void Awake()
     {

@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class EnemyRunState : BaseState
 {
-        public EnemyRunState(EnemyFSM eFSM)
+        public EnemyRunState(NomalEnemyFSM_BT eFSM)
         {
-            this.eFSM = eFSM;
+            this.neFSM_BT = eFSM;
         }
         public override void Enter()
         {

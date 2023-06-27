@@ -75,7 +75,10 @@ public enum EventType
     SelectRun,
     SelectTarget,
 
-    // 
+    //====(어드벤처)=======
+    // 추적관련
+    FoundTarget,
+    Chasing,
 };
 
 public class EventManager : MonoBehaviour
