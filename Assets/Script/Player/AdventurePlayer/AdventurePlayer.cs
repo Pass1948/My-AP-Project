@@ -13,10 +13,14 @@ public class AdventurePlayer : MonoBehaviour
 
     private CharacterController controller;
     private Animator animator;
+
     private Vector3 moveDir;
+
     private float ySpeed = 0;
     private float curSpeed;
+    
     private bool isRun = false;
+    private bool isJump = false;
 
     private void Awake()
     {
@@ -26,11 +30,11 @@ public class AdventurePlayer : MonoBehaviour
     private void Update()
     {
         Fall();
-        Move();
     }
 
     private void FixedUpdate()
     {
+        Move();
         GroundCheck();
     }
 
@@ -39,19 +43,19 @@ public class AdventurePlayer : MonoBehaviour
         // Mathf.Lerp() 애니메이션에 부드러운 전환을 넣기위한 정밀작업
         if (moveDir.magnitude == 0)
         {
-            curSpeed = Mathf.Lerp(curSpeed, 0, 0.5f);
+            curSpeed = Mathf.Lerp(curSpeed, 0, 0.3f);
             animator.SetFloat("MoveSpeed", curSpeed);
             isRun = false;
             return;
         }
         else if (isRun)
         {
-            curSpeed = runSpeed;
+            curSpeed = Mathf.Lerp(curSpeed, runSpeed, 1f);
             animator.SetBool("IsRun", true);
         }
         else
         {
-            curSpeed = walkSpeed;
+            curSpeed = Mathf.Lerp(curSpeed, walkSpeed, 0.1f);
             animator.SetBool("IsRun", false);
         }
 
@@ -69,7 +73,7 @@ public class AdventurePlayer : MonoBehaviour
 
     private void OnRun(InputValue value)
     {
-            isRun = value.isPressed;
+       isRun = true;
     }
 
     void OnMove(InputValue value)
@@ -92,13 +96,16 @@ public class AdventurePlayer : MonoBehaviour
 
     private void Jump()
     {
+        animator.SetTrigger("IsJump");
         ySpeed = jumpPower;
     }
 
     private void OnJump(InputValue value)
     {
         if (GroundCheck())
-        Jump();
+        {
+            Jump();
+        }
     }
 
     private bool GroundCheck()
