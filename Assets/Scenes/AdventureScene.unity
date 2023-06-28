@@ -848,7 +848,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 807944780}
-  m_LocalRotation: {x: 0.28155822, y: 1e-45, z: -0, w: 0.9595442}
+  m_LocalRotation: {x: 0.28155822, y: -3e-45, z: 1e-45, w: 0.9595442}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1119,14 +1119,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dbb33ae23ec7ca40aa149a78dc29a17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  patrol: {fileID: 7706026249066707695}
   range: 3
-  angle: 50
-  targetMask:
-    serializedVersion: 2
-    m_Bits: 8
-  obstacleMask:
-    serializedVersion: 2
-    m_Bits: 1
+  angle: 40
 --- !u!1 &1660531730
 GameObject:
   m_ObjectHideFlags: 0
@@ -59640,7 +59635,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7706026249066707692}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 0, y: -0.952, z: 3.288292}
+  m_LocalPosition: {x: -1.23, y: -0.952, z: 3.288292}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -60152,7 +60147,6 @@ GameObject:
   - component: {fileID: 7363429208853847928}
   - component: {fileID: 7706026249066707693}
   - component: {fileID: 7706026249066707696}
-  - component: {fileID: 7706026249066707694}
   - component: {fileID: 7706026249066707695}
   m_Layer: 6
   m_Name: AdventureEnemy
@@ -60175,28 +60169,6 @@ CapsuleCollider:
   m_Height: 1.6191608
   m_Direction: 1
   m_Center: {x: -0, y: 0.8095804, z: 0}
---- !u!114 &7706026249066707694
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7706026249066707692}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa2142ce86e8fbd479c66dbe348d07a3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  range: 0
-  angle: 0
-  targetMask:
-    serializedVersion: 2
-    m_Bits: 0
-  obstacleMask:
-    serializedVersion: 2
-    m_Bits: 0
-  wayPoints: []
-  curState: 0
 --- !u!114 &7706026249066707695
 MonoBehaviour:
   m_ObjectHideFlags: 0

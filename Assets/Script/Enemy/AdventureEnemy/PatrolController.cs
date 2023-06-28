@@ -5,7 +5,6 @@ using UnityEngine.AI;
 
 public class PatrolController : MonoBehaviour
 {
-
     [SerializeField] Transform[] wayPoints = null;
 
     private NavMeshAgent agent;

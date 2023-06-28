@@ -1,20 +1,27 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class FieldOfView : MonoBehaviour
 {
+    public PatrolController patrol;
+
     [SerializeField] float range;
     [SerializeField, Range(0f, 360f)] float angle;
-    [SerializeField] LayerMask targetMask;
-    [SerializeField] LayerMask obstacleMask;
+
+    private LayerMask targetMask;
+    private LayerMask obstacleMask;
 
     private float cosResult;
 
     private void Awake()
     {
         cosResult = Mathf.Cos(angle * 0.5f * Mathf.Deg2Rad);
+        targetMask = 1 << LayerMask.NameToLayer("Player");
+        obstacleMask = 1 << LayerMask.NameToLayer("Defaullt");
     }
+   
     private void Update()
     {
         FindTarget();
@@ -28,8 +35,18 @@ public class FieldOfView : MonoBehaviour
         {
             // 2. 각도 안에 있는지
             Vector3 dirTarget = (collider.transform.position - transform.position).normalized;
+            Debug.Log($"Dot P{Vector3.Dot(transform.forward, dirTarget)}");
+            Debug.Log(cosResult); 
             if (Vector3.Dot(transform.forward, dirTarget) < cosResult)      // .Dot = 내적계산 명령어
-                continue;
+            {
+                patrol.RemoveTarget();
+            }
+            else
+            {
+                patrol.SetTarget(collider.transform);
+                patrol.Chase();
+            }
+                
 
             // 3. 중간에 장애물 확인
             float distToTarget = Vector3.Distance(transform.position, collider.transform.position);
@@ -40,13 +57,14 @@ public class FieldOfView : MonoBehaviour
         }
     }
 
-    private void OnDrawGizmosSelected()
+    private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, range);
 
         Vector3 rightDir = AngleToDir(transform.eulerAngles.y + angle * 0.5f);
         Vector3 leftDir = AngleToDir(transform.eulerAngles.y - angle * 0.5f);
+
         Debug.DrawRay(transform.position, rightDir * range, Color.yellow);
         Debug.DrawRay(transform.position, leftDir * range, Color.yellow);
     }

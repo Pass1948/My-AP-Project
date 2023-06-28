@@ -12,8 +12,6 @@ public abstract class BaseState : IEventListener
 
     protected AdventureFSM aFSM;
 
-    protected NomalEnemyFSM_AD neFSM_AD;
-
     public abstract void Enter();              // 상태 시작 
     public abstract void Update();             // 즉시 행동용
     public abstract void OnEvent(EventType eventType, Component Sender, object Param = null);       // 상태 행동
