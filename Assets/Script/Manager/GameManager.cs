@@ -5,6 +5,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     private static GameManager instance;
+    //=====================================
     private static PoolManager poolManager;
     private static ResourceManager resourceManager;
     private static UIManager uiManager;
@@ -12,9 +13,10 @@ public class GameManager : MonoBehaviour
     private static EventManager eventManager;
     private static QTEsystemManager qTEsystemManager;
     private static ShoundManager shoundManager;
-    private static StatusManager statusManager;
+    private static SceneManager sceneManager;
 
     public static GameManager Instance { get { return instance; } }
+    //==============================================================
     public static PoolManager Pool { get { return poolManager; } }
     public static ResourceManager Resource { get { return resourceManager; } }
     public static UIManager UI { get { return uiManager; } }
@@ -22,7 +24,7 @@ public class GameManager : MonoBehaviour
     public static EventManager Event { get { return eventManager; } }
     public static QTEsystemManager QTE { get { return qTEsystemManager; } }
     public static ShoundManager Shound { get { return shoundManager; } }
-    public static StatusManager Status { get { return statusManager; } }
+    public static SceneManager Scene { get { return sceneManager; } }
 
     private void Awake()
     {
@@ -80,9 +82,9 @@ public class GameManager : MonoBehaviour
         shoundObj.transform.parent = transform;
         shoundManager = shoundObj.AddComponent<ShoundManager>();
 
-        GameObject statusObj = new GameObject();
-        statusObj.name = "ActionManager";
-        statusObj.transform.parent = transform;
-        statusManager = statusObj.AddComponent<StatusManager>();
+        GameObject sceneObj = new GameObject();
+        sceneObj.name = "ShoundManager";
+        sceneObj.transform.parent = transform;
+        sceneManager = sceneObj.AddComponent<SceneManager>();
     }
 }

@@ -17,7 +17,6 @@ public BattleState curState;
 private void Awake()
     {
         states = new BaseState[(int)BattleState.Size];
-        states[(int)BattleState.Idle]        = new BattleIdleState(this);
         states[(int)BattleState.Start]       = new BattleStartState(this);
         states[(int)BattleState.PlayerTurn]  = new PlayerTurn(this);
         states[(int)BattleState.EnemyTurn]   = new EnemyTurn(this);
@@ -27,7 +26,7 @@ private void Awake()
     
     private void Start()
     {
-        curState = BattleState.Idle;              // 전투 시작 알림
+        curState = BattleState.Start;              // 전투 시작 알림
         states[(int)curState].Enter();
     }
     

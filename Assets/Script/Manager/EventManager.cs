@@ -88,11 +88,11 @@ public class EventManager : MonoBehaviour
 
     private void OnEnable()
     {
-        SceneManager.sceneLoaded += SceneManagerSceneLoaded;
+        UnityEngine.SceneManagement.SceneManager.sceneLoaded += SceneManagerSceneLoaded;
     }
     private void OnDisable()
     {
-        SceneManager.sceneLoaded -= SceneManagerSceneLoaded;
+        UnityEngine.SceneManagement.SceneManager.sceneLoaded -= SceneManagerSceneLoaded;
     }
     private void SceneManagerSceneLoaded(Scene arg0, LoadSceneMode arg1)
     {

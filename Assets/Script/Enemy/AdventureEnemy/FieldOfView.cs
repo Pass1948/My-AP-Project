@@ -35,8 +35,6 @@ public class FieldOfView : MonoBehaviour
         {
             // 2. 각도 안에 있는지
             Vector3 dirTarget = (collider.transform.position - transform.position).normalized;
-            Debug.Log($"Dot P{Vector3.Dot(transform.forward, dirTarget)}");
-            Debug.Log(cosResult); 
             if (Vector3.Dot(transform.forward, dirTarget) < cosResult)      // .Dot = 내적계산 명령어
             {
                 patrol.RemoveTarget();
