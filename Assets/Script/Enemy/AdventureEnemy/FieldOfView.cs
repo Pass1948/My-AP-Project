@@ -39,6 +39,7 @@ public class FieldOfView : MonoBehaviour
             Debug.DrawRay(transform.position, dirTarget * distToTarget, Color.red);
         }
     }
+
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;

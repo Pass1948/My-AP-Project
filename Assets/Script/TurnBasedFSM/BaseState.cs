@@ -11,6 +11,7 @@ public abstract class BaseState : IEventListener
     protected NomalEnemyFSM_BT neFSM_BT;
 
     protected AdventureFSM aFSM;
+
     protected NomalEnemyFSM_AD neFSM_AD;
 
     public abstract void Enter();              // 상태 시작 
