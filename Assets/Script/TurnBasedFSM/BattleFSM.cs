@@ -7,7 +7,7 @@ using static PlayerTurn;
 
 public enum BattleState
 {
- Idle,Start, PlayerTurn, EnemyTurn, Win, Loss, Size
+ Start, PlayerTurn, EnemyTurn, Win, Loss, Size
 }
 
 public class BattleFSM : MonoBehaviour

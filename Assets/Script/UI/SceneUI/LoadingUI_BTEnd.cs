@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class LoadingUI : MonoBehaviour
+public class LoadingUI_BTEnd : MonoBehaviour
 {
-    [SerializeField] Slider slider;
     private Animator anim;
 
     private void Awake()
@@ -21,10 +20,5 @@ public class LoadingUI : MonoBehaviour
     public void FadeOut()
     {
         anim.SetBool("Active", false);
-    }
-
-    public void SetProgress(float progress)
-    {
-        slider.value = progress;
     }
 }

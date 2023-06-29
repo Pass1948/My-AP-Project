@@ -83,7 +83,7 @@ public class GameManager : MonoBehaviour
         shoundManager = shoundObj.AddComponent<ShoundManager>();
 
         GameObject sceneObj = new GameObject();
-        sceneObj.name = "ShoundManager";
+        sceneObj.name = "SceneManager";
         sceneObj.transform.parent = transform;
         sceneManager = sceneObj.AddComponent<SceneManager>();
     }

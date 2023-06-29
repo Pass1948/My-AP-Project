@@ -12,8 +12,6 @@ public class IdleState_BT : BaseState
     public override void Enter()
     {
         Debug.Log("대기상태");
-        GameManager.Event.PostNotification(EventType.PlayerTurnEnd, pFSM_BT);
-        GameManager.Event.PostNotification(EventType.PlayerActionEnd, pFSM_BT);
         GameManager.Event.AddListener(EventType.EnemyDied, this);
         GameManager.Event.AddListener(EventType.EnemyisLive, this);
     }
@@ -36,6 +34,8 @@ public class IdleState_BT : BaseState
         Debug.Log("상대턴 종료");
     }
 
-
-    public override void Update() { }
+    public override void Update()
+    {
+        pFSM_BT.PlayerIdel();
+    }
 }

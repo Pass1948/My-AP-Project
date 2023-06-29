@@ -5,7 +5,8 @@ using UnitySceneManager = UnityEngine.SceneManagement.SceneManager;
 
 public class SceneManager : MonoBehaviour
 {
-    private LoadingUI loadUI;
+    private LoadingUI_BTStart loadUI_BT;
+    private LoadingUI_BTEnd loadUI_AD;
     private BaseScene curScene;
 
     public BaseScene CurScene
@@ -21,39 +22,69 @@ public class SceneManager : MonoBehaviour
 
     private void Awake()
     {
-        LoadingUI ui = Resources.Load<LoadingUI>("UI/LoadingUI");
-        loadUI = Instantiate(ui);
-        loadUI.transform.SetParent(transform);
+        LoadingUI_BTStart uiStart = Resources.Load<LoadingUI_BTStart>("UI/LoadingUI/LoadingUI_BTStart");
+        loadUI_BT = Instantiate(uiStart);
+        loadUI_BT.transform.SetParent(transform);
+
+        LoadingUI_BTEnd uiEnd = Resources.Load<LoadingUI_BTEnd>("UI/LoadingUI/LoadingUI_BTEnd");
+        loadUI_AD = Instantiate(uiEnd);
+        loadUI_AD.transform.SetParent(transform);
     }
 
-    public void LoadScene(string sceneName)
+    public void BTLoadScene(string sceneName)
     {
-        StartCoroutine(LoadingRoutine(sceneName));
+        StartCoroutine(LoadingRoutine_BD(sceneName));
     }
 
-    IEnumerator LoadingRoutine(string sceneName)
+    public void ADLoadScene(string sceneName)
     {
-        loadUI.FadeOut();
-        yield return new WaitForSecondsRealtime(0.5f);
+        StartCoroutine(LoadingRoutine_AD(sceneName));
+    }
+
+    IEnumerator LoadingRoutine_BD(string sceneName)
+    {
         Time.timeScale = 0f;
+        loadUI_BT.BattleActive();
+        yield return new WaitForSecondsRealtime(4f);
+
+        yield return new WaitForSecondsRealtime(0.5f);
         AsyncOperation oper = UnitySceneManager.LoadSceneAsync(sceneName);
 
         while (!oper.isDone)
         {
-            loadUI.SetProgress(Mathf.Lerp(0f, 0.5f, oper.progress));
             yield return null;
         }
-
         CurScene.LoadAsync();
         while (CurScene.progress < 1f)
         {
-            loadUI.SetProgress(Mathf.Lerp(0.5f, 1.0f, CurScene.progress));
+            yield return null;
+        }
+        Time.timeScale = 1f;
+        loadUI_BT.BattleActiveEnd();
+        yield return new WaitForSecondsRealtime(1f);
+    }
+
+    IEnumerator LoadingRoutine_AD(string sceneName)
+    {
+        loadUI_AD.FadeIn();
+        yield return new WaitForSecondsRealtime(0.5f);
+
+        Time.timeScale = 0f;
+        AsyncOperation oper = UnitySceneManager.LoadSceneAsync(sceneName);
+        yield return new WaitForSecondsRealtime(0.5f);
+
+        while (!oper.isDone)
+        {
+            yield return null;
+        }
+        CurScene.LoadAsync();
+        while (CurScene.progress < 1f)
+        {
             yield return null;
         }
 
-
         Time.timeScale = 1f;
-        loadUI.FadeIn();
+        loadUI_AD.FadeOut();
         yield return new WaitForSecondsRealtime(0.5f);
     }
 }

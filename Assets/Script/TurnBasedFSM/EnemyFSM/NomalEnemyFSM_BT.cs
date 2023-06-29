@@ -4,7 +4,7 @@ using UnityEngine;
 
 public enum NomalEnemyTurnState_BT
 {
-    EnemyIdle, EnemyAttack, EnemyRun, size
+    EnemyIdle, EnemyAttack, EnemyRun,EnemyDead, size
 }
 public class NomalEnemyFSM_BT : MonoBehaviour
 {
@@ -16,6 +16,8 @@ public class NomalEnemyFSM_BT : MonoBehaviour
             states[(int)NomalEnemyTurnState_BT.EnemyIdle] = new EnemyIdelState(this);
             states[(int)NomalEnemyTurnState_BT.EnemyAttack] = new EnemyAttackState(this);
             states[(int)NomalEnemyTurnState_BT.EnemyRun] = new EnemyRunState(this);
+            states[(int)NomalEnemyTurnState_BT.EnemyDead] = new EnemyDeadState(this);
+
         }
 
         private void Start()

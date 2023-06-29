@@ -2,21 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BattleStartState : BaseState
+public class EnemyDeadState : BaseState
 {
-    public BattleStartState(BattleFSM bFSM)
+    public EnemyDeadState(NomalEnemyFSM_BT eFSM)
     {
-        this.bFSM = bFSM;
+        this.neFSM_BT = eFSM;
     }
-
     public override void Enter()
     {
-        // 시작 준비 애니메이션등 효과 넣기
-    }
-
-    public override void Update() 
-    {
-        bFSM.ChangeState(BattleState.PlayerTurn);
+        b
     }
 
     public override void Exit()
@@ -26,6 +20,11 @@ public class BattleStartState : BaseState
 
     public override void OnEvent(EventType eventType, Component Sender, object Param = null)
     {
+        
+    }
 
+    public override void Update()
+    {
+        
     }
 }

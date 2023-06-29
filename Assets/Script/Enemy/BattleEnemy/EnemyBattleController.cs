@@ -12,7 +12,6 @@ public class EnemyBattleController : MonoBehaviour, IEventListener
 
     private int damage = 2;
     private int hp = 5;
-    private int curHP;
 
     private float Speed = 5f;
 
@@ -20,11 +19,10 @@ public class EnemyBattleController : MonoBehaviour, IEventListener
 
     private void Awake()
     {
-        curHP = hp;
         AttackPosition = GameManager.Resource.Load<GameObject>("Enemy/EnemyAttackPoint");
         spawnPoint = GameManager.Resource.Load<GameObject>("Enemy/EnemySpawn");
         player = GameManager.Resource.Load<BattlePlayerController>("Player/Battle/BattlePlayer");
-        GameManager.Event.AddListener(EventType.SelectTarget, this);
+        GameManager.Event.AddListener(EventType.EnemyAttack, this);
         GameManager.Event.AddListener(EventType.PressButton, this);
         GameManager.Event.AddListener(EventType.PressFail, this);
     }
@@ -48,16 +46,21 @@ public class EnemyBattleController : MonoBehaviour, IEventListener
     {
         Debug.Log("너 공격된거야");
         SetDamage(damage);
-        // player.TakeHit(damage);
+        player.TakeHit(damage);
     }
 
     public void TakeHit(int damage)
     {
-        curHP -= damage;
-        GameManager.Event.PostNotification(EventType.EnemyisLive, this);
-        if (curHP <= 0)
+        hp -= damage;
+        if (hp > 0)
         {
-            GameManager.Event.PostNotification(EventType.PlayerDied, this);
+            Debug.Log("살았지롱~!?");
+            GameManager.Event.PostNotification(EventType.EnemyisLive, this);
+        }
+        if (hp <= 0)
+        {
+            Debug.Log("적이 죽었습니다");
+            GameManager.Event.PostNotification(EventType.EnemyDied, this);
         }
     }
 
@@ -88,10 +91,10 @@ public class EnemyBattleController : MonoBehaviour, IEventListener
 
     public void OnEvent(EventType eventType, Component Sender, object Param = null)
     {
-        if (eventType == EventType.SelectTarget)
+        if (eventType == EventType.EnemyAttack)
         {
             isSliding = true;
-            GameManager.Event.RemoveEvent(EventType.SelectTarget);
+            GameManager.Event.RemoveEvent(EventType.EnemyAttack);
         }
         if (eventType == EventType.PressButton)
         {
@@ -101,9 +104,8 @@ public class EnemyBattleController : MonoBehaviour, IEventListener
         }
         if (eventType == EventType.PressFail)
         {
-            Attack();
             GameManager.Event.RemoveEvent(EventType.PressFail);
-            GameManager.QTE.Attack();
+            return;
         }
     }
         IEnumerator MovingRoutine()

@@ -9,76 +9,48 @@ using UnityEngine.SceneManagement;
 
 public enum EventType
 {
-    //조우시
-    EnemyMeeting,
-
-    //FSM
-    BattleIdel,
-    BattleStart,
-    AdventureIdel,
-    Adventuring,
-
-    // 플레이어턴
+    // 1. FSM
+    //  a.플레이어턴
     PlayerTurn,
     PlayerTurnEnd,
 
-    //플레이어 선택마침
-    PlayerActionEnd,
-
-    //====플레이어 버튼액션====
-    // 플레이어 공격
+    // b. PlayerState
     Attack,
-    AttackSuccess,
+    PlayerActionEnd,
+    Run,
+
+    // c. EnemyState
+    EnemyAttack,
+    EnemyTurnEnd,
+
+    //========버튼액션========
     AttackMiss,
-
-    // 플레이어 회피(적턴일경우)
-    AvoidanceSuccess,
-    AvoidanceMiss,
-
-    // 버튼누름
-    PressButton,
 
     // 버튼 액션 전용
     ButtonActResult,
     PressFail,
 
+    // 버튼누름(PlayerButtonActUI)
+    PressButton,
+
     //=======================
 
-    // 플레이어 도망
-    Run,
+    // SelectBoxUI
+    SelectAttack,
+    SelectRun,
+    SelectTarget,
 
     // 플레이어 생존
     PlayerisLive,
     PlayerDied,
 
-    // 적턴
-    EnemyTurn,
-    EnemyTurnEnd,
-
-    //적 행동마침
-    EnemyStateEnd,
-
-    // 적 공격
-    EnemyAttack,
-    EnemyAttackEnd,
-
     // 적 생존
     EnemyisLive,
     EnemyDied,
 
-    // 승패
+    //승패
     Win,
     Loss,
-
-    // 선택지UI용
-    SelectAttack,
-    SelectRun,
-    SelectTarget,
-
-    //====(어드벤처)=======
-    // 추적관련
-    FoundTarget,
-    Chasing,
 };
 
 public class EventManager : MonoBehaviour

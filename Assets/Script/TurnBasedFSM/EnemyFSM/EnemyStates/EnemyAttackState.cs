@@ -11,6 +11,9 @@ public class EnemyAttackState : BaseState, IEventListener
     }
     public override void Enter()
     {
+        GameManager.Event.PostNotification(EventType.EnemyAttack, neFSM_BT);
+
+        // 버튼액션의 타이밍 구현필요(코루틴)
         GameManager.UI.ShowPopUpUI<PopUpUI>("UI/PlayerButtonActUI");
         GameManager.Event.AddListener(EventType.PlayerisLive, this);
         Debug.Log("적 버튼액션시작");
@@ -27,7 +30,7 @@ public class EnemyAttackState : BaseState, IEventListener
     public override void OnEvent(EventType eventType, Component Sender, object Param = null) 
     {
         if (eventType == EventType.PlayerDied)
-            return;
+            neFSM_BT.ChangeState(NomalEnemyTurnState_BT.EnemyIdle); 
         if (eventType == EventType.PlayerisLive)
             neFSM_BT.ChangeState(NomalEnemyTurnState_BT.EnemyIdle);
     }

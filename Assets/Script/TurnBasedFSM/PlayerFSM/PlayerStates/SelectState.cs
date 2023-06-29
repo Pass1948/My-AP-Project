@@ -38,7 +38,6 @@ public class SelectState : BaseState
 
     public override void Exit()
     {
-        GameManager.Event.RemoveEvent(EventType.PlayerTurn);
         Debug.Log("선택완료");
     }
 }

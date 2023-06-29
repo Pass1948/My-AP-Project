@@ -39,6 +39,7 @@ public class SelectBoxUI : InGameUI, IEventListener
     {
         if (eventType == EventType.PlayerTurn)
         {
+            GameManager.Event.RemoveEvent(EventType.PlayerTurn);
             this.gameObject.SetActive(true);
         }
     }

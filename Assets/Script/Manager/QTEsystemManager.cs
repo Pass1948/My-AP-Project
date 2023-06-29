@@ -11,6 +11,7 @@ public class QTEsystemManager : MonoBehaviour
         Debug.Log("일반공격");
         correctKey = 2;
         StartCoroutine(KeyPressingRoutine());
+        GameManager.Event.PostNotification(EventType.ButtonActResult, this);
     }
 
     public void Critical()
@@ -18,6 +19,7 @@ public class QTEsystemManager : MonoBehaviour
         Debug.Log("크리티컬");
         correctKey = 1;
         StartCoroutine(KeyPressingRoutine());
+        GameManager.Event.PostNotification(EventType.ButtonActResult, this);
     }
 
     IEnumerator KeyPressingRoutine()
@@ -26,13 +28,14 @@ public class QTEsystemManager : MonoBehaviour
         {
             Debug.Log("버튼성공");
             correctKey = 0;
-            yield return new WaitForSecondsRealtime(1f);
+            yield return new WaitForSecondsRealtime(0.5f);
+
         }
         if (correctKey == 2)  //실패했을경우
         {
             Debug.Log("버튼실패");
             correctKey = 0;
-            yield return new WaitForSecondsRealtime(1f);
+            yield return new WaitForSecondsRealtime(0.5f);
         }
     }
 }

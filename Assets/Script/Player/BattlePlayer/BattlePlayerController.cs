@@ -4,13 +4,12 @@ using UnityEngine;
 
 public class BattlePlayerController : MonoBehaviour, IEventListener
 {
-    private EnemyBattleController enemy;
     private GameObject spawnPoint;
     private GameObject AttackPosition;
+    private EnemyBattleController enemy;
 
     private int damage = 2;   
     private int hp = 5;
-    private int curHP;
 
     private float Speed = 5f;
 
@@ -18,7 +17,6 @@ public class BattlePlayerController : MonoBehaviour, IEventListener
 
     private void Awake()
     {
-        curHP = hp;
         AttackPosition = GameManager.Resource.Load<GameObject>("Player/Battle/PlayerAttackPoint");
         spawnPoint = GameManager.Resource.Load<GameObject>("Player/Battle/PlayerSpawn");
         enemy = GameManager.Resource.Load<EnemyBattleController>("Enemy/Enemy");
@@ -46,15 +44,20 @@ public class BattlePlayerController : MonoBehaviour, IEventListener
     {
         Debug.Log("너 공격된거야");
         SetDamage(damage);
-        //enemy.TakeHit(damage);
+        enemy.TakeHit(damage);
     }
 
     public void TakeHit(int damage)
     {
-        curHP -= damage;
-        GameManager.Event.PostNotification(EventType.PlayerisLive, this);
-        if (curHP <= 0)
+        hp -= damage;
+        if (hp > 0)
         {
+            Debug.Log("이걸 못죽이네");
+            GameManager.Event.PostNotification(EventType.PlayerisLive, this);
+        }
+        if (hp <= 0)
+        {
+            Debug.Log("아군이 당했습니다");
             GameManager.Event.PostNotification(EventType.PlayerDied, this);
         }
     }

@@ -26,6 +26,4 @@ public class AttackState : BaseState
         if (eventType == EventType.ButtonActResult)
         pFSM_BT.ChangeState(PlayerTurnState.Idle);
     }
-
-
 }

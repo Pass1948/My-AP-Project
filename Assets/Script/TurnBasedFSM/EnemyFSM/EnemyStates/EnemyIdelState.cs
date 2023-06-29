@@ -12,6 +12,7 @@ public class EnemyIdelState : BaseState
     {
         Debug.Log("Àû´ë±â");
         GameManager.Event.AddListener(EventType.PlayerActionEnd, this);
+        GameManager.Event.AddListener(EventType.Win, this); 
     }
 
     public override void Update() { }
@@ -21,6 +22,10 @@ public class EnemyIdelState : BaseState
         if (eventType == EventType.PlayerActionEnd)
         {
             neFSM_BT.ChangeState(NomalEnemyTurnState_BT.EnemyAttack);
+        }
+        if (eventType == EventType.Win)
+        {
+            neFSM_BT.ChangeState(NomalEnemyTurnState_BT.EnemyDead);
         }
     }
 

@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using static UnityEngine.RuleTile.TilingRuleOutput;
 
-public class AdventurePlayer : MonoBehaviour
+public class ADPlayerController : MonoBehaviour
 {
     [SerializeField] float runSpeed;
     [SerializeField] float walkSpeed;

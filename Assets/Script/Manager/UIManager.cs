@@ -13,21 +13,24 @@ public class UIManager : MonoBehaviour
     private void Awake()
     {
         eventSystem = GameManager.Resource.Instantiate<EventSystem>("UI/EventSystem");
-        eventSystem.transform.parent = transform;
+        eventSystem.transform.SetParent(transform);
 
         popUpCanvas = GameManager.Resource.Instantiate<Canvas>("UI/Canvas");
         popUpCanvas.gameObject.name = "PopUpCanvas";
         popUpCanvas.sortingOrder = 100;
+        popUpCanvas.transform.SetParent(transform);
 
         popUpStack = new Stack<PopUpUI>();
 
         windowCanvas = GameManager.Resource.Instantiate<Canvas>("UI/Canvas");
         windowCanvas.gameObject.name = "WindowCanvas";
         windowCanvas.sortingOrder = 10;
+        windowCanvas.transform.SetParent(transform);
 
         inGameCanvas = GameManager.Resource.Instantiate<Canvas>("UI/Canvas");
         inGameCanvas.gameObject.name = "InGameCanvas";
         inGameCanvas.sortingOrder = 0;
+        inGameCanvas.transform.SetParent(transform);
     }
     public T ShowPopUpUI<T>(T popUpUI) where T : PopUpUI
     {

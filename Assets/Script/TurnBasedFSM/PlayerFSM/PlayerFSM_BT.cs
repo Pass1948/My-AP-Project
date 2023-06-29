@@ -38,6 +38,19 @@ public class PlayerFSM_BT : MonoBehaviour
         curState = playerTurnState;
         states[(int)curState].Enter();
     }
+
+    public void PlayerIdel()
+    {
+        StartCoroutine(PlayerIdelRoutine());
+    }
+
+    IEnumerator PlayerIdelRoutine()
+    {
+        yield return new WaitForSecondsRealtime(2f);
+        GameManager.Event.PostNotification(EventType.PlayerTurnEnd, this);
+        GameManager.Event.PostNotification(EventType.PlayerActionEnd, this);
+        yield return new WaitForSecondsRealtime(0.5f);
+    }
 }
 
 
