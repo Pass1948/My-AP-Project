@@ -4,5 +4,22 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    public PlayerData playerData;
+    public int damage;
+
+    public int maxHP;
+    public int curHP;
+
+    public bool TakeDamage(int dmg)
+    {
+        curHP -= dmg;
+
+        if(curHP <= 0)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
 }

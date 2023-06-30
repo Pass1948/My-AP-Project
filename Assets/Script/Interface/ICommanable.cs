@@ -4,5 +4,6 @@ using UnityEngine;
 
 public interface ICommanable
 {
-    void Execute(){}
+    public void Execute();
+    public void Undo();
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class SelectBoxUI : InGameUI, IEventListener
+public class SelectBoxUI : InGameUI, IEventListener, ICommanable
 {
     protected override void Awake()
     {
@@ -50,5 +50,15 @@ public class SelectBoxUI : InGameUI, IEventListener
             buttons["InventoryBoxButton"].Select();
             GameManager.UI.ShowInGameUI<InGameUI>("UI/SelectBpxUI");
         }
+    }
+
+    public void Execute()
+    {
+        
+    }
+
+    public void Undo()
+    {
+        
     }
 }

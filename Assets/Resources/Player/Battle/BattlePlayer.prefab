@@ -180,8 +180,8 @@ GameObject:
   - component: {fileID: 3171856942240458943}
   - component: {fileID: 4181229634002667082}
   - component: {fileID: 5682018195591739510}
-  - component: {fileID: 1023814135079494358}
   - component: {fileID: 4693269886977160589}
+  - component: {fileID: -304510658443455927}
   m_Layer: 0
   m_Name: BattlePlayer
   m_TagString: Untagged
@@ -341,18 +341,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   curState: 1
---- !u!114 &1023814135079494358
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 359803051658223787}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 427a4c7b930974949881f1bc275fad4f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &4693269886977160589
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -365,6 +353,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00deb207f0a773746a17775c2258c10b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &-304510658443455927
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 359803051658223787}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7ca9d9c6ea6cf642b5252e16c477c10, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 2
+  maxHP: 10
+  curHP: 10
 --- !u!1 &393756162459314573
 GameObject:
   m_ObjectHideFlags: 0

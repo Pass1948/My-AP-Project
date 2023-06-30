@@ -10,10 +10,11 @@ using static UnityEngine.InputSystem.PlayerInput;
 using UnityEngine.Events;
 using UnityEditor;
 
-public abstract class BaseCommand : MonoBehaviour, ICommand
+public abstract class BaseCommand : MonoBehaviour, ICommanable
 {
-    protected ICommand command;
-    public virtual void Execute(){}
+    protected ICommanable command;
+    public abstract void Execute();
 
+    public abstract void Undo();
 }
 
