@@ -28,6 +28,7 @@ public class TargetButton : InGameUI, IEventListener
         if(eventType == EventType.SelectAttack)
         {
             action = true;
+            buttons["TargetButton"].Select();
             this.gameObject.SetActive(true);
         }
     }

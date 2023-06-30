@@ -9,10 +9,6 @@ public class EnemyBattleController : MonoBehaviour, IEventListener
     private BattlePlayerController player;
     private GameObject spawnPoint;
     private GameObject AttackPosition;
-
-    private int damage = 2;
-    private int hp = 5;
-
     private float Speed = 5f;
 
     private bool isSliding = false;
@@ -39,29 +35,30 @@ public class EnemyBattleController : MonoBehaviour, IEventListener
 
     public void SetDamage(int damage)       // 무기 혹은 아이템을 사용할경우 상승효과를 구현해야함
     {
-        this.damage = damage;
+        //this.damage = damage;
     }
 
     public void Attack()
     {
         Debug.Log("너 공격된거야");
-        SetDamage(damage);
-        player.TakeHit(damage);
+        //SetDamage(damage);
+        // player.TakeHit(damage);
+        GameManager.Event.PostNotification(EventType.PlayerisLive, this);
     }
 
     public void TakeHit(int damage)
     {
-        hp -= damage;
-        if (hp > 0)
-        {
-            Debug.Log("살았지롱~!?");
-            GameManager.Event.PostNotification(EventType.EnemyisLive, this);
-        }
-        if (hp <= 0)
-        {
-            Debug.Log("적이 죽었습니다");
-            GameManager.Event.PostNotification(EventType.EnemyDied, this);
-        }
+       // hp -= damage;
+       ////if (hp > 0)
+       //{
+       //    Debug.Log("살았지롱~!?");
+       // GameManager.Event.PostNotification(EventType.EnemyisLive, this);
+       //}
+       // if (hp <= 0)
+       //{
+       //    Debug.Log("적이 죽었습니다");
+       //    GameManager.Event.PostNotification(EventType.EnemyDied, this);
+       //}
     }
 
     public void TatgetInMoving()

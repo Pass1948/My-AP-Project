@@ -43,23 +43,24 @@ public class BattlePlayerController : MonoBehaviour, IEventListener
     public void Attack()
     {
         Debug.Log("너 공격된거야");
-        SetDamage(damage);
-        enemy.TakeHit(damage);
+        //SetDamage(damage);
+        //enemy.TakeHit(damage);
+        GameManager.Event.PostNotification(EventType.EnemyisLive, this);
     }
 
     public void TakeHit(int damage)
     {
-        hp -= damage;
-        if (hp > 0)
-        {
-            Debug.Log("이걸 못죽이네");
-            GameManager.Event.PostNotification(EventType.PlayerisLive, this);
-        }
-        if (hp <= 0)
-        {
-            Debug.Log("아군이 당했습니다");
-            GameManager.Event.PostNotification(EventType.PlayerDied, this);
-        }
+       //hp -= damage;
+       //if (hp > 0)
+       //{
+       //    Debug.Log("이걸 못죽이네");
+       //    GameManager.Event.PostNotification(EventType.PlayerisLive, this);
+       //}
+       //if (hp <= 0)
+       //{
+       //    Debug.Log("아군이 당했습니다");
+       //    GameManager.Event.PostNotification(EventType.PlayerDied, this);
+       //}
     }
 
     public void TatgetInMoving()

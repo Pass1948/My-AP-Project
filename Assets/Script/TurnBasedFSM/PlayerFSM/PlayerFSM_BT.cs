@@ -47,6 +47,7 @@ public class PlayerFSM_BT : MonoBehaviour
     IEnumerator PlayerIdelRoutine()
     {
         yield return new WaitForSecondsRealtime(2f);
+        Debug.Log("±â¹¦¸µ");
         GameManager.Event.PostNotification(EventType.PlayerTurnEnd, this);
         GameManager.Event.PostNotification(EventType.PlayerActionEnd, this);
         yield return new WaitForSecondsRealtime(0.5f);

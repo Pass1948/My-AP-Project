@@ -16,31 +16,39 @@ public class SelectBoxUI : InGameUI, IEventListener
 
     private void Start()
     {
+        buttons["AttectBoxButton"].Select();
         GameManager.Event.AddListener(EventType.PlayerTurn, this);
+        GameManager.Event.AddListener(EventType.Close, this);
     }
 
     public void OpenWindowUI()
     {
         GameManager.UI.ShowWindowUI<WindowUI>("UI/InventoryWindowUI");
+        GameManager.UI.ColseInGameUI(this);
     }
     public void SelectAttack()
     {
         GameManager.Event.PostNotification(EventType.SelectAttack, this);
-        this.gameObject.SetActive(false);
+        GameManager.UI.ColseInGameUI(this);
     }
 
     public void SelectRun()
     {
         GameManager.Event.PostNotification(EventType.Run, this);            // 도망 이벤트 발생
-        this.gameObject.SetActive(false);
+        GameManager.UI.ColseInGameUI(this);
     }
 
     public void OnEvent(EventType eventType, Component Sender, object Param = null)
     {
         if (eventType == EventType.PlayerTurn)
         {
-            GameManager.Event.RemoveEvent(EventType.PlayerTurn);
-            this.gameObject.SetActive(true);
+            buttons["AttectBoxButton"].Select();
+            GameManager.UI.ShowInGameUI<InGameUI>("UI/SelectBpxUI");
+        }
+        if (eventType == EventType.Close)
+        {
+            buttons["InventoryBoxButton"].Select();
+            GameManager.UI.ShowInGameUI<InGameUI>("UI/SelectBpxUI");
         }
     }
 }

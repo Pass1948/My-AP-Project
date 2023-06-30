@@ -9,6 +9,7 @@ public class PlayerButtonActUI : PopUpUI, IEventListener
     protected override void Awake()
     {
         base.Awake();
+        buttons["TimingButton"].Select();
         buttons["TimingButton"].onClick.AddListener(() => { PressButton(); });
     }
 

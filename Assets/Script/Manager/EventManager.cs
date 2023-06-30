@@ -51,6 +51,9 @@ public enum EventType
     //½ÂÆÐ
     Win,
     Loss,
+
+    //ui
+    Close,
 };
 
 public class EventManager : MonoBehaviour

@@ -26,16 +26,17 @@ public class QTEsystemManager : MonoBehaviour
     {
         if (correctKey == 1)    //  성공했을경우
         {
+            yield return new WaitForSecondsRealtime(0.5f);
             Debug.Log("버튼성공");
             correctKey = 0;
-            yield return new WaitForSecondsRealtime(0.5f);
-
+            yield break;
         }
         if (correctKey == 2)  //실패했을경우
         {
+            yield return new WaitForSecondsRealtime(0.5f);
             Debug.Log("버튼실패");
             correctKey = 0;
-            yield return new WaitForSecondsRealtime(0.5f);
+            yield break;
         }
     }
 }

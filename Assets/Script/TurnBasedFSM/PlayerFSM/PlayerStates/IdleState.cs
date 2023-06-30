@@ -12,6 +12,7 @@ public class IdleState_BT : BaseState
     public override void Enter()
     {
         Debug.Log("대기상태");
+        pFSM_BT.PlayerIdel();
         GameManager.Event.AddListener(EventType.EnemyDied, this);
         GameManager.Event.AddListener(EventType.EnemyisLive, this);
     }
@@ -24,18 +25,18 @@ public class IdleState_BT : BaseState
         }
         if (eventType == EventType.EnemyisLive)
         {
+            GameManager.Event.RemoveEvent(EventType.EnemyisLive);
             pFSM_BT.ChangeState(PlayerTurnState.Select);
         }
     }
 
     public override void Exit()
     {
-        GameManager.Event.RemoveEvent(EventType.EnemyisLive);
         Debug.Log("상대턴 종료");
     }
 
     public override void Update()
     {
-        pFSM_BT.PlayerIdel();
+        
     }
 }

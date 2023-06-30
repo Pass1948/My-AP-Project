@@ -83,6 +83,7 @@ public class UIManager : MonoBehaviour
     public void CloseWindowUI(WindowUI windowUI)
     {
         GameManager.Pool.ReleaseUI(windowUI.gameObject);
+        GameManager.Event.PostNotification(EventType.Close, this);
     }
 
     public void SelectWindowUI<T>(T windowUI) where T : WindowUI

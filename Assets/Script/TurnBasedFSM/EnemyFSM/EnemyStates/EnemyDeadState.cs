@@ -10,7 +10,7 @@ public class EnemyDeadState : BaseState
     }
     public override void Enter()
     {
-        b
+        
     }
 
     public override void Exit()
