@@ -7,7 +7,6 @@ using UnityEngine.Events;
 public abstract class BaseState : IEventListener
 {
     protected BattleFSM bFSM;
-    protected PlayerFSM_BT pFSM_BT;
     protected NomalEnemyFSM_BT neFSM_BT;
 
     public abstract void Enter();              // 상태 시작 

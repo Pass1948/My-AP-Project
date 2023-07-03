@@ -12,22 +12,25 @@ public class PlayerTurn : BaseState
         // 전투 시작 케릭터와 적 등장 씬, 애니메니션 등 효과 넣기(자유)
         // 처음은 플레이어 선제
         GameManager.UI.ShowInGameUI<InGameUI>("UI/HPUI");
-        GameManager.UI.ShowInGameUI<InGameUI>("UI/SelectBoxUI");
+        GameManager.UI.ShowInGameUI<SelectBoxUI>("UI/SelectBoxUI");
+        GameManager.Event.PostNotification(EventType.PlayerTurn, bFSM);
+        GameManager.Event.AddListener(EventType.Attack, this);
+        GameManager.Event.AddListener(EventType.Run, this);
+
         Debug.Log("플레이어 턴");
-        GameManager.Event.AddListener(EventType.PlayerTurnEnd, this);           // 턴종료 받기
-        GameManager.Event.AddListener(EventType.EnemyDied, this);
     }
     public override void Update() { }
     public override void OnEvent(EventType eventType, Component Sender, object Param = null)
     {
-        if (eventType == EventType.PlayerTurnEnd)                           // PlayerState가 Idel상태일경우
+        if (eventType == EventType.Attack)
         {
-            GameManager.Event.RemoveEvent(EventType.PlayerTurnEnd);
-            bFSM.ChangeState(BattleState.EnemyTurn);  
+            GameManager.Event.RemoveEvent(EventType.Attack);
+            bFSM.ChangeState(BattleState.PlayerAttack);
         }
-        if (eventType == EventType.EnemyDied)                               // 적이 죽었을경우
+        if(eventType == EventType.Run)
         {
-            bFSM.ChangeState(BattleState.Win);                              // 전투 승리
+            GameManager.Event.RemoveEvent(EventType.Run);
+            bFSM.ChangeState(BattleState.PlayerRun);
         }
     }
 

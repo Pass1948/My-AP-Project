@@ -6,23 +6,16 @@ public class BattlePlayerController : MonoBehaviour, IEventListener
 {
     private GameObject spawnPoint;
     private GameObject AttackPosition;
-    private EnemyBattleController enemy;
-
-    private int damage = 2;   
-    private int hp = 5;
 
     private float Speed = 5f;
-
     private bool isSliding = false;
 
     private void Awake()
     {
         AttackPosition = GameManager.Resource.Load<GameObject>("Player/Battle/PlayerAttackPoint");
         spawnPoint = GameManager.Resource.Load<GameObject>("Player/Battle/PlayerSpawn");
-        enemy = GameManager.Resource.Load<EnemyBattleController>("Enemy/Enemy");
+        
         GameManager.Event.AddListener(EventType.SelectTarget, this);
-        GameManager.Event.AddListener(EventType.PressButton, this);
-        GameManager.Event.AddListener(EventType.PressFail, this);
     }
 
     private void Update()
@@ -33,34 +26,6 @@ public class BattlePlayerController : MonoBehaviour, IEventListener
         {
             StartCoroutine(MovingRoutine());
         }
-    }
-
-    public void SetDamage(int damage)       // 무기 혹은 아이템을 사용할경우 상승효과를 구현해야함
-    {
-        this.damage = damage;
-    }
-
-    public void Attack()
-    {
-        Debug.Log("너 공격된거야");
-        //SetDamage(damage);
-        //enemy.TakeHit(damage);
-        GameManager.Event.PostNotification(EventType.EnemyisLive, this);
-    }
-
-    public void TakeHit(int damage)
-    {
-       //hp -= damage;
-       //if (hp > 0)
-       //{
-       //    Debug.Log("이걸 못죽이네");
-       //    GameManager.Event.PostNotification(EventType.PlayerisLive, this);
-       //}
-       //if (hp <= 0)
-       //{
-       //    Debug.Log("아군이 당했습니다");
-       //    GameManager.Event.PostNotification(EventType.PlayerDied, this);
-       //}
     }
 
     public void TatgetInMoving()
@@ -95,25 +60,12 @@ public class BattlePlayerController : MonoBehaviour, IEventListener
             isSliding = true;
             GameManager.Event.RemoveEvent(EventType.SelectTarget);
         }
-        if (eventType == EventType.PressButton)
-        {
-            Attack();
-            GameManager.Event.RemoveEvent(EventType.PressButton);
-            GameManager.QTE.Critical();
-        }
-        if (eventType == EventType.PressFail)
-        {
-            Attack();
-            GameManager.Event.RemoveEvent(EventType.PressFail);
-            GameManager.QTE.Attack();
-        }
-
     }
 
     IEnumerator MovingRoutine()
     {
         TatgetInMoving();
-        yield return new WaitForSeconds(4f);
+        yield return new WaitForSeconds(2f);
         isSliding = false;
         ReturnPosition();
     }

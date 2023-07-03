@@ -9,6 +9,7 @@ public class UIManager : MonoBehaviour
     private Canvas windowCanvas;
     private Canvas inGameCanvas;
     private Canvas popUpCanvas;
+    private Canvas TextCanvas;
     private Stack<PopUpUI> popUpStack;
     private void Awake()
     {
@@ -31,6 +32,11 @@ public class UIManager : MonoBehaviour
         inGameCanvas.gameObject.name = "InGameCanvas";
         inGameCanvas.sortingOrder = 0;
         inGameCanvas.transform.SetParent(transform);
+
+        TextCanvas = GameManager.Resource.Instantiate<Canvas>("UI/Canvas");
+        TextCanvas.gameObject.name = "TextCanvas";
+        TextCanvas.sortingOrder = 5;
+        TextCanvas.transform.SetParent(transform);
     }
     public T ShowPopUpUI<T>(T popUpUI) where T : PopUpUI
     {
@@ -83,7 +89,6 @@ public class UIManager : MonoBehaviour
     public void CloseWindowUI(WindowUI windowUI)
     {
         GameManager.Pool.ReleaseUI(windowUI.gameObject);
-        GameManager.Event.PostNotification(EventType.Close, this);
     }
 
     public void SelectWindowUI<T>(T windowUI) where T : WindowUI
@@ -109,5 +114,22 @@ public class UIManager : MonoBehaviour
         GameManager.Pool.ReleaseUI(inGameUI);
     }
 
+    public T ShowPopUpTextUI<T>(T popUpTextUI) where T : PopUpTextUI
+    {
+        T ui = GameManager.Pool.GetUI(popUpTextUI);
+        ui.transform.SetParent(inGameCanvas.transform.transform, false);
+        return ui;
+    }
+
+    public T ShowPopUpTextUI<T>(string path) where T : PopUpTextUI
+    {
+        T ui = GameManager.Resource.Load<T>(path);
+        return ShowPopUpTextUI(ui);
+    }
+
+    public void ColsePopUpTextUI(PopUpTextUI popUpTextUI)
+    {
+        GameManager.Pool.ReleaseUI(popUpTextUI);
+    }
 }
    

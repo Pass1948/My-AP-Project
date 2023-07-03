@@ -4,19 +4,19 @@ using UnityEngine;
 
 public class CommandManager : MonoBehaviour
 {
-    private Stack<ICommanable> m_CommandsBuffer;
+    private Stack<ICommandable> m_CommandsBuffer;
 
     private void Awake()
     {
-        m_CommandsBuffer = new Stack<ICommanable>();
+        m_CommandsBuffer = new Stack<ICommandable>();
     }
 
-    public void AddCommand(ICommanable command)         // 행동 추가
+    public void AddCommand(ICommandable command)         // 행동 추가
     {
         m_CommandsBuffer.Push(command);
         Debug.Log("나는야 퉁퉁이");
     }
-    public void CencelCommand(ICommanable command)      // 최신 행동 취소 이전행동으로 이동
+    public void CencelCommand(ICommandable command)      // 최신 행동 취소 이전행동으로 이동
     {
         if (m_CommandsBuffer.Count > 0)
         {
@@ -39,14 +39,13 @@ public class CommandManager : MonoBehaviour
         {
             Debug.Log("명령 버퍼가 비어있습니다.");
         }
-
     }
 
     public void UseCommand()                            // 최신 행동 실행
     {
         if (m_CommandsBuffer.Count > 0)
         {
-            ICommanable usedCommand = m_CommandsBuffer.Pop();
+            ICommandable usedCommand = m_CommandsBuffer.Pop();
             Debug.Log("사용된 명령: " + usedCommand);
         }
         else

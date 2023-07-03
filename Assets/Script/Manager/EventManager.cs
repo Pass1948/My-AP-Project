@@ -19,19 +19,28 @@ public enum EventType
     PlayerActionEnd,
     Run,
 
+    // d. Enemyturn
+    EnemyTurn,
+
     // c. EnemyState
     EnemyAttack,
     EnemyTurnEnd,
 
     //========버튼액션========
     AttackMiss,
+    Sucess,
+    fail,
+    Sucess_ET,
+    fail_ET,
 
     // 버튼 액션 전용
     ButtonActResult,
-    PressFail,
+    PressFail_PT,
+    PressFail_ET,
 
     // 버튼누름(PlayerButtonActUI)
-    PressButton,
+    PressButton_PT,
+    PressButton_ET,
 
     //=======================
 
@@ -47,6 +56,7 @@ public enum EventType
     // 적 생존
     EnemyisLive,
     EnemyDied,
+    EnemyRun,
 
     //승패
     Win,

@@ -2,26 +2,28 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RunState : BaseState
+public class EnemyRun : BaseState
 {
-    public RunState(PlayerFSM_BT pFSM)
+    public EnemyRun(BattleFSM bFSM)
     {
-        this.pFSM_BT = pFSM;
+        this.bFSM = bFSM;
     }
     public override void Enter()
     {
-        Debug.Log("도망");
+        Debug.Log("응 런이야~");
+        GameManager.Scene.ADLoadScene("AdventureScene");
+        Debug.Log("전투종료");
+    }
+    public override void Update() {
+        
     }
 
     public override void Exit()
     {
         
-        Debug.Log("전투종료");
     }
 
     public override void OnEvent(EventType eventType, Component Sender, object Param = null)
     {
-
     }
-    public override void Update() { }
 }

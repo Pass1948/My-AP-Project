@@ -4,62 +4,50 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class SelectBoxUI : InGameUI, IEventListener, ICommanable
+public class SelectBoxUI : InGameUI, IEventListener
 {
     protected override void Awake()
     {
         base.Awake();
         buttons["AttectBoxButton"].onClick.AddListener(() => { SelectAttack(); });
-        buttons["InventoryBoxButton"].onClick.AddListener(() => { OpenWindowUI(); });
+        buttons["InventoryBoxButton"].onClick.AddListener(() => { OpenInventory(); });
         buttons["RunBoxButton"].onClick.AddListener(() => { SelectRun(); });
     }
 
     private void Start()
     {
-        buttons["AttectBoxButton"].Select();
+        this.gameObject.SetActive(true);
         GameManager.Event.AddListener(EventType.PlayerTurn, this);
         GameManager.Event.AddListener(EventType.Close, this);
+        buttons["AttectBoxButton"].Select();
     }
 
-    public void OpenWindowUI()
-    {
-        GameManager.UI.ShowWindowUI<WindowUI>("UI/InventoryWindowUI");
-        GameManager.UI.ColseInGameUI(this);
-    }
     public void SelectAttack()
     {
         GameManager.Event.PostNotification(EventType.SelectAttack, this);
-        GameManager.UI.ColseInGameUI(this);
+        this.gameObject.SetActive(false);
+    }
+    public void OpenInventory()
+    {
+        GameManager.UI.ShowWindowUI<WindowUI>("UI/InventoryWindowUI");
+        this.gameObject.SetActive(false);
     }
 
     public void SelectRun()
     {
         GameManager.Event.PostNotification(EventType.Run, this);            // 도망 이벤트 발생
-        GameManager.UI.ColseInGameUI(this);
+        this.gameObject.SetActive(false);
     }
 
     public void OnEvent(EventType eventType, Component Sender, object Param = null)
     {
         if (eventType == EventType.PlayerTurn)
         {
-            buttons["AttectBoxButton"].Select();
-            GameManager.UI.ShowInGameUI<InGameUI>("UI/SelectBpxUI");
+            this.gameObject.SetActive(true);
         }
         if (eventType == EventType.Close)
         {
-            buttons["InventoryBoxButton"].Select();
-            GameManager.UI.ShowInGameUI<InGameUI>("UI/SelectBpxUI");
+            this.gameObject.SetActive(true);
         }
-    }
-
-    public void Execute()
-    {
-        ;''
-        
-    }
-
-    public void Undo()
-    {
-        
     }
 }

@@ -9,6 +9,12 @@ public class SelectPopUpUI : PopUpUI
         base.Awake();
         buttons["BackButton"].Select();
         buttons["AgreeButton"].onClick.AddListener(() => { Debug.Log("아이템사용!"); });
-        buttons["BackButton"].onClick.AddListener(() => { GameManager.UI.ClosePopUpUI(); });
+        buttons["BackButton"].onClick.AddListener(() => { CloseButton(); });
+    }
+
+    private void CloseButton()
+    {
+        GameManager.Event.PostNotification(EventType.Close, this);
+        this.gameObject.SetActive(false);
     }
 }

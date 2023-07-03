@@ -2,24 +2,43 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class QTEsystemManager : MonoBehaviour
+public class QTEsystemManager : MonoBehaviour, IEventListener
 {
     private int correctKey;          // 키입력 성공/실패 여부
 
-    public void Attack()
+    public void Start()
     {
-        Debug.Log("일반공격");
-        correctKey = 2;
+        GameManager.Event.AddListener(EventType.PressButton_PT, this);
+        GameManager.Event.AddListener(EventType.PressFail_PT, this);
+        GameManager.Event.AddListener(EventType.PressButton_ET, this);
+        GameManager.Event.AddListener(EventType.PressFail_ET, this);
+    }
+    public void Success()
+    {
+        correctKey = 1;
+        GameManager.Event.RemoveEvent(EventType.PressButton_PT);
         StartCoroutine(KeyPressingRoutine());
-        GameManager.Event.PostNotification(EventType.ButtonActResult, this);
     }
 
-    public void Critical()
+    public void fail()
     {
-        Debug.Log("크리티컬");
-        correctKey = 1;
+        correctKey = 2;
+        GameManager.Event.RemoveEvent(EventType.PressFail_PT);
         StartCoroutine(KeyPressingRoutine());
-        GameManager.Event.PostNotification(EventType.ButtonActResult, this);
+    }
+
+    public void Success_Enemy() 
+    {
+        correctKey = 1;
+        GameManager.Event.RemoveEvent(EventType.PressButton_ET);
+        StartCoroutine(KeyPressingRoutine_ET());
+    }
+
+    public void fail_Enemy()
+    {
+        correctKey = 2;
+        GameManager.Event.RemoveEvent(EventType.PressFail_ET);
+        StartCoroutine(KeyPressingRoutine_ET());
     }
 
     IEnumerator KeyPressingRoutine()
@@ -28,6 +47,8 @@ public class QTEsystemManager : MonoBehaviour
         {
             yield return new WaitForSecondsRealtime(0.5f);
             Debug.Log("버튼성공");
+            GameManager.Event.PostNotification(EventType.Sucess, this);
+            yield return new WaitForSecondsRealtime(0.5f);
             correctKey = 0;
             yield break;
         }
@@ -35,8 +56,51 @@ public class QTEsystemManager : MonoBehaviour
         {
             yield return new WaitForSecondsRealtime(0.5f);
             Debug.Log("버튼실패");
+            GameManager.Event.PostNotification(EventType.fail, this);
+            yield return new WaitForSecondsRealtime(0.5f);
             correctKey = 0;
             yield break;
+        }
+    }
+
+    IEnumerator KeyPressingRoutine_ET()
+    {
+        if (correctKey == 1)    //  성공했을경우
+        {
+            yield return new WaitForSecondsRealtime(0.5f);
+            Debug.Log("버튼성공");
+            GameManager.Event.PostNotification(EventType.Sucess_ET, this);
+            yield return new WaitForSecondsRealtime(0.5f);
+            correctKey = 0;
+            yield break;
+        }
+        if (correctKey == 2)  //실패했을경우
+        {
+            yield return new WaitForSecondsRealtime(0.5f);
+            Debug.Log("버튼실패");
+            GameManager.Event.PostNotification(EventType.fail_ET, this);
+            yield return new WaitForSecondsRealtime(0.5f);
+            correctKey = 0;
+            yield break;
+        }
+    }
+
+    public void OnEvent(EventType eventType, Component Sender, object Param = null)
+    {
+        switch (eventType)
+        {
+            case EventType.PressButton_PT:
+                Success();
+                break;
+            case EventType.PressFail_PT:
+                fail();
+                break;
+            case EventType.PressButton_ET:
+                Success_Enemy();
+                break;
+            case EventType.PressFail_ET:
+                fail_Enemy();
+                break;
         }
     }
 }
