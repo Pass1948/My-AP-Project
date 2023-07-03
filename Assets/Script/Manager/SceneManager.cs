@@ -45,7 +45,7 @@ public class SceneManager : MonoBehaviour
     {
         Time.timeScale = 0f;
         loadUI_BT.BattleActive();
-        yield return new WaitForSecondsRealtime(4.5f);
+        yield return new WaitForSecondsRealtime(3.5f);
 
         yield return new WaitForSecondsRealtime(0.5f);
         AsyncOperation oper = UnitySceneManager.LoadSceneAsync(sceneName);
@@ -82,7 +82,6 @@ public class SceneManager : MonoBehaviour
         {
             yield return null;
         }
-
         Time.timeScale = 1f;
         loadUI_AD.FadeOut();
         yield return new WaitForSecondsRealtime(0.5f);
