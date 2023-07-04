@@ -9,9 +9,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b074d2446c077e14bb48bc07cd8c6824, type: 3}
+  m_Script: {fileID: 11500000, guid: 155a700eada893143b94b794b2b228b3, type: 3}
   m_Name: PlayerData
   m_EditorClassIdentifier: 
   player:
-  - hp: 5
+  - player: {fileID: 7689906778625784075, guid: 3a0d4c7adb3408d4fa653ad286513af9, type: 3}
+    transform: {fileID: 8168486149619610027, guid: 3a0d4c7adb3408d4fa653ad286513af9, type: 3}
     damage: 2
+    maxHP: 10
+    curHP: 10
+  - player: {fileID: -304510658443455927, guid: 9353fa1ba6e41da41bec58220d700781, type: 3}
+    transform: {fileID: 4346155630825581535, guid: 9353fa1ba6e41da41bec58220d700781, type: 3}
+    damage: 2
+    maxHP: 10
+    curHP: 10

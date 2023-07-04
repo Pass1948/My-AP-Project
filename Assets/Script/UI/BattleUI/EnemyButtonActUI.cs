@@ -17,6 +17,10 @@ public class EnemyButtonActUI : PopUpUI, IEventListener
     {
         StartCoroutine(CountDownRoutine());
     }
+    private void LateUpdate()
+    {
+        buttons["TimingButton"].Select();
+    }
 
     private void PressButton()
     {

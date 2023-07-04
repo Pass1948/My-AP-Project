@@ -61,6 +61,7 @@ public enum EventType
     //½ÂÆÐ
     Win,
     Loss,
+    Draw,
 
     //ui
     Close,

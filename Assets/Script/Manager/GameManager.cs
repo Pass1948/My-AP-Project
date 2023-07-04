@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
     private static QTEsystemManager qTEsystemManager;
     private static ShoundManager shoundManager;
     private static SceneManager sceneManager;
+    private static MemetoManager memetoManager;
 
     public static GameManager Instance { get { return instance; } }
     //==============================================================
@@ -25,6 +26,7 @@ public class GameManager : MonoBehaviour
     public static QTEsystemManager QTE { get { return qTEsystemManager; } }
     public static ShoundManager Shound { get { return shoundManager; } }
     public static SceneManager Scene { get { return sceneManager; } }
+    public static MemetoManager memeto { get { return memetoManager; } }
 
     private void Awake()
     {
@@ -86,5 +88,10 @@ public class GameManager : MonoBehaviour
         sceneObj.name = "SceneManager";
         sceneObj.transform.parent = transform;
         sceneManager = sceneObj.AddComponent<SceneManager>();
+
+        GameObject memetoObj = new GameObject();
+        memetoObj.name = "MemetoManager";
+        memetoObj.transform.parent = transform;
+        memetoManager = memetoObj.AddComponent<MemetoManager>();
     }
 }

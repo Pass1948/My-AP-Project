@@ -11,12 +11,9 @@ public class PlayerTurn : BaseState
     {
         // 전투 시작 케릭터와 적 등장 씬, 애니메니션 등 효과 넣기(자유)
         // 처음은 플레이어 선제
-        GameManager.UI.ShowInGameUI<InGameUI>("UI/HPUI");
-        GameManager.UI.ShowInGameUI<SelectBoxUI>("UI/SelectBoxUI");
         GameManager.Event.PostNotification(EventType.PlayerTurn, bFSM);
         GameManager.Event.AddListener(EventType.Attack, this);
         GameManager.Event.AddListener(EventType.Run, this);
-
         Debug.Log("플레이어 턴");
     }
     public override void Update() { }

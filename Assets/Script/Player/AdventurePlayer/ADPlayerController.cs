@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Animations;
 using UnityEngine.InputSystem;
 using static UnityEngine.RuleTile.TilingRuleOutput;
 
@@ -59,15 +60,13 @@ public class ADPlayerController : MonoBehaviour
         }
 
 
-        Vector3 vecFor = new Vector3(Camera.main.transform.forward.x, 0, Camera.main.transform.forward.z).normalized;
-        Vector3 vecRig = new Vector3(Camera.main.transform.right.x, 0, Camera.main.transform.right.z).normalized;
+        Vector3 vecFor = new Vector3(transform.forward.x, 0, transform.forward.z).normalized;
+        Vector3 vecRig = new Vector3(transform.right.x, 0, transform.right.z).normalized;
 
         controller.Move(vecFor * moveDir.z * curSpeed * Time.deltaTime);
         controller.Move(vecRig * moveDir.x * curSpeed * Time.deltaTime);
         animator.SetFloat("MoveSpeed", curSpeed);
-
-        Quaternion lookRotation = Quaternion.LookRotation(vecFor * moveDir.z + vecRig * moveDir.x);
-        transform.rotation = Quaternion.Lerp(lookRotation, transform.rotation, 0.1f);
+        transform.rotation = Quaternion.LookRotation(moveDir);
     }
 
     private void OnRun(InputValue value)
@@ -79,6 +78,7 @@ public class ADPlayerController : MonoBehaviour
     {
         moveDir.x = value.Get<Vector2>().x;
         moveDir.z = value.Get<Vector2>().y;
+        
     }
 
     private void Fall()

@@ -11,8 +11,6 @@ public class WinState : BaseState
 
     public override void Enter()
     {
-        GameManager.Event.PostNotification(EventType.Win, bFSM);
-        GameManager.Event.RemoveEvent(EventType.EnemyDied);
         Debug.Log("플레이어 승리");
         GameManager.Scene.ADLoadScene("AdventureScene");
         Debug.Log("전투종료");

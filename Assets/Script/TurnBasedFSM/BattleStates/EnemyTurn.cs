@@ -36,12 +36,15 @@ public class EnemyTurn : BaseState
                 bFSM.ChangeState(BattleState.PlayerTurn);
                 break;
             case EventType.EnemyDied:
+                GameManager.Event.PostNotification(EventType.Win, bFSM);
                 bFSM.ChangeState(BattleState.Win);
                 break;
             case EventType.PlayerDied:
+                GameManager.Event.PostNotification(EventType.Loss, bFSM);
                 bFSM.ChangeState(BattleState.Loss);
                 break;
             case EventType.EnemyRun:
+                GameManager.Event.PostNotification(EventType.Draw, bFSM);
                 bFSM.ChangeState(BattleState.EnemyRun);
                 break;
         }

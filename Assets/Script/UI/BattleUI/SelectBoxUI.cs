@@ -13,41 +13,47 @@ public class SelectBoxUI : InGameUI, IEventListener
         buttons["InventoryBoxButton"].onClick.AddListener(() => { OpenInventory(); });
         buttons["RunBoxButton"].onClick.AddListener(() => { SelectRun(); });
     }
-
+    
     private void Start()
     {
-        this.gameObject.SetActive(true);
         GameManager.Event.AddListener(EventType.PlayerTurn, this);
         GameManager.Event.AddListener(EventType.Close, this);
         buttons["AttectBoxButton"].Select();
+
     }
 
     public void SelectAttack()
     {
+        GameManager.UI.ShowInGameUI<InGameUI>("UI/TargetSetUI");
         GameManager.Event.PostNotification(EventType.SelectAttack, this);
-        this.gameObject.SetActive(false);
+        GameManager.UI.ColseInGameUI(this);
     }
     public void OpenInventory()
     {
         GameManager.UI.ShowWindowUI<WindowUI>("UI/InventoryWindowUI");
-        this.gameObject.SetActive(false);
+        GameManager.UI.ColseInGameUI(this);
     }
 
     public void SelectRun()
     {
         GameManager.Event.PostNotification(EventType.Run, this);            // 도망 이벤트 발생
-        this.gameObject.SetActive(false);
+        GameManager.UI.ColseInGameUI(this);
     }
 
     public void OnEvent(EventType eventType, Component Sender, object Param = null)
     {
         if (eventType == EventType.PlayerTurn)
         {
-            this.gameObject.SetActive(true);
+            GameManager.Event.RemoveEvent(EventType.PlayerTurn);
+            GameManager.UI.ShowInGameUI<SelectBoxUI>("UI/SelectBoxUI");
+            buttons["AttectBoxButton"].Select();
+
         }
         if (eventType == EventType.Close)
         {
-            this.gameObject.SetActive(true);
+            GameManager.Event.RemoveEvent(EventType.Close);
+            GameManager.UI.ShowInGameUI<SelectBoxUI>("UI/SelectBoxUI");
+            buttons["AttectBoxButton"].Select();
         }
     }
 }
