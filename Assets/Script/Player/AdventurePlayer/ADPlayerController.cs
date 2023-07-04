@@ -60,8 +60,8 @@ public class ADPlayerController : MonoBehaviour
         }
 
 
-        Vector3 vecFor = new Vector3(transform.forward.x, 0, transform.forward.z).normalized;
-        Vector3 vecRig = new Vector3(transform.right.x, 0, transform.right.z).normalized;
+        Vector3 vecFor = new Vector3(Camera.main.transform.forward.x, 0, Camera.main.transform.forward.z).normalized;
+        Vector3 vecRig = new Vector3(Camera.main.transform.right.x, 0, Camera.main.transform.right.z).normalized;
 
         controller.Move(vecFor * moveDir.z * curSpeed * Time.deltaTime);
         controller.Move(vecRig * moveDir.x * curSpeed * Time.deltaTime);
