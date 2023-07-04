@@ -12,6 +12,12 @@ public class SceneTrigger : BaseScene
             Debug.Log("접촉사고");
             GameManager.Scene.BTLoadScene("BattleScene");
         }
+
+        if (other.gameObject.layer == LayerMask.NameToLayer("Boss"))
+        {
+            Debug.Log("보스전 시작");
+            
+        }
     }
 
     protected override IEnumerator LoadingRoutine()

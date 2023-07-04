@@ -65,6 +65,13 @@ public enum EventType
 
     //ui
     Close,
+
+    // Boss
+    BossTurn,
+    BossActack,
+    BossisLive,
+    BossDied,
+
 };
 
 public class EventManager : MonoBehaviour
