@@ -6,7 +6,6 @@ public class BossTirgger : BaseScene
 {
     private void OnTriggerEnter(Collider other)
     {
-         GameManager.Event.PostNotification(EventType.BossMeet, this);
          Debug.Log("º¸½ºÀü");
          GameManager.UI.ShowPopUpUI<PopUpUI>("UI/BossBattleSelectUI");
     }

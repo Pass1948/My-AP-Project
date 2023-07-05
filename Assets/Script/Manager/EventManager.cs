@@ -115,6 +115,7 @@ public class EventManager : MonoBehaviour
                 ListenList[i].OnEvent(eventType, Sender, Param);
         }
     }
+
     public void AddListener(EventType eventType, IEventListener Listener)       // 이벤트 받는 역할
     {
         List<IEventListener> ListenList = null;
@@ -130,6 +131,8 @@ public class EventManager : MonoBehaviour
         ListenList.Add(Listener);
         Listeners.Add(eventType, ListenList);
     }
+
+
     public void RemoveEvent(EventType eventType)        // 이벤트 삭제
     {
         Listeners.Remove(eventType);

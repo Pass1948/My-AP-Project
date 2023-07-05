@@ -6,6 +6,7 @@ using UnityEngine.Networking.Types;
 
 public class EnemyBattleController : MonoBehaviour, IEventListener
 {
+    private Animator animator;
     private GameObject spawnPoint;
     private GameObject AttackPosition;
     private float Speed = 5f;
@@ -30,6 +31,7 @@ public class EnemyBattleController : MonoBehaviour, IEventListener
     }
     public void TatgetInMoving()
     {
+        animator.SetBool("",true);
         transform.position += (AttackPosition.transform.position - GetPosition()) * Speed * Time.deltaTime;
         float reachedDistance = 0.5f;
         if (Vector3.Distance(GetPosition(), AttackPosition.transform.position) < reachedDistance)
@@ -61,6 +63,9 @@ public class EnemyBattleController : MonoBehaviour, IEventListener
             GameManager.Event.RemoveEvent(EventType.EnemyAttack);
         }
     }
+
+
+
         IEnumerator MovingRoutine()
     {
         TatgetInMoving();
