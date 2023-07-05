@@ -36,6 +36,7 @@ public class ADPlayerController : MonoBehaviour
     {
         Move();
         GroundCheck();
+        transform.Rotate(moveDir, Space.World);
     }
 
     void Move()
@@ -43,42 +44,41 @@ public class ADPlayerController : MonoBehaviour
         // Mathf.Lerp() 애니메이션에 부드러운 전환을 넣기위한 정밀작업
         if (moveDir.magnitude == 0)
         {
-            curSpeed = Mathf.Lerp(curSpeed, 0, 0.3f);
+            curSpeed = Mathf.Lerp(curSpeed, 0f, 0.5f);
             animator.SetFloat("MoveSpeed", curSpeed);
+            animator.SetBool("IsRun", false);
             isRun = false;
             return;
         }
-        else if (isRun)
+        if (isRun)
         {
-            curSpeed = Mathf.Lerp(curSpeed, runSpeed, 1f);
+            curSpeed = runSpeed;
             animator.SetBool("IsRun", true);
         }
         else
         {
-            curSpeed = Mathf.Lerp(curSpeed, walkSpeed, 0.1f);
+            curSpeed = Mathf.Lerp(curSpeed, walkSpeed, 1f);
             animator.SetBool("IsRun", false);
         }
 
+        Vector3 vecFor = new Vector3(moveDir.x, 0, moveDir.z).normalized;
 
-        Vector3 vecFor = new Vector3(Camera.main.transform.forward.x, 0, Camera.main.transform.forward.z).normalized;
-        Vector3 vecRig = new Vector3(Camera.main.transform.right.x, 0, Camera.main.transform.right.z).normalized;
-
-        controller.Move(vecFor * moveDir.z * curSpeed * Time.deltaTime);
-        controller.Move(vecRig * moveDir.x * curSpeed * Time.deltaTime);
+        controller.Move(vecFor * curSpeed * Time.deltaTime);
         animator.SetFloat("MoveSpeed", curSpeed);
         transform.rotation = Quaternion.LookRotation(moveDir);
+        
     }
 
     private void OnRun(InputValue value)
     {
-       isRun = true;
+        isRun = true;
     }
 
     void OnMove(InputValue value)
     {
         moveDir.x = value.Get<Vector2>().x;
         moveDir.z = value.Get<Vector2>().y;
-        
+            
     }
 
     private void Fall()

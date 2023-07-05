@@ -8,6 +8,8 @@ public abstract class BaseState : IEventListener
 {
     protected BattleFSM bFSM;
     protected NomalEnemyFSM_BT neFSM_BT;
+    protected GameObject BossSpawner;
+    protected GameObject NomalSpawner;
 
     public abstract void Enter();              // 상태 시작 
     public abstract void Update();             // 즉시 행동용

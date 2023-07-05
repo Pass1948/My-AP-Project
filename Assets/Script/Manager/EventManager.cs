@@ -66,11 +66,18 @@ public enum EventType
     //ui
     Close,
 
+    //몬스터 구별
+    BossMeet,
+    NomalMeet,
+    Boss,
+    Nomal,
+
     // Boss
     BossTurn,
     BossActack,
     BossisLive,
     BossDied,
+    BossClose,
 
 };
 
@@ -148,6 +155,7 @@ public class EventManager : MonoBehaviour
         //살아있는 리스너는 다시 넣어준다.
         Listeners = TmpListeners;
     }
+
 
 }
 

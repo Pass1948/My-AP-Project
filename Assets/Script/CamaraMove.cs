@@ -11,6 +11,7 @@ public class CamaraMove : MonoBehaviour
     void Start()
     {
         offset = transform.position - player.transform.position;
+        transform.position = offset;
     }
 
     void LateUpdate()       // late는 다른 작업이 전부 완료된뒤 마지막에 업데이트된다

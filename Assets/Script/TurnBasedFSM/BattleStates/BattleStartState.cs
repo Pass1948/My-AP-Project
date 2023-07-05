@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class BattleStartState : BaseState
 {
+
     public BattleStartState(BattleFSM bFSM)
     {
         this.bFSM = bFSM;
@@ -17,7 +18,7 @@ public class BattleStartState : BaseState
 
     public override void Update() 
     {
-        bFSM.ChangeState(BattleState.PlayerTurn);
+        
     }
 
     public override void Exit()
@@ -27,6 +28,18 @@ public class BattleStartState : BaseState
 
     public override void OnEvent(EventType eventType, Component Sender, object Param = null)
     {
+        if (eventType == EventType.NomalMeet)
+        {
+            GameManager.Event.RemoveEvent(EventType.NomalMeet);
+            GameManager.Resource.Instantiate(NomalSpawner);
+            bFSM.ChangeState(BattleState.PlayerTurn);
+        }
+        if (eventType == EventType.BossMeet)
+        {
+            GameManager.Event.RemoveEvent(EventType.BossMeet);
+            GameManager.Resource.Instantiate(BossSpawner);
+            bFSM.ChangeState(BattleState.PlayerTurn);
+        }
 
     }
 }

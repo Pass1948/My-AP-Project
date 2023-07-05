@@ -9,7 +9,6 @@ public class GameManager : MonoBehaviour
     private static PoolManager poolManager;
     private static ResourceManager resourceManager;
     private static UIManager uiManager;
-    private static CommandManager commandManager;
     private static EventManager eventManager;
     private static QTEsystemManager qTEsystemManager;
     private static ShoundManager shoundManager;
@@ -21,7 +20,6 @@ public class GameManager : MonoBehaviour
     public static PoolManager Pool { get { return poolManager; } }
     public static ResourceManager Resource { get { return resourceManager; } }
     public static UIManager UI { get { return uiManager; } }
-    public static CommandManager Command { get { return commandManager; } }
     public static EventManager Event { get { return eventManager; } }
     public static QTEsystemManager QTE { get { return qTEsystemManager; } }
     public static ShoundManager Shound { get { return shoundManager; } }
@@ -63,11 +61,6 @@ public class GameManager : MonoBehaviour
         uiObj.name = "UIManager";
         uiObj.transform.parent = transform;
         uiManager = uiObj.AddComponent<UIManager>();
-
-        GameObject commandObj = new GameObject();
-        commandObj.name = "CommandManager";
-        commandObj.transform.parent = transform;
-        commandManager = commandObj.AddComponent<CommandManager>();
 
         GameObject eventObj = new GameObject();
         eventObj.name = "EventManager";

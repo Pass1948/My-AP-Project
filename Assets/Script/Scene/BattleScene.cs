@@ -15,6 +15,6 @@ public class BattleScene : BaseScene
         yield return new WaitForSecondsRealtime(1f);
         Debug.Log("준비완료");
         progress = 1.0f;
-        yield return new WaitForSecondsRealtime(1f);
+        yield return new WaitForSecondsRealtime(0.5f);
     }
 }

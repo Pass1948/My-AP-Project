@@ -10,7 +10,6 @@ public class PatrolController : MonoBehaviour
 
     private NavMeshAgent agent;
     private int count = 0;
-    private float EnemySpeed = 0;
 
     Transform target = null;
 
