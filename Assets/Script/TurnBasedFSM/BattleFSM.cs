@@ -71,6 +71,7 @@ public class BattleFSM : MonoBehaviour
     IEnumerator PlayerAttackRoutine()
     {
         isDead = enemyStat.TakeDamage(playerStat.damage);
+        GameManager.Event.PostNotification(EventType.PlayerAttack, this);
         yield return new WaitForSeconds(2f);
 
         if(isDead)

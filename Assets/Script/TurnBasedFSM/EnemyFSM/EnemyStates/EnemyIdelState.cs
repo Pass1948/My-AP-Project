@@ -29,6 +29,7 @@ public class EnemyIdelState : BaseState
             else
             {
                 GameManager.Event.RemoveEvent(EventType.EnemyTurn);
+                GameManager.Event.PostNotification(EventType.EnemyAttack, neFSM_BT);
                 neFSM_BT.ChangeState(NomalEnemyTurnState_BT.EnemyAttack);
             }
             
@@ -37,7 +38,6 @@ public class EnemyIdelState : BaseState
 
     public override void Exit()
     {
-        GameManager.Event.PostNotification(EventType.EnemyAttack, neFSM_BT);
         Debug.Log("적 움직임");
     }
 }

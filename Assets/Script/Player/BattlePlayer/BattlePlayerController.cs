@@ -6,6 +6,7 @@ public class BattlePlayerController : MonoBehaviour, IEventListener
 {
     private GameObject spawnPoint;
     private GameObject AttackPosition;
+    private Animator animator;
 
     private float Speed = 5f;
     private bool isSliding = false;
@@ -30,20 +31,24 @@ public class BattlePlayerController : MonoBehaviour, IEventListener
 
     public void TatgetInMoving()
     {
+        animator.SetBool("Move", true);
         transform.position += (AttackPosition.transform.position - GetPosition()) * Speed * Time.deltaTime;
         float reachedDistance = 0.5f;
         if (Vector3.Distance(GetPosition(), AttackPosition.transform.position) < reachedDistance)
         {
+            animator.SetBool("Move", false);
             transform.position = AttackPosition.transform.position;
         }
     }
 
     public void ReturnPosition()
     {
+        animator.SetBool("Move", true);
         transform.position += (spawnPoint.transform.position - GetPosition()) * Speed * Time.deltaTime;
         float reachedDistance = 0.5f;
         if (Vector3.Distance(GetPosition(), spawnPoint.transform.position) < reachedDistance)
         {
+            animator.SetBool("Move", false);
             transform.position = spawnPoint.transform.position;
         }
     }

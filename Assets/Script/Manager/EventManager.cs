@@ -16,6 +16,7 @@ public enum EventType
 
     // b. PlayerState
     Attack,
+    PlayerAttack,
     PlayerActionEnd,
     Run,
 
