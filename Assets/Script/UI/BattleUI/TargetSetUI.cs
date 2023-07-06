@@ -9,15 +9,14 @@ public class TargetSetUI : InGameUI, IEventListener
     {
         base.Awake();
         buttons["TargetButton"].onClick.AddListener(() => {SelectTarget(); });
-        
     }
     private void Start()
     {
-        GameManager.Event.AddListener(EventType.SelectAttack, this);
         buttons["TargetButton"].Select();
     }
     public void SelectTarget()
     {
+        Debug.Log("타켓선택");
         GameManager.Event.PostNotification(EventType.Attack, this);         // 공격 이벤트 발생
         GameManager.Event.PostNotification(EventType.SelectTarget, this);
         GameManager.UI.ShowPopUpUI<PopUpUI>("UI/PlayerButtonActUI");
@@ -26,10 +25,5 @@ public class TargetSetUI : InGameUI, IEventListener
 
     public void OnEvent(EventType eventType, Component Sender, object Param = null)
     {
-        if (eventType == EventType.SelectAttack)
-        {
-            GameManager.Event.RemoveEvent(EventType.SelectAttack);
-            buttons["TargetButton"].Select();
-        }
     }
 }

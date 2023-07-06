@@ -10,19 +10,41 @@ public class EnemyBattleController : MonoBehaviour, IEventListener
     private GameObject spawnPoint;
     private GameObject AttackPosition;
     private float Speed = 5f;
+    private bool sliding1 = false;
+    private bool sliding2 = false;
 
 
     private void Awake()
     {
         AttackPosition = GameManager.Resource.Load<GameObject>("Enemy/EnemyAttackPoint");
         spawnPoint = GameManager.Resource.Load<GameObject>("Enemy/EnemySpawn");
-
+        animator = GetComponent<Animator>();
         GameManager.Event.AddListener(EventType.EnemyTurn, this);
         GameManager.Event.AddListener(EventType.EnemyAttack, this);
-        GameManager.Event.AddListener(EventType.Sucess_ET, this);
-        GameManager.Event.AddListener(EventType.fail_ET, this);
-        GameManager.Event.AddListener(EventType.PlayerAttack, this);
+        GameManager.Event.AddListener(EventType.Sucess_Ani, this);
+        GameManager.Event.AddListener(EventType.Fail_Ani, this);
     }
+
+    private void Update()
+    {
+        Sliding();
+    }
+
+    private void Sliding()
+    {
+        if (sliding1 == true)
+        {
+            sliding1 = false;
+            TatgetInMoving();
+        }
+            
+        if (sliding2 == true)
+        {
+            sliding2 = false;
+            ReturnPosition();
+        }
+    }
+
     public void TatgetInMoving()
     {
         animator.SetBool("Move", true);
@@ -57,34 +79,27 @@ public class EnemyBattleController : MonoBehaviour, IEventListener
         switch (eventType)
         {
             case (EventType.EnemyTurn):
+                sliding1 = true;
                 TatgetInMoving();
                 break;
             case (EventType.EnemyAttack):
                 GameManager.Event.RemoveEvent(EventType.EnemyAttack);
-                animator.SetBool("Attack", true);
+                animator.Play("jungle_monster_blowpipe_attack");
+                StartCoroutine(ReturnRoutine());
+                sliding2 = true;
                 break;
-            case (EventType.Sucess_ET):
-                GameManager.Event.RemoveEvent(EventType.Sucess_ET);
-                animator.SetBool("Attack", false);
+            case (EventType.Sucess_Ani):
+                animator.Play("jungle_monster_blowpipe_gethit");
                 break;
-            case (EventType.fail_ET):
-                GameManager.Event.RemoveEvent(EventType.fail_ET);
-                animator.SetBool("Attack", false);
+            case (EventType.Fail_Ani):
+                animator.Play("jungle_monster_blowpipe_gethit");
                 break;
-            case (EventType.PlayerAttack):
-                GameManager.Event.RemoveEvent(EventType.PlayerAttack);
-                StartCoroutine(GetHitRoutine());
-                break;
-
         }
     }
-
-    IEnumerator GetHitRoutine()
+    IEnumerator ReturnRoutine()
     {
-        yield return new WaitForSeconds(0.5f);
-        animator.SetBool("GetHit", true);
-        yield return new WaitForSeconds(0.5f);
-        animator.SetBool("GetHit", false);
+        yield return new WaitForSeconds(1.5f);
+        sliding2 = true;
         yield return new WaitForSeconds(0.5f);
     }
 }

@@ -12,7 +12,7 @@ public class Enemy : MonoBehaviour
     public bool TakeDamage(int dmg)
     {
         curHP -= dmg;
-
+        Debug.Log("¾ÆÆÄ");
         if (curHP <= 0)
         {
             return true;

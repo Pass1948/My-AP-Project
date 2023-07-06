@@ -23,12 +23,10 @@ public class EnemyIdelState : BaseState
         {
             if(randomValue == 5)
             {
-                GameManager.Event.RemoveEvent(EventType.EnemyTurn);
                 neFSM_BT.EnemyRun();
             }
             else
             {
-                GameManager.Event.RemoveEvent(EventType.EnemyTurn);
                 GameManager.Event.PostNotification(EventType.EnemyAttack, neFSM_BT);
                 neFSM_BT.ChangeState(NomalEnemyTurnState_BT.EnemyAttack);
             }

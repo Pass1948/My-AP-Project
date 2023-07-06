@@ -72,7 +72,7 @@ public class BattleFSM : MonoBehaviour
     {
         isDead = enemyStat.TakeDamage(playerStat.damage);
         GameManager.Event.PostNotification(EventType.PlayerAttack, this);
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1f);
 
         if(isDead)
         {

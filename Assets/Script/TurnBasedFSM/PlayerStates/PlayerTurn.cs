@@ -9,6 +9,9 @@ public class PlayerTurn : BaseState
     }
     public override void Enter()
     {
+        GameManager.Event.RemoveEvent(EventType.EnemyTurn);
+        GameManager.Event.RemoveEvent(EventType.Sucess_ET);
+        GameManager.Event.RemoveEvent(EventType.Fail_ET);
         // 전투 시작 케릭터와 적 등장 씬, 애니메니션 등 효과 넣기(자유)
         // 처음은 플레이어 선제
         GameManager.Event.PostNotification(EventType.PlayerTurn, bFSM);
@@ -21,12 +24,11 @@ public class PlayerTurn : BaseState
     {
         if (eventType == EventType.Attack)
         {
-            GameManager.Event.RemoveEvent(EventType.Attack);
             bFSM.ChangeState(BattleState.PlayerAttack);
+            GameManager.Event.RemoveEvent(EventType.Attack);
         }
         if(eventType == EventType.Run)
         {
-            GameManager.Event.RemoveEvent(EventType.Run);
             bFSM.ChangeState(BattleState.PlayerRun);
         }
     }

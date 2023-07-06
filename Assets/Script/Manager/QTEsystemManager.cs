@@ -45,19 +45,21 @@ public class QTEsystemManager : MonoBehaviour, IEventListener
     {
         if (correctKey == 1)    //  성공했을경우
         {
-            yield return new WaitForSecondsRealtime(0.5f);
+            yield return new WaitForSeconds(0.5f);
             Debug.Log("버튼성공");
             GameManager.Event.PostNotification(EventType.Sucess, this);
-            yield return new WaitForSecondsRealtime(0.5f);
+            GameManager.Event.PostNotification(EventType.Sucess_Ani, this);
+            yield return new WaitForSeconds(0.5f);
             correctKey = 0;
             yield break;
         }
         if (correctKey == 2)  //실패했을경우
         {
-            yield return new WaitForSecondsRealtime(0.5f);
+            yield return new WaitForSeconds(0.5f);
             Debug.Log("버튼실패");
-            GameManager.Event.PostNotification(EventType.fail, this);
-            yield return new WaitForSecondsRealtime(0.5f);
+            GameManager.Event.PostNotification(EventType.Fail, this);
+            GameManager.Event.PostNotification(EventType.Fail_Ani, this);
+            yield return new WaitForSeconds(0.5f);
             correctKey = 0;
             yield break;
         }
@@ -67,19 +69,21 @@ public class QTEsystemManager : MonoBehaviour, IEventListener
     {
         if (correctKey == 1)    //  성공했을경우
         {
-            yield return new WaitForSecondsRealtime(0.5f);
+            yield return new WaitForSeconds(0.5f);
             Debug.Log("버튼성공");
             GameManager.Event.PostNotification(EventType.Sucess_ET, this);
-            yield return new WaitForSecondsRealtime(0.5f);
+            GameManager.Event.PostNotification(EventType.Sucess_ET_Ani, this);
+            yield return new WaitForSeconds(0.5f);
             correctKey = 0;
             yield break;
         }
         if (correctKey == 2)  //실패했을경우
         {
-            yield return new WaitForSecondsRealtime(0.5f);
+            yield return new WaitForSeconds(0.5f);
             Debug.Log("버튼실패");
-            GameManager.Event.PostNotification(EventType.fail_ET, this);
-            yield return new WaitForSecondsRealtime(0.5f);
+            GameManager.Event.PostNotification(EventType.Fail_ET, this);
+            GameManager.Event.PostNotification(EventType.Fail_ET_Ani, this);
+            yield return new WaitForSeconds(0.5f);
             correctKey = 0;
             yield break;
         }

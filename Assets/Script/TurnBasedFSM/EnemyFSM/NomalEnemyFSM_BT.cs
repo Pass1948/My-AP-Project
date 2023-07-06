@@ -26,7 +26,7 @@ public class NomalEnemyFSM_BT : MonoBehaviour
     
         playerStat = playerPre.GetComponent<Player>();
         enemyStat = EnemyPre.GetComponent<Enemy>();
-    
+
         states = new BaseState[(int)NomalEnemyTurnState_BT.size];
         states[(int)NomalEnemyTurnState_BT.EnemyIdle] = new EnemyIdelState(this);
         states[(int)NomalEnemyTurnState_BT.EnemyAttack] = new EnemyAttackState(this);

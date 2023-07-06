@@ -24,8 +24,8 @@ public class SelectBoxUI : InGameUI, IEventListener
 
     public void SelectAttack()
     {
+        Debug.Log("공격선택");
         GameManager.UI.ShowInGameUI<InGameUI>("UI/TargetSetUI");
-        GameManager.Event.PostNotification(EventType.SelectAttack, this);
         GameManager.UI.ColseInGameUI(this);
     }
     public void OpenInventory()
@@ -44,16 +44,16 @@ public class SelectBoxUI : InGameUI, IEventListener
     {
         if (eventType == EventType.PlayerTurn)
         {
-            GameManager.Event.RemoveEvent(EventType.PlayerTurn);
             GameManager.UI.ShowInGameUI<SelectBoxUI>("UI/SelectBoxUI");
             buttons["AttectBoxButton"].Select();
+            GameManager.Event.RemoveEvent(EventType.PlayerTurn);
 
         }
         if (eventType == EventType.Close)
         {
-            GameManager.Event.RemoveEvent(EventType.Close);
             GameManager.UI.ShowInGameUI<SelectBoxUI>("UI/SelectBoxUI");
             buttons["AttectBoxButton"].Select();
+            GameManager.Event.RemoveEvent(EventType.Close);
         }
     }
 }

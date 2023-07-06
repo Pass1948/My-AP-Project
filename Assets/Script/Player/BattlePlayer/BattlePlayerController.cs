@@ -7,25 +7,37 @@ public class BattlePlayerController : MonoBehaviour, IEventListener
     private GameObject spawnPoint;
     private GameObject AttackPosition;
     private Animator animator;
+    private bool sliding1 = false;
+    private bool sliding2 = false;
 
     private float Speed = 5f;
-    private bool isSliding = false;
 
     private void Awake()
     {
         AttackPosition = GameManager.Resource.Load<GameObject>("Player/Battle/PlayerAttackPoint");
         spawnPoint = GameManager.Resource.Load<GameObject>("Player/Battle/PlayerSpawn");
-        
+        animator = gameObject.GetComponent<Animator>();
         GameManager.Event.AddListener(EventType.SelectTarget, this);
+        GameManager.Event.AddListener(EventType.Sucess_Ani, this);
+        GameManager.Event.AddListener(EventType.Fail_Ani, this);
     }
 
     private void Update()
     {
-        if (!isSliding)
-            return;
-        else
+        Sliding();
+    }
+
+    private void Sliding()
+    {
+        if (sliding1 == true)
         {
-            StartCoroutine(MovingRoutine());
+            TatgetInMoving();
+        }
+
+        if (sliding2 == true)
+        {
+            ReturnPosition();
+            
         }
     }
 
@@ -36,8 +48,9 @@ public class BattlePlayerController : MonoBehaviour, IEventListener
         float reachedDistance = 0.5f;
         if (Vector3.Distance(GetPosition(), AttackPosition.transform.position) < reachedDistance)
         {
-            animator.SetBool("Move", false);
             transform.position = AttackPosition.transform.position;
+            animator.SetBool("Move", false);
+            sliding1 = false;
         }
     }
 
@@ -48,8 +61,9 @@ public class BattlePlayerController : MonoBehaviour, IEventListener
         float reachedDistance = 0.5f;
         if (Vector3.Distance(GetPosition(), spawnPoint.transform.position) < reachedDistance)
         {
-            animator.SetBool("Move", false);
             transform.position = spawnPoint.transform.position;
+            animator.SetBool("Move", false);
+            sliding2 = false;
         }
     }
 
@@ -62,16 +76,28 @@ public class BattlePlayerController : MonoBehaviour, IEventListener
     {
         if (eventType == EventType.SelectTarget)
         {
-            isSliding = true;
+            sliding1 = true;
             GameManager.Event.RemoveEvent(EventType.SelectTarget);
+        }
+        if (eventType == EventType.Sucess_Ani)
+        {
+            animator.Play("CriticalAttack");
+            StartCoroutine(ReturnRoutine());
+            GameManager.Event.RemoveEvent(EventType.Sucess_Ani);
+        }
+        if (eventType == EventType.Fail_Ani)
+        {
+            animator.Play("NomalAttack");
+            StartCoroutine(ReturnRoutine());
+            GameManager.Event.RemoveEvent(EventType.Fail_Ani);
         }
     }
 
-    IEnumerator MovingRoutine()
+    IEnumerator ReturnRoutine()
     {
-        TatgetInMoving();
-        yield return new WaitForSeconds(2f);
-        isSliding = false;
-        ReturnPosition();
+        yield return new WaitForSeconds(1.5f);
+        sliding2 = true;
+        yield return new WaitForSeconds(0.5f);
     }
+
 }

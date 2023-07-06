@@ -36,9 +36,9 @@ public class PlayerButtonActUI : PopUpUI, IEventListener
     IEnumerator CountDownRoutine()
     {
         Debug.Log("버튼액션 시작");
-        yield return new WaitForSecondsRealtime(2.5f);
+        yield return new WaitForSeconds(1.5f);
         GameManager.Event.PostNotification(EventType.PressFail_PT, this);
         GameManager.UI.ClosePopUpUI();
-        yield break;
+        yield return new WaitForSeconds(0.5f);
     }
 }

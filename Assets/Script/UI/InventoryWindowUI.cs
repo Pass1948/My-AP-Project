@@ -18,7 +18,7 @@ public class InventoryWindowUI : WindowUI
 
     public void OpenPopUpUI()
     {
-        GameManager.UI.ShowPopUpUI<PopUpUI>("UI/SelectPopUpUI");
+        GameManager.UI.ShowPopUpUI<PopUpUI>("UI/CloseInvenUI");
     }
 
     public void CloseInventory()

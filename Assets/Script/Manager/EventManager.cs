@@ -30,12 +30,12 @@ public enum EventType
     //========버튼액션========
     AttackMiss,
     Sucess,
-    fail,
+    Fail,
     Sucess_ET,
-    fail_ET,
+    Fail_ET,
 
     // 버튼 액션 전용
-    ButtonActResult,
+    Result,
     PressFail_PT,
     PressFail_ET,
 
@@ -79,6 +79,21 @@ public enum EventType
     BossisLive,
     BossDied,
     BossClose,
+
+    // 애니메이션 전용
+    // 1.플레이어 전용
+    NomalAttack_Ani,
+    Sucess_Ani,
+    Fail_Ani,
+    Dead_P,
+
+    // 2. 몬스터
+    Moving_E_Ani,
+    Dead_E_Ani,
+    Sucess_ET_Ani,
+    Fail_ET_Ani,
+
+
 
 };
 

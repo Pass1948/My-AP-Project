@@ -18,7 +18,7 @@ public class BattleStartState : BaseState
 
     public override void Update() 
     {
-        
+        bFSM.ChangeState(BattleState.PlayerTurn);
     }
 
     public override void Exit()

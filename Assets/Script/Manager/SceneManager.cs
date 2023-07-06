@@ -66,22 +66,13 @@ public class SceneManager : MonoBehaviour
 
     IEnumerator LoadingRoutine_AD(string sceneName)
     {
+        Debug.Log("전투종료");
         loadUI_AD.FadeIn();
         yield return new WaitForSecondsRealtime(0.5f);
         Time.timeScale = 0f;
-        AsyncOperation oper = UnitySceneManager.LoadSceneAsync(sceneName);
-        yield return new WaitForSecondsRealtime(0.5f);
-
-        while (!oper.isDone)
-        {
-            yield return null;
-        }
-        CurScene.LoadAsync();
-        while (CurScene.progress < 1f)
-        {
-            yield return null;
-        }
+        yield return new WaitForSecondsRealtime(2f);
         Time.timeScale = 1f;
+        Debug.Log("로딩 종료");
         loadUI_AD.FadeOut();
         yield return new WaitForSecondsRealtime(0.5f);
     }

@@ -17,7 +17,7 @@ public class EnemyAttackState : BaseState, IEventListener
         GameManager.UI.ShowPopUpUI<PopUpUI>("UI/EnemyButtonActUI");
         Debug.Log("적 버튼액션시작");
         GameManager.Event.AddListener(EventType.Sucess_ET, this);
-        GameManager.Event.AddListener(EventType.fail_ET, this);
+        GameManager.Event.AddListener(EventType.Fail_ET, this);
 
         
     }
@@ -44,7 +44,7 @@ public class EnemyAttackState : BaseState, IEventListener
                 neFSM_BT.ChangeState(NomalEnemyTurnState_BT.EnemyIdle);
             }
         }
-        if (eventType == EventType.fail_ET)
+        if (eventType == EventType.Fail_ET)
         {
             neFSM_BT.EnemyAT();
             neFSM_BT.ChangeState(NomalEnemyTurnState_BT.EnemyIdle);

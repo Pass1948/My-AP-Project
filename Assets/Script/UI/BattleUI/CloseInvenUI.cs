@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SelectPopUpUI : PopUpUI
+public class CloseInvenUI : PopUpUI
 {
     protected override void Awake()
     {
@@ -15,6 +15,6 @@ public class SelectPopUpUI : PopUpUI
     private void CloseButton()
     {
         GameManager.Event.PostNotification(EventType.Close, this);
-        this.gameObject.SetActive(false);
+        GameManager.UI.ClosePopUpUI();
     }
 }

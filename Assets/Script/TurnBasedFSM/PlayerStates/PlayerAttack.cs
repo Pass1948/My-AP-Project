@@ -12,13 +12,12 @@ public class PlayerAttack : BaseState
     {
         Debug.Log("적공격");
         GameManager.Event.AddListener(EventType.Sucess, this);
-        GameManager.Event.AddListener(EventType.fail, this);
+        GameManager.Event.AddListener(EventType.Fail, this);
     }
     public override void Update(){}
 
     public override void Exit()
     {
-        
         Debug.Log("공격종료");
     }
 
@@ -26,12 +25,10 @@ public class PlayerAttack : BaseState
     {
         if (eventType == EventType.Sucess)
         {
-            GameManager.Event.RemoveEvent(EventType.Sucess);
             bFSM.playerAT();
         }
-        if(eventType == EventType.fail)
+        if(eventType == EventType.Fail)
         {
-            GameManager.Event.RemoveEvent(EventType.fail);
             bFSM.ChangeState(BattleState.EnemyTurn);
         }
 
