@@ -11,7 +11,7 @@ public class EnemyRun : BaseState
     public override void Enter()
     {
         Debug.Log("응 런이야~");
-        GameManager.Scene.ADLoadScene("AdventureScene");
+        GameManager.Event.PostNotification(EventType.ADin, bFSM);
         Debug.Log("전투종료");
     }
     public override void Update() {

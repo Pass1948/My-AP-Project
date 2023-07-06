@@ -11,7 +11,6 @@ public class PlayerRun : BaseState
     public override void Enter()
     {
         Debug.Log("도망");
-        GameManager.Scene.ADLoadScene("AdventureScene");
         Debug.Log("전투종료");
     }
 

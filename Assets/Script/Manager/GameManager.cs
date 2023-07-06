@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
     private static ShoundManager shoundManager;
     private static SceneManager sceneManager;
     private static MemetoManager memetoManager;
+    private static Spawner spawner;
 
     public static GameManager Instance { get { return instance; } }
     //==============================================================
@@ -25,6 +26,8 @@ public class GameManager : MonoBehaviour
     public static ShoundManager Shound { get { return shoundManager; } }
     public static SceneManager Scene { get { return sceneManager; } }
     public static MemetoManager memeto { get { return memetoManager; } }
+
+    public static Spawner Spawn { get { return spawner; } }
 
     private void Awake()
     {
@@ -86,5 +89,10 @@ public class GameManager : MonoBehaviour
         memetoObj.name = "MemetoManager";
         memetoObj.transform.parent = transform;
         memetoManager = memetoObj.AddComponent<MemetoManager>();
+
+        GameObject SpawnObj = new GameObject();
+        SpawnObj.name = "SpwanManager";
+        SpawnObj.transform.parent = transform;
+        spawner = SpawnObj.AddComponent<Spawner>();
     }
 }

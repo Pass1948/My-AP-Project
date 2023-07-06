@@ -26,6 +26,11 @@ public class PoolManager : MonoBehaviour
         canvasRoot = GameManager.Resource.Instantiate<Canvas>("UI/Canvas");
     } 
 
+    public void Clear()
+    {
+        GameManager.Resource.Destroy(canvasRoot);
+    }
+
     public T Get<T>(T original, Vector3 position, Quaternion rotation, Transform parent) where T : Object
     {
         if (original is GameObject)

@@ -15,7 +15,6 @@ public class BossBattleSelectUI : PopUpUI
 
     private void StartBossBattle()
     {
-        GameManager.Scene.BTLoadScene("BattleScene");
         GameManager.Event.PostNotification(EventType.BossMeet, this);
         GameManager.UI.ClosePopUpUI();
     }

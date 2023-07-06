@@ -37,6 +37,7 @@ public class SelectBoxUI : InGameUI, IEventListener
     public void SelectRun()
     {
         GameManager.Event.PostNotification(EventType.Run, this);            // 도망 이벤트 발생
+        GameManager.UI.ShowPopUpUI<PopUpUI>("UI/RunSelectUI");
         GameManager.UI.ColseInGameUI(this);
     }
 

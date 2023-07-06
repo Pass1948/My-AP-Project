@@ -12,7 +12,7 @@ public class WinState : BaseState
     public override void Enter()
     {
         Debug.Log("플레이어 승리");
-        GameManager.Scene.ADLoadScene("AdventureScene");
+        GameManager.Event.PostNotification(EventType.ADin, bFSM);
         Debug.Log("전투종료");
         // 승리 ui띄우고 코루틴으로 간격준다음 scene전환 코루틴에 scene전환 넣기
     }

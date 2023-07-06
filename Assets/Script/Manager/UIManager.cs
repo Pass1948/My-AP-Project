@@ -36,6 +36,7 @@ public class UIManager : MonoBehaviour
 
     public void Recreated()
     {
+        
         eventSystem = GameManager.Resource.Instantiate<EventSystem>("UI/EventSystem");
 
         popUpCanvas = GameManager.Resource.Instantiate<Canvas>("UI/Canvas");
@@ -55,6 +56,14 @@ public class UIManager : MonoBehaviour
         TextCanvas = GameManager.Resource.Instantiate<Canvas>("UI/Canvas");
         TextCanvas.gameObject.name = "TextCanvas";
         TextCanvas.sortingOrder = 5;
+    }
+    public void Clear()
+    {
+        popUpStack.Clear();
+        GameManager.Resource.Destroy(eventSystem);
+        GameManager.Resource.Destroy(windowCanvas);
+        GameManager.Resource.Destroy(inGameCanvas);
+        GameManager.Resource.Destroy(TextCanvas);
     }
 
     public T ShowPopUpUI<T>(T popUpUI) where T : PopUpUI

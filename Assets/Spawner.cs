@@ -6,15 +6,20 @@ public class Spawner : MonoBehaviour, IEventListener
 {
     public void OnEvent(EventType eventType, Component Sender, object Param = null)
     {
-        if(eventType == EventType.BossMeet)
+        switch (eventType)
         {
-            GameManager.Event.RemoveEvent(EventType.BossMeet);
-            StartCoroutine(BossSpawnerRoutine());
-        }
-        if (eventType == EventType.NomalMeet)
-        {
-            GameManager.Event.RemoveEvent(EventType.NomalMeet);
-            StartCoroutine(NomalSpawnerRoutine());
+            case (EventType.BossMeet):
+                GameManager.Event.RemoveEvent(EventType.BossMeet);
+                StartCoroutine(BossSpawnerRoutine());
+                break;
+            case (EventType.NomalMeet):
+                GameManager.Event.RemoveEvent(EventType.NomalMeet);
+                StartCoroutine(NomalSpawnerRoutine());
+                break;
+            case (EventType.ADin):
+                GameManager.Event.RemoveEvent(EventType.ADin);
+                StartCoroutine(ADInRoutine());
+                break;
         }
     }
 
@@ -22,20 +27,27 @@ public class Spawner : MonoBehaviour, IEventListener
     {
         GameManager.Event.AddListener(EventType.BossMeet, this);
         GameManager.Event.AddListener(EventType.NomalMeet, this);
-        DontDestroyOnLoad(this);
+        GameManager.Event.AddListener(EventType.ADin, this);
     }
-
     
     IEnumerator BossSpawnerRoutine()
     {
+        GameManager.Event.PostNotification(EventType.BTin, this);
         yield return new WaitForSecondsRealtime(5f);
         GameManager.Event.PostNotification(EventType.Boss, this);
         yield return new WaitForSecondsRealtime(0.5f);
     }
     IEnumerator NomalSpawnerRoutine()
     {
+        GameManager.Event.PostNotification(EventType.BTin, this);
         yield return new WaitForSecondsRealtime(5f);
         GameManager.Event.PostNotification(EventType.Nomal, this);
+        yield return new WaitForSecondsRealtime(0.5f);
+    }
+
+    IEnumerator ADInRoutine()
+    {
+        GameManager.Event.PostNotification(EventType.ADin, this);
         yield return new WaitForSecondsRealtime(0.5f);
     }
 }

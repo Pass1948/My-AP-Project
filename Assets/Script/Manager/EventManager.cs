@@ -93,7 +93,9 @@ public enum EventType
     Sucess_ET_Ani,
     Fail_ET_Ani,
 
-
+    // Scene전환
+    BTin,
+    ADin,
 
 };
 
@@ -154,7 +156,7 @@ public class EventManager : MonoBehaviour
         Listeners.Remove(eventType);
     }
 
-    private void RefreshListeners()     // Scene전환시 모든 이벤트 초기화
+    public void RefreshListeners()     // Scene전환시 모든 이벤트 초기화
     {
         //임시 Dictionary 생성
         Dictionary<EventType, List<IEventListener>> TmpListeners = new Dictionary<EventType, List<IEventListener>>();
