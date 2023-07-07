@@ -19,9 +19,38 @@ public class SceneManager : MonoBehaviour, IEventListener
         loadUI_AD = Instantiate(uiEnd);
         loadUI_AD.transform.SetParent(transform);
 
+        AddEvent();
+    }
+
+    private void OnEnable()
+    {
+        UnityEngine.SceneManagement.SceneManager.sceneLoaded += SceneChangAdd;
+    }
+    private void OnDisable()
+    {
+        UnityEngine.SceneManagement.SceneManager.sceneLoaded -= SceneChangAdd;
+    }
+
+    private void AddEvent()
+    {
         GameManager.Event.AddListener(EventType.BTin, this);
         GameManager.Event.AddListener(EventType.ADin, this);
     }
+
+    private void SceneChangAdd(Scene arg0, LoadSceneMode arg1)
+    {
+        StartCoroutine(AddEventRoutine());
+    }
+
+    IEnumerator AddEventRoutine()
+    {
+        GameManager.Event.RemoveEvent(EventType.ADin);
+        GameManager.Event.RemoveEvent(EventType.BTin);
+        yield return new WaitForSecondsRealtime(0.5f);
+        AddEvent();
+        yield return new WaitForSecondsRealtime(0.5f);
+    }
+
 
     public void BTLoadScene(string sceneName)
     {
@@ -37,29 +66,27 @@ public class SceneManager : MonoBehaviour, IEventListener
     {
         Time.timeScale = 0f;
         loadUI_BT.BattleActive();
-        GameManager.Resource.Instantiate<GameObject>("Scene/BattleScene");
         yield return new WaitForSecondsRealtime(3.5f);
-        yield return new WaitForSecondsRealtime(0.5f);
         AsyncOperation oper = UnitySceneManager.LoadSceneAsync(sceneName);
-
         while (!oper.isDone)
         {
             yield return null;
         }
         LoadAsync_BT();
+        yield return new WaitForSecondsRealtime(2.5f);
         while (progress < 1f)
         {
             yield return null;
         }
         Time.timeScale = 1f;
         loadUI_BT.BattleActiveEnd();
-        yield return new WaitForSecondsRealtime(1f);
+        yield return new WaitForSecondsRealtime(0.5f);
     }
 
     IEnumerator LoadingRoutine_AD(string sceneName)
     {
         loadUI_AD.FadeIn();
-        yield return new WaitForSecondsRealtime(0.5f);
+        yield return new WaitForSecondsRealtime(1.25f);
         Time.timeScale = 0f;
         yield return new WaitForSecondsRealtime(1f);
         AsyncOperation oper = UnitySceneManager.LoadSceneAsync(sceneName);
@@ -69,6 +96,7 @@ public class SceneManager : MonoBehaviour, IEventListener
             yield return null;
         }
         LoadAsync_AD();
+        yield return new WaitForSecondsRealtime(2.5f);
         while (progress < 1f)
         {
             yield return null;
@@ -90,14 +118,12 @@ public class SceneManager : MonoBehaviour, IEventListener
 
     IEnumerator LoadingRoutine_BT()
     {
-        GameManager.Scene.SceneClear();
-        GameManager.Pool.Receated();
-        GameManager.UI.Recreated();
         progress = 0.5f;
-        yield return new WaitForSecondsRealtime(1f);
-        GameManager.UI.ShowInGameUI<SelectBoxUI>("UI/SelectBoxUI");
+        SceneRecreated();
+        yield return new WaitForSecondsRealtime(2.5f);
+        GameManager.UI.ShowWindowUI<SelectBoxUI>("UI/SelectBoxUI");
         progress = 0.8f;
-        yield return new WaitForSecondsRealtime(1f);
+        yield return new WaitForSecondsRealtime(0.5f);
         Debug.Log("준비완료_BT");
         progress = 1.0f;
         yield return new WaitForSecondsRealtime(0.5f);
@@ -105,16 +131,19 @@ public class SceneManager : MonoBehaviour, IEventListener
 
     IEnumerator LoadingRoutine_AD()
     {
-        GameManager.Scene.SceneClear();
-        GameManager.Pool.Receated();
-        GameManager.UI.Recreated();
         progress = 0.5f;
-        yield return new WaitForSecondsRealtime(0.5f);
+        SceneRecreated();
+        yield return new WaitForSecondsRealtime(2.5f);
         progress = 0.8f;
         yield return new WaitForSecondsRealtime(0.5f);
         Debug.Log("준비완료_AD");
         progress = 1.0f;
         yield return new WaitForSecondsRealtime(0.5f);
+    }
+    public void SceneRecreated()
+    {
+        GameManager.Pool.Recreated();
+        GameManager.UI.Recreated();
     }
 
     public void SceneClear()

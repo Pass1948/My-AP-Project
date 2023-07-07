@@ -18,11 +18,11 @@ public class PoolManager : MonoBehaviour
         canvasRoot = GameManager.Resource.Instantiate<Canvas>("UI/Canvas");
     }
 
-    public void Receated()
+    public void Recreated()
     {
-        if (canvasRoot != null)
-            return;
-        else
+        poolDic = new Dictionary<string, ObjectPool<GameObject>>();
+        poolContainer = new Dictionary<string, Transform>();
+        poolRoot = new GameObject("PoolRoot").transform;
         canvasRoot = GameManager.Resource.Instantiate<Canvas>("UI/Canvas");
     } 
 

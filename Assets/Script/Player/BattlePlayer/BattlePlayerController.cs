@@ -77,19 +77,16 @@ public class BattlePlayerController : MonoBehaviour, IEventListener
         if (eventType == EventType.SelectTarget)
         {
             sliding1 = true;
-            GameManager.Event.RemoveEvent(EventType.SelectTarget);
         }
         if (eventType == EventType.Sucess_Ani)
         {
             animator.Play("CriticalAttack");
             StartCoroutine(ReturnRoutine());
-            GameManager.Event.RemoveEvent(EventType.Sucess_Ani);
         }
         if (eventType == EventType.Fail_Ani)
         {
             animator.Play("NomalAttack");
             StartCoroutine(ReturnRoutine());
-            GameManager.Event.RemoveEvent(EventType.Fail_Ani);
         }
     }
 

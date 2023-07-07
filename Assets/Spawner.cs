@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Spawner : MonoBehaviour, IEventListener
 {
@@ -9,27 +10,51 @@ public class Spawner : MonoBehaviour, IEventListener
         switch (eventType)
         {
             case (EventType.BossMeet):
-                GameManager.Event.RemoveEvent(EventType.BossMeet);
                 StartCoroutine(BossSpawnerRoutine());
                 break;
             case (EventType.NomalMeet):
-                GameManager.Event.RemoveEvent(EventType.NomalMeet);
                 StartCoroutine(NomalSpawnerRoutine());
                 break;
-            case (EventType.ADin):
-                GameManager.Event.RemoveEvent(EventType.ADin);
+            case (EventType.Result):
                 StartCoroutine(ADInRoutine());
                 break;
         }
     }
+    private void OnEnable()
+    {
+        UnityEngine.SceneManagement.SceneManager.sceneLoaded += SceneChangAdd;
+    }
+    private void OnDisable()
+    {
+        UnityEngine.SceneManagement.SceneManager.sceneLoaded -= SceneChangAdd;
+    }
+    private void Awake()
+    {
+        AddEvent();
+    }
 
-    void Start()
+    private void AddEvent()
     {
         GameManager.Event.AddListener(EventType.BossMeet, this);
         GameManager.Event.AddListener(EventType.NomalMeet, this);
-        GameManager.Event.AddListener(EventType.ADin, this);
+        GameManager.Event.AddListener(EventType.Result, this);
     }
-    
+
+    private void SceneChangAdd(Scene arg0, LoadSceneMode arg1)
+    {
+        StartCoroutine(AddEventRoutine());
+    }
+
+    IEnumerator AddEventRoutine()
+    {
+        GameManager.Event.RemoveEvent(EventType.BossMeet);
+        GameManager.Event.RemoveEvent(EventType.NomalMeet);
+        GameManager.Event.RemoveEvent(EventType.Result);
+        yield return new WaitForSecondsRealtime(0.5f);
+        AddEvent();
+        yield return new WaitForSecondsRealtime(0.5f);
+    }
+
     IEnumerator BossSpawnerRoutine()
     {
         GameManager.Event.PostNotification(EventType.BTin, this);
@@ -47,7 +72,7 @@ public class Spawner : MonoBehaviour, IEventListener
 
     IEnumerator ADInRoutine()
     {
-        GameManager.Event.PostNotification(EventType.ADin, this);
+        GameManager.Event.PostNotification(EventType.Result, this);
         yield return new WaitForSecondsRealtime(0.5f);
     }
 }

@@ -118,22 +118,6 @@ public class EventManager : MonoBehaviour
         RefreshListeners();
     }
 
-    public void PostNotification(EventType eventType, Component Sender, object Param = null) // 이벤트 발생역할
-    {
-        List<IEventListener> ListenList = null;
-
-        //이벤트 리스너(대기자)가 없으면 그냥 리턴.
-        if (!Listeners.TryGetValue(eventType, out ListenList))
-            return;
-
-        //모든 이벤트 리스너(대기자)에게 이벤트 전송.
-        for (int i = 0; i < ListenList.Count; i++)
-        {
-            if (!ListenList[i].Equals(null)) //If object is not null, then send message via interfaces
-                ListenList[i].OnEvent(eventType, Sender, Param);
-        }
-    }
-
     public void AddListener(EventType eventType, IEventListener Listener)       // 이벤트 받는 역할
     {
         List<IEventListener> ListenList = null;
@@ -144,10 +128,27 @@ public class EventManager : MonoBehaviour
             ListenList.Add(Listener);
             return;
         }
+            ListenList = new List<IEventListener>();
+            ListenList.Add(Listener);
+            Listeners.Add(eventType, ListenList);
+    }
 
-        ListenList = new List<IEventListener>();
-        ListenList.Add(Listener);
-        Listeners.Add(eventType, ListenList);
+    public void PostNotification(EventType eventType, Component Sender, object Param = null) // 이벤트 발생역할
+    {
+        List<IEventListener> ListenList = null;
+
+        //이벤트 리스너(대기자)가 없으면 그냥 리턴.
+
+        if (!Listeners.TryGetValue(eventType, out ListenList))
+            return;
+
+
+        //모든 이벤트 리스너(대기자)에게 이벤트 전송.
+        for (int i = 0; i < ListenList.Count; i++)
+        {
+            if (!ListenList[i].Equals(null)) //If object is not null, then send message via interfaces
+                ListenList[i].OnEvent(eventType, Sender, Param);
+        }
     }
 
 
@@ -156,7 +157,7 @@ public class EventManager : MonoBehaviour
         Listeners.Remove(eventType);
     }
 
-    public void RefreshListeners()     // Scene전환시 모든 이벤트 초기화
+    private void RefreshListeners()     // Scene전환시 모든 이벤트 초기화
     {
         //임시 Dictionary 생성
         Dictionary<EventType, List<IEventListener>> TmpListeners = new Dictionary<EventType, List<IEventListener>>();

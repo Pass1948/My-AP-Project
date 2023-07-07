@@ -19,7 +19,6 @@ public class BossSpawn : MonoBehaviour, IEventListener
         if (eventType == EventType.Boss)
         {
             Spawn();
-            GameManager.Event.RemoveEvent(EventType.Boss);
         }
             
     }

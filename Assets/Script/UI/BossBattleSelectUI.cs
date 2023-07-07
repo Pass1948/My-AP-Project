@@ -24,7 +24,4 @@ public class BossBattleSelectUI : PopUpUI
         GameManager.UI.ClosePopUpUI();
         Time.timeScale = 1;
     }
-
-
-
 }

@@ -83,7 +83,6 @@ public class EnemyBattleController : MonoBehaviour, IEventListener
                 TatgetInMoving();
                 break;
             case (EventType.EnemyAttack):
-                GameManager.Event.RemoveEvent(EventType.EnemyAttack);
                 animator.Play("jungle_monster_blowpipe_attack");
                 StartCoroutine(ReturnRoutine());
                 sliding2 = true;

@@ -56,7 +56,6 @@ public class BossController : MonoBehaviour, IEventListener
         if (eventType == EventType.EnemyAttack)
         {
             isSliding = true;
-            GameManager.Event.RemoveEvent(EventType.EnemyAttack);
         }
     }
     IEnumerator MovingRoutine()

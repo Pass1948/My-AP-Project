@@ -14,7 +14,7 @@ public class EnemyAttackState : BaseState, IEventListener
     {
 
         // 버튼액션의 타이밍 구현필요(코루틴)
-        GameManager.UI.ShowPopUpUI<PopUpUI>("UI/EnemyButtonActUI");
+        GameManager.UI.ShowWindowUI<WindowUI>("UI/EnemyButtonActUI");
         Debug.Log("적 버튼액션시작");
         GameManager.Event.AddListener(EventType.Sucess_ET, this);
         GameManager.Event.AddListener(EventType.Fail_ET, this);

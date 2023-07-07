@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.Events;
 
-public class EnemyButtonActUI : PopUpUI, IEventListener
+public class EnemyButtonActUI : WindowUI, IEventListener
 {
     protected override void Awake()
     {
@@ -27,7 +27,7 @@ public class EnemyButtonActUI : PopUpUI, IEventListener
         Debug.Log("넌 버튼을 눌렀지");
         GameManager.Event.PostNotification(EventType.PressButton_ET, this);
         StopCoroutine(CountDownRoutine());
-        GameManager.UI.ClosePopUpUI();
+        GameManager.UI.CloseWindowUI(this);
     }
 
     public void OnEvent(EventType eventType, Component Sender, object Param = null)
@@ -38,7 +38,7 @@ public class EnemyButtonActUI : PopUpUI, IEventListener
         Debug.Log("버튼액션 시작");
         yield return new WaitForSecondsRealtime(2.5f);
         GameManager.Event.PostNotification(EventType.PressFail_ET, this);
-        GameManager.UI.ClosePopUpUI();
+        GameManager.UI.CloseWindowUI(this);
         yield break;
     }
 }

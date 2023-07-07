@@ -12,7 +12,6 @@ public class LossState : BaseState
     public override void Enter()
     {
         GameManager.Event.PostNotification(EventType.Loss, bFSM);
-        GameManager.Event.RemoveEvent(EventType.PlayerDied);
         Debug.Log("플레이어 패배");
         GameManager.Scene.ADLoadScene("AdventureScene");
         Debug.Log("전투종료");

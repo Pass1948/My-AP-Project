@@ -16,28 +16,24 @@ public class QTEsystemManager : MonoBehaviour, IEventListener
     public void Success()
     {
         correctKey = 1;
-        GameManager.Event.RemoveEvent(EventType.PressButton_PT);
         StartCoroutine(KeyPressingRoutine());
     }
 
     public void fail()
     {
         correctKey = 2;
-        GameManager.Event.RemoveEvent(EventType.PressFail_PT);
         StartCoroutine(KeyPressingRoutine());
     }
 
     public void Success_Enemy() 
     {
         correctKey = 1;
-        GameManager.Event.RemoveEvent(EventType.PressButton_ET);
         StartCoroutine(KeyPressingRoutine_ET());
     }
 
     public void fail_Enemy()
     {
         correctKey = 2;
-        GameManager.Event.RemoveEvent(EventType.PressFail_ET);
         StartCoroutine(KeyPressingRoutine_ET());
     }
 

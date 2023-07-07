@@ -21,10 +21,6 @@ public class EnemyTurn : BaseState
 
     public override void Exit()
     {
-        GameManager.Event.RemoveEvent(EventType.EnemyTurnEnd);
-        GameManager.Event.RemoveEvent(EventType.EnemyDied);
-        GameManager.Event.RemoveEvent(EventType.PlayerDied);
-        GameManager.Event.RemoveEvent(EventType.EnemyRun);
         Debug.Log("≈œ≥—±Ë");
     }
 

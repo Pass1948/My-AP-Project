@@ -7,7 +7,6 @@ public class InventoryWindowUI : WindowUI
     protected override void Awake()
     {
         base.Awake();
-        GameManager.UI.SelectWindowUI(this);
         buttons["No1.Button"].onClick.AddListener(() => { OpenPopUpUI(); });
         buttons["CloseButton"].onClick.AddListener(() => { CloseInventory(); });
     }
@@ -23,7 +22,7 @@ public class InventoryWindowUI : WindowUI
 
     public void CloseInventory()
     {
-        GameManager.UI.ShowInGameUI<InGameUI>("UI/SelectBoxUI");
+        GameManager.UI.ShowWindowUI<SelectBoxUI>("UI/SelectBoxUI");
         GameManager.UI.CloseWindowUI(this);
     }
 }

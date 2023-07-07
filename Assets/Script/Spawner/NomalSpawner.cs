@@ -18,7 +18,6 @@ public class NomalSpawner : MonoBehaviour, IEventListener
         if (eventType == EventType.Nomal)
         {
             Spawn();
-            GameManager.Event.RemoveEvent(EventType.Nomal);
         }
 
     }
