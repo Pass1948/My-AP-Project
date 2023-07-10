@@ -77,7 +77,6 @@ public class BattleFSM : MonoBehaviour
         if(isDead)
         {
             ChangeState(BattleState.Win);
-            GameManager.Event.PostNotification(EventType.PlayerAttack, this);
             yield break;
         }
         else
