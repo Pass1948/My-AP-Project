@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -21,6 +22,10 @@ public class TargetSetUI : WindowUI, IEventListener
         GameManager.UI.CloseWindowUI(this);
     }
 
+    private void OnEnable()
+    {
+        buttons["TargetButton"].Select();
+    }
     public void OnEvent(EventType eventType, Component Sender, object Param = null)
     {
     }

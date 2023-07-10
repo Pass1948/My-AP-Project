@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
+
     public int damage;
 
     public int maxHP;
@@ -15,6 +16,7 @@ public class Enemy : MonoBehaviour
         Debug.Log("¾ÆÆÄ");
         if (curHP <= 0)
         {
+
             return true;
         }
         else
