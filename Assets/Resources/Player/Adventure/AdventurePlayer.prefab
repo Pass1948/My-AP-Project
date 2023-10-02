@@ -4050,9 +4050,9 @@ GameObject:
   - component: {fileID: 8276714196299213079}
   - component: {fileID: 6175257740722529826}
   - component: {fileID: 5695091019615344744}
-  - component: {fileID: 5961454235476409693}
   - component: {fileID: 6416224551918188191}
   - component: {fileID: 6416224551918188190}
+  - component: {fileID: -3543905559204707101}
   m_Layer: 3
   m_Name: AdventurePlayer
   m_TagString: Untagged
@@ -4182,21 +4182,6 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
---- !u!114 &5961454235476409693
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8210616073424273033}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c7ca9d9c6ea6cf642b5252e16c477c10, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damage: 2
-  maxHP: 10
-  curHP: 10
 --- !u!114 &6416224551918188191
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4230,6 +4215,18 @@ CharacterController:
   m_SkinWidth: 0.0001
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 1, z: 0}
+--- !u!114 &-3543905559204707101
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8210616073424273033}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f728e46086179d49b9fa0429019767f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8225757031362339093
 GameObject:
   m_ObjectHideFlags: 0

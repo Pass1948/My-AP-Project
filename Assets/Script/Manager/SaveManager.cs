@@ -9,26 +9,15 @@ public class SaveManager : MonoBehaviour
     public void Save()
     {
        
-        Player target = FindObjectOfType<Player>();
-        Enemy[] enemies = FindObjectsOfType<Enemy>();
+        PlayerInfo target = FindObjectOfType<PlayerInfo>();
         if(target != null)
         {
             BaseSaveData.current.objectSaves = new List<ObjectSaveData>();
             ObjectSaveData objectSave = new ObjectSaveData();
-            objectSave.name = target.gameObject.name;
+            objectSave.name = target.PlayerName;
             objectSave.position = target.transform.position;
             objectSave.rotation = target.transform.rotation;
             BaseSaveData.current.objectSaves.Add(objectSave);
-        }
-
-        if(enemies.Any() != false)
-        {
-            foreach (Enemy enemie in enemies)
-            {
-                ObjectSaveData objectSave = new ObjectSaveData();
-                objectSave.name = enemie.gameObject.name;
-                BaseSaveData.current.objectSaves.Add(objectSave);
-            }
         }
 
         string json = JsonUtility.ToJson(BaseSaveData.current, true);
@@ -42,8 +31,7 @@ public class SaveManager : MonoBehaviour
         string path = Path.Combine(Application.dataPath, "save.json");
         string loadJson = File.ReadAllText(path);
         BaseSaveData.current = JsonUtility.FromJson<BaseSaveData>(loadJson);
-        Player target = FindObjectOfType<Player>();
-        Enemy[] enemies = FindObjectsOfType<Enemy>();
+        PlayerInfo target = FindObjectOfType<PlayerInfo>();
 
         if (target != null && BaseSaveData.current.objectSaves != null)
         {
@@ -58,19 +46,5 @@ public class SaveManager : MonoBehaviour
              }
 
         }
-        if (enemies.Any() != false)
-        {
-            foreach (Enemy enemie in enemies)
-            {
-                foreach (ObjectSaveData obj in BaseSaveData.current.objectSaves)
-                {
-                    if (obj.name == enemie.name)
-                    {
-                        enemie.gameObject.name = obj.name;
-                    }
-                }
-            }
-        }
-       
     }
 }

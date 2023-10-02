@@ -12,8 +12,6 @@ public class Player : MonoBehaviour
 
     private void Awake()
     {
-        maxHP = 5;
-        curHP = 0;
         curHP = maxHP;
     }
 

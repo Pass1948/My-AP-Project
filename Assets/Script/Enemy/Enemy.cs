@@ -13,7 +13,6 @@ public class Enemy : MonoBehaviour
 
     private void Awake()
     {
-        curHP = 0;
         curHP = maxHP;
     }
 
