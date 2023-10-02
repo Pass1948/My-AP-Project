@@ -6,13 +6,16 @@ public class Enemy : MonoBehaviour
 {
 
     public int damage;
-
     public int maxHP;
+
+    private int curDamge;
+    public int CurDamge { get { return curDamge; } set { curDamge = value; } }
     private int curHP;
     public int CurHP { get { return curHP; } set {  curHP = value; } }
 
     private void Awake()
     {
+        curDamge = damage;
         curHP = maxHP;
     }
 

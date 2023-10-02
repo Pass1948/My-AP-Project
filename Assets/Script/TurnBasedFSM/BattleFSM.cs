@@ -12,8 +12,6 @@ public enum BattleState
 
 public class BattleFSM : MonoBehaviour
 {
-    private GameObject playerPre;
-    private GameObject EnemyPre;
     private Player playerStat;
     private Enemy enemyStat;
 
@@ -23,11 +21,8 @@ public class BattleFSM : MonoBehaviour
     public BattleState curState;
     private void Awake()
     {
-        playerPre = GameManager.Resource.Load<GameObject>("Player/Battle/BattlePlayer");
-        EnemyPre = GameManager.Resource.Load<GameObject>("Enemy/Enemy");
-
-        playerStat = playerPre.GetComponent<Player>();
-        enemyStat = EnemyPre.GetComponent<Enemy>();
+        playerStat = GetComponent<Player>();
+        enemyStat = GetComponent<Enemy>();
 
         states = new BaseState[(int)BattleState.Size];
         states[(int)BattleState.Start]        = new BattleStartState(this);
@@ -70,7 +65,7 @@ public class BattleFSM : MonoBehaviour
 
     IEnumerator PlayerAttackRoutine()
     {
-        isDead = enemyStat.TakeDamage(playerStat.damage);
+        isDead = enemyStat.TakeDamage(playerStat.CurDamge);
         GameManager.Event.PostNotification(EventType.PlayerAttack, this);
         yield return new WaitForSeconds(1f);
 

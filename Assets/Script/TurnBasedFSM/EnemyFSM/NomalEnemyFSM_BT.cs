@@ -8,8 +8,6 @@ public enum NomalEnemyTurnState_BT
 }
 public class NomalEnemyFSM_BT : MonoBehaviour
 {
-    private GameObject playerPre;
-    private GameObject EnemyPre;
     private Player playerStat;
     private Enemy enemyStat;
 
@@ -20,18 +18,10 @@ public class NomalEnemyFSM_BT : MonoBehaviour
     
     private void Awake()
     {
-    
-        playerPre = GameManager.Resource.Load<GameObject>("Player/Battle/BattlePlayer");
-        EnemyPre = GameManager.Resource.Load<GameObject>("Enemy/Enemy");
-    
-        playerStat = playerPre.GetComponent<Player>();
-        enemyStat = EnemyPre.GetComponent<Enemy>();
-
         states = new BaseState[(int)NomalEnemyTurnState_BT.size];
         states[(int)NomalEnemyTurnState_BT.EnemyIdle] = new EnemyIdelState(this);
         states[(int)NomalEnemyTurnState_BT.EnemyAttack] = new EnemyAttackState(this);
         states[(int)NomalEnemyTurnState_BT.EnemyDead] = new EnemyDeadState(this);
-    
     }
     
     private void Start()
@@ -61,7 +51,7 @@ public class NomalEnemyFSM_BT : MonoBehaviour
     IEnumerator EnemyTurnAttactRoutine()
     {
         yield return new WaitForSeconds(2f);
-        isDead = playerStat.TakeDamage(enemyStat.damage);
+        isDead = playerStat.TakeDamage(enemyStat.CurDamge);
         yield return new WaitForSeconds(0.5f);
         if (isDead)
         {
@@ -88,7 +78,7 @@ public class NomalEnemyFSM_BT : MonoBehaviour
     IEnumerator CounterRoutine()
     {
         yield return new WaitForSeconds(2f);
-        isDead = enemyStat.TakeDamage(playerStat.damage);
+        isDead = enemyStat.TakeDamage(playerStat.CurDamge);
         yield return new WaitForSeconds(0.5f);
         if (isDead)
         {
