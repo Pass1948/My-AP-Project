@@ -104,6 +104,36 @@ public class SceneManager : MonoBehaviour, IEventListener
         Time.timeScale = 1f;
         Debug.Log("로딩 종료");
         loadUI_AD.FadeOut();
+        GameManager.save.Load();
+        yield return new WaitForSecondsRealtime(0.5f);
+    }
+
+    public void GameLoadScene(string sceneName)
+    {
+        StartCoroutine(LoadingRoutine_Play(sceneName));
+    }
+
+    IEnumerator LoadingRoutine_Play(string sceneName)
+    {
+        loadUI_AD.FadeIn();
+        yield return new WaitForSecondsRealtime(1.25f);
+        Time.timeScale = 0f;
+        yield return new WaitForSecondsRealtime(1f);
+        AsyncOperation oper = UnitySceneManager.LoadSceneAsync(sceneName);
+        yield return new WaitForSecondsRealtime(1f);
+        while (!oper.isDone)
+        {
+            yield return null;
+        }
+        LoadAsync_AD();
+        yield return new WaitForSecondsRealtime(2.5f);
+        while (progress < 1f)
+        {
+            yield return null;
+        }
+        Time.timeScale = 1f;
+        Debug.Log("로딩 종료");
+        loadUI_AD.FadeOut();
         yield return new WaitForSecondsRealtime(0.5f);
     }
 

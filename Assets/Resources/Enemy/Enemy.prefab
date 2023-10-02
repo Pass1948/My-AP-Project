@@ -907,8 +907,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 2
-  maxHP: 10
-  curHP: 10
+  maxHP: 5
 --- !u!1 &3462983266904394731
 GameObject:
   m_ObjectHideFlags: 0

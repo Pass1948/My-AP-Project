@@ -332,6 +332,9 @@ GameObject:
   - component: {fileID: 893766699363588006}
   - component: {fileID: 5349523993809215703}
   - component: {fileID: 859612959177603850}
+  - component: {fileID: -6852988235538855593}
+  - component: {fileID: -8834100346086949469}
+  - component: {fileID: 6899522063476869022}
   m_Layer: 7
   m_Name: Boss_BT
   m_TagString: Untagged
@@ -406,6 +409,45 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &-6852988235538855593
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 516960403424775452}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ccc773759560dd14c8eb08074bd77883, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 2
+  maxHP: 5
+--- !u!114 &-8834100346086949469
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 516960403424775452}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c3390dc6facbc64a936c48b2f743828, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &6899522063476869022
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 516960403424775452}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da023152d7d241e4fa723c67377e03d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  curState: 0
 --- !u!1 &580623601368975970
 GameObject:
   m_ObjectHideFlags: 0

@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour
     private static QTEsystemManager qTEsystemManager;
     private static ShoundManager shoundManager;
     private static SceneManager sceneManager;
-    private static MemetoManager memetoManager;
+    private static SaveManager saveManager;
     private static Spawner spawner;
 
     public static GameManager Instance { get { return instance; } }
@@ -25,7 +25,7 @@ public class GameManager : MonoBehaviour
     public static QTEsystemManager QTE { get { return qTEsystemManager; } }
     public static ShoundManager Shound { get { return shoundManager; } }
     public static SceneManager Scene { get { return sceneManager; } }
-    public static MemetoManager memeto { get { return memetoManager; } }
+    public static SaveManager save { get { return saveManager; } }
 
     public static Spawner Spawn { get { return spawner; } }
 
@@ -85,10 +85,10 @@ public class GameManager : MonoBehaviour
         sceneObj.transform.parent = transform;
         sceneManager = sceneObj.AddComponent<SceneManager>();
 
-        GameObject memetoObj = new GameObject();
-        memetoObj.name = "MemetoManager";
-        memetoObj.transform.parent = transform;
-        memetoManager = memetoObj.AddComponent<MemetoManager>();
+        GameObject saveObj = new GameObject();
+        saveObj.name = "SaveManager";
+        saveObj.transform.parent = transform;
+        saveManager = saveObj.AddComponent<SaveManager>();
 
         GameObject SpawnObj = new GameObject();
         SpawnObj.name = "SpwanManager";

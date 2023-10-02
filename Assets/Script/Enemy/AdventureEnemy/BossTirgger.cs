@@ -6,7 +6,8 @@ public class BossTirgger : MonoBehaviour
 {
     private void OnTriggerEnter(Collider other)
     {
-         Debug.Log("보스전");
-         GameManager.UI.ShowPopUpUI<PopUpUI>("UI/BossBattleSelectUI");
+        Debug.Log("보스전");
+        GameManager.save.Save();
+        GameManager.UI.ShowPopUpUI<PopUpUI>("UI/BossBattleSelectUI");
     }
 }
